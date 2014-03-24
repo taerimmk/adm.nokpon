@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+/* Google Web Font */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+[class*="dwqa-question"] .single-page .main-content {
+	padding: 30px;
+	background-color: #fff;
+}
+
+[class*="dwqa-question"] .single-page .dw-question .entry-content {
+	padding: 0 0 10px 0;
+}
+
+.dw-question .questions-wrap .filter-bar .btn {
+	top: 11px;
+}
+
+.dw-question input[type="submit"],
+.dw-question .comment-edit-submit-button {
+	margin: 0;
+}
+.dw-question .cancel-link {
+	display: inline-block;
+	line-height: 35px;
+	vertical-align: middle;
+}
+
+.dw-question #submit-question input[type="submit"],
+.dw-question #add-answer input[type="submit"] {
+	padding: 2px 10px;
+	height: 35px;
+}
+
+.dw-question #respond input[type="submit"],
+.dw-question .login-box input[type="submit"] {
+	float: none;
+	background-color: #fc615d;
+	border: 0;
+	color: #fff;
+	font-size: 14px;
+	text-transform: uppercase;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	height: 35px;
+	font-family: Novecentowide Bold;
+}
+
+.dw-question #respond input[type="submit"]:hover,
+.dw-question .login-box input[type="submit"]:hover {
+	opacity: .8;
+	filter: alpha(opacity=80);
+}
+
+.dw-question .question-vote .vote {
+	margin-right: 5px;
+}
+
+.dw-question .answer-edit-cancel {
+	color: #3a3a3a !important;
+	vertical-align: bottom;
+	line-height: 40px;
+	display: inline-block;
+	padding: 0;
+	margin: 0 10px 0 10px;
+}
+
+.single-dwqa-question .dwqa-container .dwqa-sidebar .dwqa-widget .question-title,
+.single-dwqa-question .comments-area .comment-meta .author a {
+	font-weight: 500;
+}
+
+.single-dwqa-question .answers-list .author a {
+    color: #555 !important;
+    font-weight: 500;
+}
+
+
+
+@media (max-width: 480px) {
+	.dw-question .questions-wrap .archive-question-footer {
+		margin-bottom: 20px;
+	}
+	.dw-question .questions-wrap .archive-question-footer .btn {
+		display: inline-block;
+	}
+}
