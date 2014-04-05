@@ -15,34 +15,43 @@
  */
 package com.june.app.blog.model;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
- * Simple JavaBean domain object with an id property. Used as a base class for objects needing this property.
- *
+ * Simple JavaBean domain object representing an person.
+ * 
  * @author Ken Krebs
- * @author Juergen Hoeller
  */
-@MappedSuperclass
-public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+public class User {
 
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public boolean isNew() {
-        return (this.id == null);
-    }
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)	
+	protected Integer seq;
+	
+	@Column(name = "id")
+    @NotEmpty
+	protected String id;
+	
+	@Column(name = "name")
+    @NotEmpty
+	protected String name;
+	
+	@Column(name = "email")
+    @NotEmpty
+	protected String email;
+	
+	@Column(name = "status")
+    @NotEmpty
+	protected String status;
+	
+	@Column(name = "unique_id")
+    @NotEmpty
+	protected String unique_id;
 
 }
