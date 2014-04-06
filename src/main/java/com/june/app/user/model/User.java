@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.june.app.blog.model;
+package com.june.app.user.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -28,6 +30,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  * 
  * @author Ken Krebs
  */
+@Entity
+@Table(name = "NOK_USER")
 public class User {
 
 	@Id
@@ -53,5 +57,55 @@ public class User {
 	@Column(name = "unique_id")
     @NotEmpty
 	protected String unique_id;
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getUnique_id() {
+		return unique_id;
+	}
+
+	public void setUnique_id(String unique_id) {
+		this.unique_id = unique_id;
+	}
+	
+	
 
 }
