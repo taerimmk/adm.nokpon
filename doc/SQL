@@ -1,3 +1,6 @@
+create database nokpon;
+use nokpon
+
 CREATE TABLE NOK_USER (
 	SEQ MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ID VARCHAR(20) NOT NULL,
@@ -6,3 +9,7 @@ CREATE TABLE NOK_USER (
 	STATUS CHAR(1) NOT NULL,
 	UNIQUE_ID CHAR(20) NOT NULL
 )
+
+
+insert into NOK_USER (id, name, email, status,unique_id)
+values ('admin','관리자','admin@nokpon.co.kr','A','admin')
