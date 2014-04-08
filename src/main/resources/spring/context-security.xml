@@ -5,19 +5,33 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<http pattern="/login.htm*" security="none" />
+	<!-- <http pattern="/loginForm*" security="none" />
 	<http>
 		<intercept-url pattern='/**' access='ROLE_USER' />
-		<form-login login-page='/login.htm' default-target-url='/home.htm'
+		<form-login login-page='/loginForm' default-target-url='/home'
 			always-use-default-target='true' />
-	</http>
-	<authentication-manager>
+	</http> -->
+	<!-- <authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+				<user name="jimi" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="bob" password="1" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
+	</authentication-manager> -->
+	
+	<http>
+	  <intercept-url pattern="/**" access="ROLE_USER" />
+	  <form-login default-target-url="/selectUser" always-use-default-target="true" />
+	  <logout />
+	</http>
+	
+	<authentication-manager>
+  		<authentication-provider user-service-ref="myUserDetailsService"/>
 	</authentication-manager>
 
+	<b:bean id="myUserDetailsService"
+	    class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+	  <b:property name="dataSource" ref="dataSource"/>
+	</b:bean>
 </b:beans>

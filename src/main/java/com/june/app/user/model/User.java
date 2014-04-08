@@ -106,6 +106,5 @@ public class User {
 		this.unique_id = unique_id;
 	}
 	
-	
 
 }

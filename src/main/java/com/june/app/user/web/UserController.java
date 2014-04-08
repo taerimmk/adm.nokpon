@@ -38,7 +38,7 @@ public class UserController {
 		
 		model.addAttribute("selectUser", selectUser );
 		
-		return "home";
+		return "user/home";
 	}
 	
 }

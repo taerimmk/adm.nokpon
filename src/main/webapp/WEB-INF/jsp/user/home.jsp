@@ -13,7 +13,7 @@
 <br/>
 ${selectUser.name}
 
-<a href="/j_spring_security_logout">logout</a>
+<a href="/app/j_spring_security_logout">logout</a>
 
 </body>
 </html>
