@@ -15,11 +15,19 @@
  */
 package com.june.app.user.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -58,9 +66,9 @@ public class UserInfo {
 	@Column(name = "password")
 	private String password;
 	
-	@Column(name = "role")
-	private String role;
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo")
+    private Set<RoleInfo> roleInfos;
+	
 	public Integer getSeq() {
 		return seq;
 	}
@@ -117,13 +125,35 @@ public class UserInfo {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	/*public Set<RoleInfo> getRoleInfo() {
+		return roleInfo;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+	public void setRoleInfo(Set<RoleInfo> roleInfo) {
+		this.roleInfo = roleInfo;
+	}*/
 	
+	protected void setRoleInfoInternal(Set<RoleInfo> roleInfos) {
+        this.roleInfos = roleInfos;
+    }
+
+    protected Set<RoleInfo> getRoleInfosInternal() {
+        if (this.roleInfos == null) {
+            this.roleInfos = new HashSet<RoleInfo>();
+        }
+        return this.roleInfos;
+    }
+
+    public List<RoleInfo> getRoleInfos() {
+        List<RoleInfo> sortedRoleInfos = new ArrayList<RoleInfo>(getRoleInfosInternal());
+        //PropertyComparator.sort(sortedRoleInfo, new MutableSortDefinition("name", true, true));
+        return Collections.unmodifiableList(sortedRoleInfos);
+    }
+
+    public void addRoleInfo(RoleInfo roleInfo) {
+    	getRoleInfosInternal().add(roleInfo);
+    	roleInfo.setUserInfo(this);
+    }
+		
 
 }

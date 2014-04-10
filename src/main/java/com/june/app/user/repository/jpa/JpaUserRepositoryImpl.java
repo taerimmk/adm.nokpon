@@ -55,7 +55,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     @Override
 	public UserInfo getUser(String id) {
 		
-		Query query = this.em.createQuery("SELECT userInfo FROM UserInfo userInfo WHERE userInfo.id =:id");
+		Query query = this.em.createQuery("SELECT userInfo FROM UserInfo userInfo left join fetch userInfo.roleInfos WHERE userInfo.id =:id");
 		query.setParameter("id", id);
 		
 		return (UserInfo) query.getSingleResult();

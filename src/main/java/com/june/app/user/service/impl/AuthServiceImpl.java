@@ -38,14 +38,15 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 			throws UsernameNotFoundException {
 
 		logger.debug("details id ==========={}",id);	
-		UserInfo details = userRepository.getUser(id);
-		
+		UserInfo userInfo = userRepository.getUser(id);
+		logger.debug("details ==========={}",userInfo.getId());
+		logger.debug("details list ==========={}",userInfo.getRoleInfos());
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(details.getRole());
-		SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority(
+		/*SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(details.getRole());*/
+		/*SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority(
 				"ROLE_ADMIN");
 		
-		authorities.add(userAuthority);
+		authorities.add(userAuthority);*/
 		
 		/*if (details.getRole().equals("user"))
 			authorities.add(userAuthority);
@@ -53,8 +54,8 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 			authorities.add(userAuthority);
 			authorities.add(adminAuthority);
 		}*/
-		UserDetails user = new User(details.getId(),
-				details.getPassword(), true, true, true, true, authorities);
+		UserDetails user = new User(userInfo.getId(),
+				userInfo.getPassword(), true, true, true, true, authorities);
 		return user;
 	}
 }
