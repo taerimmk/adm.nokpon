@@ -32,7 +32,7 @@ package com.june.app.user.repository;
 
 import org.springframework.dao.DataAccessException;
 
-import com.june.app.user.model.User;
+import com.june.app.user.model.UserInfo;
 
 /**
  * Repository class for <code>Owner</code> domain objects All method names are compliant with Spring Data naming
@@ -46,8 +46,9 @@ import com.june.app.user.model.User;
 public interface UserRepository {
 
     
-    User selectUser(int seq) throws DataAccessException;
+    UserInfo selectUser(int seq) throws DataAccessException;
 
+    UserInfo getUser(String username);
 
 
 }

@@ -19,9 +19,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.june.app.user.model.User;
+import com.june.app.user.model.MyUser;
+import com.june.app.user.model.UserInfo;
 import com.june.app.user.repository.UserRepository;
 
 /**
@@ -41,12 +45,22 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
 
     @Override
-    public User selectUser(int seq) {
+    public UserInfo selectUser(int seq) {
         Query query = this.em.createQuery("SELECT user FROM User user WHERE user.seq =:seq");
         query.setParameter("seq", seq);
-        return (User) query.getSingleResult();
+        return (UserInfo) query.getSingleResult();
     }
+    
+    
+    @Override
+	public UserInfo getUser(String id) {
+		
+		Query query = this.em.createQuery("SELECT userInfo FROM UserInfo userInfo WHERE userInfo.id =:id");
+		query.setParameter("id", id);
+		
+		return (UserInfo) query.getSingleResult();
+	}
 
-
+	
 
 }

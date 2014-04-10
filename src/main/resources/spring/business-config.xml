@@ -66,6 +66,8 @@
 		will be auto-translated due to @Repository. -->
 	<context:component-scan
 		base-package="com.june.app" />
-
+	
+	<!-- Defined in employee-servlet.xml -->
+	<bean id="authService" class="com.june.app.user.service.impl.AuthServiceImpl" />
 
 </beans>

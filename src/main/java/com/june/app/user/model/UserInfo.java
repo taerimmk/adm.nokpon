@@ -32,7 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "NOK_USER")
-public class User {
+public class UserInfo {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)	
@@ -47,16 +47,19 @@ public class User {
 	protected String name;
 	
 	@Column(name = "email")
-    @NotEmpty
 	protected String email;
 	
 	@Column(name = "status")
-    @NotEmpty
 	protected String status;
 	
 	@Column(name = "unique_id")
-    @NotEmpty
 	protected String unique_id;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Column(name = "role")
+	private String role;
 
 	public Integer getSeq() {
 		return seq;
@@ -104,6 +107,22 @@ public class User {
 
 	public void setUnique_id(String unique_id) {
 		this.unique_id = unique_id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 

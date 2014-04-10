@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.june.app.user.model.User;
+import com.june.app.user.model.UserInfo;
 import com.june.app.user.service.UserService;
 
 /**
@@ -34,7 +34,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/selectUser", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		User selectUser = userService.selectUser(1);
+		UserInfo selectUser = userService.selectUser(1);
 		
 		model.addAttribute("selectUser", selectUser );
 		

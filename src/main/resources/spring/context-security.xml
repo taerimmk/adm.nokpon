@@ -1,37 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
 
-<b:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-
-	<!-- <http pattern="/loginForm*" security="none" />
 	<http>
-		<intercept-url pattern='/**' access='ROLE_USER' />
-		<form-login login-page='/loginForm' default-target-url='/home'
-			always-use-default-target='true' />
-	</http> -->
-	<!-- <authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="jimi" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="1" authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
-	</authentication-manager> -->
-	
-	<http>
-	  <intercept-url pattern="/**" access="ROLE_USER" />
-	  <form-login default-target-url="/selectUser" always-use-default-target="true" />
-	  <logout />
+		<intercept-url pattern="/user/*" access="ROLE_USER" />
+		<intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
+		<form-login login-page="/login" default-target-url="/home"
+			authentication-failure-url="/accessdenied" /> <!-- always-use-default-target="true" -->
+		<logout logout-success-url="/logout" />
 	</http>
-	
+
 	<authentication-manager>
-  		<authentication-provider user-service-ref="myUserDetailsService"/>
+		<authentication-provider user-service-ref="authService">
+		</authentication-provider>
 	</authentication-manager>
 
-	<b:bean id="myUserDetailsService"
-	    class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-	  <b:property name="dataSource" ref="dataSource"/>
-	</b:bean>
-</b:beans>
+</beans:beans>

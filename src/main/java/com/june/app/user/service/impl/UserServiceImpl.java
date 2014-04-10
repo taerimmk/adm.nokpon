@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.june.app.user.service;
+package com.june.app.user.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.june.app.user.model.User;
+import com.june.app.user.model.UserInfo;
 import com.june.app.user.repository.UserRepository;
+import com.june.app.user.service.UserService;
 
 /**
  * Mostly used as a facade for all Petclinic controllers
@@ -46,8 +47,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public User selectUser(int seq) throws DataAccessException {
+    public UserInfo selectUser(int seq) throws DataAccessException {
         return userRepository.selectUser(seq);
     }
-
+    
+    
+    /*@SuppressWarnings("deprecation")
+	@Override
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException, DataAccessException
+	{
+		System.out.println("Getting access details from employee dao !!");
+        
+		// Ideally it should be fetched from database and populated instance of
+		// #org.springframework.security.core.userdetails.User should be returned from this method
+		//UserDetails user = new User(username, "password", true, true, true, true, new GrantedAuthority[]{ new GrantedAuthorityImpl("ROLE_USER") });
+		return user;
+	}*/
 }

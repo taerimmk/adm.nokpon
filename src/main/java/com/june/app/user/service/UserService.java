@@ -17,7 +17,7 @@ package com.june.app.user.service;
 
 import org.springframework.dao.DataAccessException;
 
-import com.june.app.user.model.User;
+import com.june.app.user.model.UserInfo;
 
 
 /**
@@ -28,7 +28,7 @@ import com.june.app.user.model.User;
 public interface UserService {
 
    
-    public User selectUser(int seq) throws DataAccessException;
-
+    public UserInfo selectUser(int seq) throws DataAccessException;
+    //public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
    
 }
