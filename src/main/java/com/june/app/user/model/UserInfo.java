@@ -15,10 +15,6 @@
  */
 package com.june.app.user.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,12 +24,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -42,6 +38,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Ken Krebs
  */
 @Entity
+//@JsonSerialize
 @Table(name = "NOK_USER")
 public class UserInfo {
 
@@ -69,7 +66,7 @@ public class UserInfo {
 	@Column(name = "password")
 	private String password;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo" ,fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo" ,fetch=FetchType.EAGER )
     private Set<RoleInfo> roleInfos;
 	
 	public Integer getSeq() {
@@ -128,15 +125,17 @@ public class UserInfo {
 		this.password = password;
 	}
 
-	/*public Set<RoleInfo> getRoleInfo() {
-		return roleInfo;
+	@JsonManagedReference
+	public Set<RoleInfo> getRoleInfos() {
+		return roleInfos;
 	}
 
-	public void setRoleInfo(Set<RoleInfo> roleInfo) {
-		this.roleInfo = roleInfo;
-	}*/
+	public void setRoleInfos(Set<RoleInfo> roleInfos) {
+		this.roleInfos = roleInfos;
+	}
+
 	
-	protected void setRoleInfoInternal(Set<RoleInfo> roleInfos) {
+	/*protected void setRoleInfoInternal(Set<RoleInfo> roleInfos) {
         this.roleInfos = roleInfos;
     }
 
@@ -157,6 +156,6 @@ public class UserInfo {
     	getRoleInfosInternal().add(roleInfo);
     	roleInfo.setUserInfo(this);
     }
-		
+*/		
 
 }

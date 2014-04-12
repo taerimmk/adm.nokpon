@@ -26,6 +26,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 /**
  * Simple JavaBean domain object representing an person.
@@ -72,7 +74,7 @@ public class RoleInfo {
 		this.role = role;
 	}
 
-
+	@JsonBackReference
 	public UserInfo getUserInfo() {
 		return userInfo;
 	}

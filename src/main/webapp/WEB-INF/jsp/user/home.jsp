@@ -11,8 +11,8 @@
 
 <P>  The time on the server is ${selectUser.seq}. </P>
 <br/>
-${selectUser.name}
-
+${selectUser.id} <br/>
+${selectUser }
 <a href="/app/j_spring_security_logout">logout</a>
 
 </body>
