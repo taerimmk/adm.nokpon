@@ -28,7 +28,7 @@ import com.june.app.blog.model.Owner;
 import com.june.app.blog.repository.OwnerRepository;
 
 /**
- * JPA implementation of the {@link UserRepository} interface.
+ * JPA implementation of the {@link BoardRepository} interface.
  *
  * @author Mike Keith
  * @author Rod Johnson

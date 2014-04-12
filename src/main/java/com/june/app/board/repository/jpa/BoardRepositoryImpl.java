@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.june.app.user.repository.jpa;
+package com.june.app.board.repository.jpa;
+
+import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.june.app.user.model.MyUser;
-import com.june.app.user.model.UserInfo;
+import com.june.app.board.model.Board;
+import com.june.app.board.repository.BoardRepository;
 import com.june.app.user.repository.UserRepository;
 
 /**
@@ -38,29 +37,20 @@ import com.june.app.user.repository.UserRepository;
  * @since 22.4.2006
  */
 @Repository
-public class JpaUserRepositoryImpl implements UserRepository {
+public class BoardRepositoryImpl implements BoardRepository {
 
     @PersistenceContext
     private EntityManager em;
 
-
     @Override
-    public UserInfo selectUser(int seq) {
-        Query query = this.em.createQuery("SELECT user FROM UserInfo user WHERE user.seq =:seq");
-        query.setParameter("seq", seq);
-        return (UserInfo) query.getSingleResult();
+    @SuppressWarnings("unchecked")
+    public Collection<Board> boardList(Board vo) {
+        Query query = this.em.createQuery("SELECT board FROM Board board WHERE board.useYn ='Y' and board.bbsId = :bbsId");
+        query.setParameter("bbsId", vo.getBbsId());
+        return query.getResultList();
     }
     
-    
-    @Override
-	public UserInfo getUser(String id) {
-		
-		Query query = this.em.createQuery("SELECT userInfo FROM UserInfo userInfo left join fetch userInfo.roleInfos WHERE userInfo.id =:id");
-		query.setParameter("id", id);
-		
-		return (UserInfo) query.getSingleResult();
-	}
-
+  
 	
 
 }
