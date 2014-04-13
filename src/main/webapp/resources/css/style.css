@@ -1068,7 +1068,7 @@ input::-webkit-input-speech-button {
   -moz-transition: width 300ms linear;
   /* Firefox 4-15 */
   -o-transition: width 300ms linear;
-  /* Opera 10.50–12.00 */
+  /* Opera 10.50��12.00 */
   transition: width 500ms linear;
 }
 #cl-wrapper.animate-collapse #pcont {
@@ -1137,7 +1137,7 @@ input::-webkit-input-speech-button {
   -moz-transition: width 300ms linear;
   /* Firefox 4-15 */
   -o-transition: width 300ms linear;
-  /* Opera 10.50–12.00 */
+  /* Opera 10.50��12.00 */
   transition: width 500ms linear;
 }
 .sb-collapsed .cl-sidebar .collapse-button .search {
@@ -4249,7 +4249,7 @@ fieldset[disabled] .btn-primary.active {
   text-indent: inherit;
 }
 .gritter-close:after {
-  content: '×';
+  content: '횞';
   position: absolute;
   color: #FFF;
   left: 10px;
@@ -4280,7 +4280,7 @@ fieldset[disabled] .btn-primary.active {
   text-indent: inherit;
 }
 .gritter-item-wrapper.clean .gritter-close:after {
-  content: '×';
+  content: '횞';
   position: absolute;
   color: #FFF;
   top: 50%;
@@ -4970,7 +4970,7 @@ body.modal-open,
   text-align: center;
 }
 .dd-item > button:before {
-  content: "";
+  content: "��";
   display: block;
   position: absolute;
   width: 100%;
@@ -4978,7 +4978,7 @@ body.modal-open,
   text-indent: 0;
 }
 .dd-item > button[data-action="collapse"]:before {
-  content: "";
+  content: "��";
 }
 .dd-placeholder,
 .dd-empty {
