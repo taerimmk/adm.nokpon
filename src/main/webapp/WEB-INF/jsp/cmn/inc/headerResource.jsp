@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="shortcut icon" href="images/icon.png" />
+
+	
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css' />
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css' />
+
+	<!-- Bootstrap core CSS -->
+	<link href="<c:url value="/resources/js/bootstrap/dist/css/bootstrap.css" />" rel="stylesheet" />
+	<link rel="stylesheet" href="<c:url value="/resources/fonts/font-awesome-4.0.3/css/font-awesome.min.css"/>" />
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="../../assets/js/html5shiv.js"></script>
+	  <script src="../../assets/js/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- Custom styles for this template -->
+	<link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" />
+	<script type="text/javascript" src="<c:url value="/resources/js/jquery.js"/>"></script>
+	

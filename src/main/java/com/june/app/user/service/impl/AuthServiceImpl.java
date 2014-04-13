@@ -2,6 +2,7 @@ package com.june.app.user.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.june.app.user.model.RoleInfo;
 import com.june.app.user.model.UserInfo;
 import com.june.app.user.repository.UserRepository;
 import com.june.app.user.service.IAuthService;
-import com.june.app.user.web.LoginController;
 
 @Service
 public class AuthServiceImpl implements IAuthService, UserDetailsService {
@@ -37,11 +38,15 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 	public UserDetails loadUserByUsername(String id)
 			throws UsernameNotFoundException {
 
-		logger.debug("details id ==========={}",id);	
-		UserInfo userInfo = userRepository.getUser(id);
-		logger.debug("details ==========={}",userInfo.getId());
-		logger.debug("details list ==========={}",userInfo.getRoleInfos());
+		UserInfo userInfos = userRepository.getUser(id);
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		Set<RoleInfo> roleInfos = userInfos.getRoleInfos();
+		for (RoleInfo roleInfo :roleInfos){
+			SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(roleInfo.getRole());
+			authorities.add(userAuthority);
+		}
+	
+		
 		/*SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(details.getRole());*/
 		/*SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority(
 				"ROLE_ADMIN");
@@ -54,8 +59,8 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 			authorities.add(userAuthority);
 			authorities.add(adminAuthority);
 		}*/
-		UserDetails user = new User(userInfo.getId(),
-				userInfo.getPassword(), true, true, true, true, authorities);
+		UserDetails user = new User(userInfos.getId(),
+				userInfos.getPassword(), true, true, true, true, authorities);
 		return user;
 	}
 }
