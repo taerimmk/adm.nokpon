@@ -30,13 +30,18 @@ public class BoardController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/board/{bbsId}/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{bbsId}/list/{pageNumber}", method = RequestMethod.GET)
 	public String home(Locale locale,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
+			@PathVariable int pageNumber,
 			Model model) {
+		
+		board.setPageSize(2);
+		board.setPageNumber(pageNumber);
 		board.setBbsId(bbsId);
-		Collection<Board> boardList = boardService.boardList(board);
+		
+		Collection<Board> boardList = boardService.boardListWithPaging(board);
 		
 		model.addAttribute("boardList", boardList );
 		

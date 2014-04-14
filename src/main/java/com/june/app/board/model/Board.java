@@ -31,13 +31,13 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "BBS_NTT")
-public class Board {
+public class Board extends PageEntity{
 
 	
 	@Id                                                
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NTT_ID")
-	private Integer nttId;
+	private long nttId;
 	
 	@Column(name = "BBS_ID")
     @NotEmpty
@@ -86,11 +86,11 @@ public class Board {
 	@Column(name = "LAST_UPDUSR_ID")
 	private String lastUpdusrId;
 
-	public Integer getNttId() {
+	public long getNttId() {
 		return nttId;
 	}
 
-	public void setNttId(Integer nttId) {
+	public void setNttId(long nttId) {
 		this.nttId = nttId;
 	}
 

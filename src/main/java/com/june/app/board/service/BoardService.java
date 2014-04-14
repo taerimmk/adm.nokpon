@@ -31,4 +31,5 @@ public interface BoardService {
    
 	Collection<Board> boardList(Board vo) throws DataAccessException;
    
+	Collection<Board> boardListWithPaging (Board vo) throws DataAccessException;
 }

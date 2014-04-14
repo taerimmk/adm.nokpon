@@ -20,6 +20,10 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -45,12 +49,44 @@ public class BoardRepositoryImpl implements BoardRepository {
     @Override
     @SuppressWarnings("unchecked")
     public Collection<Board> boardList(Board vo) {
-        Query query = this.em.createQuery("SELECT board FROM Board board WHERE board.useYn ='Y' and board.bbsId = :bbsId");
-        query.setParameter("bbsId", vo.getBbsId());
+    	String queryString = "SELECT board FROM Board board WHERE board.useYn ='Y'";
+    	int bbsId = vo.getBbsId();
+    	if (bbsId > 0){
+    		queryString += "and board.bbsId = :bbsId";
+    	}
+        Query query = this.em.createQuery(queryString);
+        if (bbsId > 0){
+        	query.setParameter("bbsId", bbsId);
+    	}
+        
+        
+        
         return query.getResultList();
     }
     
-  
-	
+    @Override
+    @SuppressWarnings("unchecked")
+    public Collection<Board> boardListWithPaging(Board vo) {
+    	int bbsId = vo.getBbsId();
+    	int pageSize = vo.getPageSize();
+    	int pageNumber = vo.getPageNumber();
 
+    	String queryString = "SELECT board FROM Board board WHERE board.useYn ='Y'";
+    	if (bbsId > 0){
+    		queryString += "and board.bbsId = :bbsId";
+    	}
+        Query query = this.em.createQuery(queryString);
+        if (bbsId > 0){
+        	query.setParameter("bbsId", bbsId);
+    	}
+        configurePagination(query, pageNumber, pageSize);
+        
+        return query.getResultList();
+    }
+    public void configurePagination(Query query, int pageNumber, int pageSize) {
+        query.setFirstResult((pageNumber - 1) * pageSize);
+        query.setMaxResults(pageSize);
+        
+        //return query;
+    }
 }
