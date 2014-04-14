@@ -39,12 +39,12 @@
 								</ul></li>
 							<li><a href="#"><i class="fa fa-list-alt"></i><span>게시판관리</span></a>
 								<ul class="sub-menu">
-									<li><a href="form-elements.html">게시판 등록/수정</a></li>
+									<li><a href="/board/0/list/1">게시판 등록/수정</a></li>
 									
 								</ul></li>
 							<li><a href="#"><i class="fa fa-list-alt"></i><span>게시물관리</span></a>
 								<ul class="sub-menu">
-									<li><a href="form-elements.html">게시물 등록/수정</a></li>
+									<li><a href="<c:url value="/board/0/list/1"/>">게시물 등록/수정</a></li>
 									
 								</ul></li>	
 							<li><a href="#"><i class="fa fa-table"></i><span>메인페이지</span></a>

@@ -49,7 +49,7 @@ public class BoardController {
 		return "board/boardList";
 	}
 	
-	@RequestMapping(value = "/board/{bbsId}/Insert", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{bbsId}/insert", method = RequestMethod.GET)
 	public String goBoardInsert(Locale locale,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
@@ -57,6 +57,21 @@ public class BoardController {
 		logger.debug("=====] call goBoardInsert [=====");
 		/**페이지당 보여주는 게시물 수*/
 		
+		/**게시판 ID*/
+		board.setBbsId(bbsId);
+		model.addAttribute("bbsId", bbsId );
+		return "board/boardInsert";
+	}
+	
+	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.GET)
+	public String goBoardInsertProc(Locale locale,
+			@ModelAttribute("board") Board board,
+			@PathVariable int bbsId,
+			Model model) {
+		logger.debug("=====] call goBoardInsertProc [=====");
+		/**페이지당 보여주는 게시물 수*/
+		
+		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
 		/**게시판 ID*/
 		board.setBbsId(bbsId);
 		

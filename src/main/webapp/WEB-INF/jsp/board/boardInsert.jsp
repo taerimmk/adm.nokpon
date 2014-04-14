@@ -6,8 +6,37 @@
 <head>
 <title>Board Insert</title>
 <jsp:include page="/WEB-INF/jsp/cmn/inc/headerResource.jsp" />
+
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap.wysihtml5/src/bootstrap-wysihtml5.css"/>"></link> --%>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap.summernote/dist/summernote.css" />" />
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.summernote/dist/summernote.min.js"/>"></script>  
 <script type="text/javascript">
     $(document).ready(function(){
+    	 //$('#summernote').summernote();
+    	 
+    	 $('#summernote').summernote({
+             //height: 200,
+             onImageUpload: function(files, editor, welEditable) {
+                 sendFile(files[0], editor, welEditable);
+             }
+         });
+         function sendFile(file, editor, welEditable) {
+             var data = new FormData();
+             data.append("file", file);
+             $.ajax({
+                 data: data,
+                 type: "POST",
+                 url: "<c:url value='/image/upload.json'/>",
+                 cache: false,
+                 contentType: false,
+                 processData: false,
+                 success: function(url) {
+                	 console.log("!!!"+url.getOriginalFilename);
+                	 var setUrl = "<c:url value='/fileDown/"+url.getOriginalFilename+"'/>";
+                     editor.insertImage(welEditable, setUrl);
+                 }
+             });
+         }
       /*Date Range Picker*/
       $('#reservation').daterangepicker();
       $('#reservationtime').daterangepicker({
@@ -217,7 +246,8 @@
 									<div class="form-group">
 										<label class="col-sm-2 control-label">내용</label>
 										<div class="col-sm-10">
-											<textarea class="form-control" placeholder="내용을 입력해 주세요"></textarea>
+											<!-- <textarea class="form-control" placeholder="내용을 입력해 주세요"></textarea> -->
+											<div id="summernote" style="display: none;"></div>
 										</div>
 									</div>
 									<div class="form-group">
