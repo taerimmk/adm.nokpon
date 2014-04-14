@@ -23,7 +23,10 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 import org.springframework.stereotype.Repository;
 
@@ -64,9 +67,9 @@ public class BoardRepositoryImpl implements BoardRepository {
         return query.getResultList();
     }
     
-    @Override
-    @SuppressWarnings("unchecked")
-    public Collection<Board> boardListWithPaging(Board vo) {
+    /*@Override
+    @SuppressWarnings("unchecked")*/
+   /* public Collection<Board> boardListWithPaging(Board vo) {
     	int bbsId = vo.getBbsId();
     	int pageSize = vo.getPageSize();
     	int pageNumber = vo.getPageNumber();
@@ -81,12 +84,41 @@ public class BoardRepositoryImpl implements BoardRepository {
     	}
         configurePagination(query, pageNumber, pageSize);
         
+        
+        
+        
+        
         return query.getResultList();
-    }
-    public void configurePagination(Query query, int pageNumber, int pageSize) {
+    }*/
+    /*public void configurePagination(Query query, int pageNumber, int pageSize) {
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);
         
         //return query;
+    }*/
+    @Override
+    public Collection<Board> boardListWithPaging(Board vo) {
+    	int bbsId = vo.getBbsId();
+    	int pageSize = vo.getPageSize();
+    	int pageNumber = vo.getPageNumber();
+        
+    	CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Board> criteriaQuery = criteriaBuilder.createQuery(Board.class);
+        
+        Root<Board> from = criteriaQuery.from(Board.class);
+        CriteriaQuery<Board> select = criteriaQuery.select(from);
+        TypedQuery<Board> typedQuery = em.createQuery(select);
+        
+        if (bbsId > 0){
+        	criteriaQuery.where(criteriaBuilder.equal(from.get("bbsId"), bbsId));
+    	}
+        typedQuery.setFirstResult((pageNumber - 1) * pageSize);
+        typedQuery.setMaxResults(pageSize);
+        
+        Collection<Board> fooList = typedQuery.getResultList();
+        
+        return fooList;
+
     }
+
 }

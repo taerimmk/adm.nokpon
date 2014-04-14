@@ -23,6 +23,16 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery.nanoscroller/nanoscroller.css" />" />
 
   	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery.datatables/bootstrap-adapter/css/datatables.css" />" />
+  	
+  	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jasny.bootstrap/extend/css/jasny-bootstrap.min.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap.switch/bootstrap-switch.css" />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css" />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery.select2/select2.css" />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap.slider/css/slider.css" />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/jquery.icheck/skins/flat/green.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/bootstrap.daterangepicker/daterangepicker-bs3.css" />" />
+  	
 	
 	<!-- Custom styles for this template -->
 	<link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" />

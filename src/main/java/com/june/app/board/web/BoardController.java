@@ -27,18 +27,19 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	
 	@RequestMapping(value = "/board/{bbsId}/list/{pageNumber}", method = RequestMethod.GET)
-	public String home(Locale locale,
+	public String getBoardList(Locale locale,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
 			@PathVariable int pageNumber,
 			Model model) {
-		
+		logger.debug("=====] call getBoardList [=====");
+		/**페이지당 보여주는 게시물 수*/
 		board.setPageSize(2);
+		/**현재 페이지*/
 		board.setPageNumber(pageNumber);
+		/**게시판 ID*/
 		board.setBbsId(bbsId);
 		
 		Collection<Board> boardList = boardService.boardListWithPaging(board);
@@ -46,6 +47,20 @@ public class BoardController {
 		model.addAttribute("boardList", boardList );
 		
 		return "board/boardList";
+	}
+	
+	@RequestMapping(value = "/board/{bbsId}/Insert", method = RequestMethod.GET)
+	public String goBoardInsert(Locale locale,
+			@ModelAttribute("board") Board board,
+			@PathVariable int bbsId,
+			Model model) {
+		logger.debug("=====] call goBoardInsert [=====");
+		/**페이지당 보여주는 게시물 수*/
+		
+		/**게시판 ID*/
+		board.setBbsId(bbsId);
+		
+		return "board/boardInsert";
 	}
 	
 }
