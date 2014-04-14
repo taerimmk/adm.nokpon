@@ -19,12 +19,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.june.app.user.model.MyUser;
 import com.june.app.user.model.UserInfo;
 import com.june.app.user.repository.UserRepository;
 
