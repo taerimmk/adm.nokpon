@@ -2,31 +2,28 @@ package com.june.app.cmn.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "FILE_DETAIL")
-public class FIleDetail {
+public class FileDetail {
 	
-	@Id                                                
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	@Column(name = "ATCH_FILE_ID")
 	private String atchFileId;
-
+	
 	@Column(name = "FILE_SN")
-	private String fileSn;
+	private int fileSn;
 	
 	@Column(name = "FILE_STRE_COURS")
 	private String fileStreCours;
 	
 	@Column(name = "STRE_FILE_NM")
-	private String streFile_nm;
+	private String streFileNm;
 	
 	@Column(name = "ORIGNL_FILE_NM")
-	private String orignlFile_nm;
+	private String orignlFileNm;
 	
 	@Column(name = "FILE_EXTSN")
 	private String fileExtsn;
@@ -35,7 +32,7 @@ public class FIleDetail {
 	private String fileCn;
 	
 	@Column(name = "FILE_SIZE")
-	private String fileSize;
+	private double fileSize;
 
 	public String getAtchFileId() {
 		return atchFileId;
@@ -45,11 +42,11 @@ public class FIleDetail {
 		this.atchFileId = atchFileId;
 	}
 
-	public String getFileSn() {
+	public int getFileSn() {
 		return fileSn;
 	}
 
-	public void setFileSn(String fileSn) {
+	public void setFileSn(int fileSn) {
 		this.fileSn = fileSn;
 	}
 
@@ -61,20 +58,22 @@ public class FIleDetail {
 		this.fileStreCours = fileStreCours;
 	}
 
-	public String getStreFile_nm() {
-		return streFile_nm;
+	
+
+	public String getStreFileNm() {
+		return streFileNm;
 	}
 
-	public void setStreFile_nm(String streFile_nm) {
-		this.streFile_nm = streFile_nm;
+	public void setStreFileNm(String streFileNm) {
+		this.streFileNm = streFileNm;
 	}
 
-	public String getOrignlFile_nm() {
-		return orignlFile_nm;
+	public String getOrignlFileNm() {
+		return orignlFileNm;
 	}
 
-	public void setOrignlFile_nm(String orignlFile_nm) {
-		this.orignlFile_nm = orignlFile_nm;
+	public void setOrignlFileNm(String orignlFileNm) {
+		this.orignlFileNm = orignlFileNm;
 	}
 
 	public String getFileExtsn() {
@@ -93,13 +92,14 @@ public class FIleDetail {
 		this.fileCn = fileCn;
 	}
 
-	public String getFileSize() {
+	public double getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(String fileSize) {
+	public void setFileSize(double fileSize) {
 		this.fileSize = fileSize;
 	}
+
 	
 	
 

@@ -30,11 +30,10 @@
                  cache: false,
                  contentType: false,
                  processData: false,
-                 success: function(url) {
-                	 console.log("!!!"+url.getOriginalFilename);
-                	 var setUrl = "<c:url value='/getImage/"+url.getOriginalFilename+"'/>";
-                	 
-                	 /* /app/getImage/photo_img.gif */
+                 success: function(data) {
+                	 var setUrl = "<c:url value='/getImage/"+data.atchFileId+"/"+data.fileSn+"'/>";
+                	 //console.log("## "+setUrl);
+                	 //var setUrl = "'"+data.setUrl+"'";
                      editor.insertImage(welEditable, setUrl);
                  }
              });

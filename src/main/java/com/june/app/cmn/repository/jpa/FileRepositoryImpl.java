@@ -17,12 +17,14 @@ package com.june.app.cmn.repository.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.june.app.cmn.model.FIleList;
+import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.repository.FileRepository;
 import com.june.app.user.repository.UserRepository;
 
@@ -45,10 +47,24 @@ public class FileRepositoryImpl implements FileRepository {
 
     @Override
     public FIleList fileListSave(FIleList vo) {
-    	logger.debug("=====] fIleList vovovovovo [========{}",vo.getAtchFileId());
-    	logger.debug("=====] fIleList vovovovovo [========{}",vo.getUseYn());
     	this.em.persist(vo);
     	return vo;
+    }
+    
+    @Override
+    public void fileDetailSave(FileDetail vo) {
+    	this.em.persist(vo);
+    }
+    
+    @Override
+    public FileDetail fileSingle(FileDetail filedetail) {
+    	String atchFileId = filedetail.getAtchFileId();
+    	int fileSn = filedetail.getFileSn();
+        Query query = this.em.createQuery("SELECT fileDetail FROM FileDetail fileDetail WHERE fileDetail.atchFileId =:atchFileId and fileDetail.fileSn =:fileSn");
+        query.setParameter("atchFileId", atchFileId);
+        query.setParameter("fileSn", fileSn);
+        return (FileDetail) query.getSingleResult();
+    	
     }
 
 }

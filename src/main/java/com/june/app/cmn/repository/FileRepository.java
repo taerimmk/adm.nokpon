@@ -33,10 +33,15 @@ package com.june.app.cmn.repository;
 import org.springframework.dao.DataAccessException;
 
 import com.june.app.cmn.model.FIleList;
+import com.june.app.cmn.model.FileDetail;
 
 /**
- * Repository class for <code>Owner</code> domain objects All method names are compliant with Spring Data naming
- * conventions so this interface can easily be extended for Spring Data See here: http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
+ * Repository class for <code>Owner</code> domain objects All method names are
+ * compliant with Spring Data naming conventions so this interface can easily be
+ * extended for Spring Data See here:
+ * http://static.springsource.org/spring-data/
+ * jpa/docs/current/reference/html/jpa
+ * .repositories.html#jpa.query-methods.query-creation
  *
  * @author Ken Krebs
  * @author Juergen Hoeller
@@ -44,8 +49,10 @@ import com.june.app.cmn.model.FIleList;
  * @author Michael Isvy
  */
 public interface FileRepository {
-    
-	public FIleList fileListSave(FIleList vo) throws DataAccessException;
-	
 
+	FIleList fileListSave(FIleList vo) throws DataAccessException;
+
+	void fileDetailSave(FileDetail vo) throws DataAccessException;
+
+	FileDetail fileSingle(FileDetail filedetail) throws DataAccessException;
 }

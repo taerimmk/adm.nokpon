@@ -5,14 +5,10 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +22,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.june.app.cmn.model.FIleList;
+import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.service.FileService;
 
 /**
@@ -43,64 +39,32 @@ public class FileController {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(FileController.class);
-	
-	private final FileService fileService;
-	
-	@Autowired
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
-    }
 
-	//@Autowired FileService fileService;
-	//@Autowired Properties propUtil;
-	@Value("#{propUtil['file.Path']}") private String filePath;
+	private final FileService fileService;
+
+	@Autowired
+	public FileController(FileService fileService) {
+		this.fileService = fileService;
+	}
+
+	// @Autowired FileService fileService;
+	// @Autowired Properties propUtil;
+	@Value("#{propUtil['file.Path']}")
+	private String filePath;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
 	public String uploadLogo(MultipartHttpServletRequest request, Model model) {
-		Iterator<String> itr = request.getFileNames();
-		//String filePath = (String) propUtil.get("file.Path");
 
-		MultipartFile mpf = request.getFile(itr.next());
-		Date today = new Date();
+		FileDetail fileDetail = fileService.fileSave(request, filePath);
 		
-		SimpleDateFormat sdformat  = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("날짜: "+sdformat.format(today));
-		FIleList fIleList = new FIleList();
-		fIleList.setUseYn("Y");
-		//fIleList.setCreatDt(today);
-		fIleList = fileService.fileListSave(fIleList);
-		logger.debug("=====] fIleList [========{}",fIleList.getAtchFileId());
-		try {
-			int length = mpf.getBytes().length;
-			byte[] bytes = mpf.getBytes();
-			String type = mpf.getContentType();
-			String name = mpf.getOriginalFilename();
-			
-			File targetPath = new File(filePath + File.separator);
-			if (!targetPath.exists()) {
-				if (!targetPath.mkdirs()) {
-					throw new IOException("not create direcotry: "
-							+ targetPath.getAbsolutePath());
-				}
-			}
-
-			File targetFile = new File(targetPath.getAbsolutePath(), name);
-			if (!targetFile.exists()) {
-				// targetFile.createNewFile();
-				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(
-						filePath + mpf.getOriginalFilename()));
-
-			}
-
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("getOriginalFilename", mpf.getOriginalFilename());
-
+		String setUrl = "<c:url value='/getImage/"+fileDetail.getAtchFileId()+"/"+fileDetail.getFileSn()+"'/>";
+		model.addAttribute("atchFileId", fileDetail.getAtchFileId());
+		model.addAttribute("fileSn", fileDetail.getFileSn());
+		model.addAttribute("setUrl", setUrl);
+		
 		return String.valueOf(Calendar.getInstance().getTimeInMillis());
 
 	}
@@ -209,6 +173,76 @@ public class FileController {
 		}
 	}
 
+	@RequestMapping("/getImage/{atchFileId}/{fileSn}")
+	public void getImageInf(ModelMap model, 
+			@PathVariable String atchFileId,
+			@PathVariable int fileSn,
+			HttpServletResponse response) throws Exception {
+		
+		FileDetail filedetail = new FileDetail();
+		logger.debug("========] atchFileId [=========== {}",atchFileId);
+		if (!StringUtils.isEmpty(filedetail)){
+			filedetail.setAtchFileId(atchFileId);
+			filedetail.setFileSn(fileSn);
+			filedetail = fileService.fileSingle(filedetail);
+		}
+		String fileExtsn = filedetail.getFileExtsn();
+		String fullPath = filePath + filedetail.getFileStreCours();
+		File file = new File(fullPath, filedetail.getStreFileNm());
+		FileInputStream fis = null;
+
+		BufferedInputStream in = null;
+		ByteArrayOutputStream bStream = null;
+
+		try {
+			fis = new FileInputStream(file);
+			in = new BufferedInputStream(fis);
+			bStream = new ByteArrayOutputStream();
+			int imgByte;
+			while ((imgByte = in.read()) != -1) {
+				bStream.write(imgByte);
+			}
+
+			String type = "";
+			if (!StringUtils.isEmpty(fileExtsn))
+			{
+				
+				type = fileExtsn;
+			} else {
+				logger.debug("Image fileType is null.");
+			}
+			
+			response.setHeader("Content-Type", type);
+			response.setContentLength(bStream.size());
+
+			bStream.writeTo(response.getOutputStream());
+
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+
+		} catch (Exception e) {
+		} finally {
+			if (bStream != null) {
+				try {
+					bStream.close();
+				} catch (Exception est) {
+				}
+			}
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception ei) {
+				}
+			}
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception efis) {
+				}
+			}
+		}
+	}
+
 	/**
 	 * 브라우저 구분 얻기.
 	 * 
@@ -272,74 +306,6 @@ public class FileController {
 
 		if ("Opera".equals(browser)) {
 			response.setContentType("application/octet-stream;charset=UTF-8");
-		}
-	}
-
-	@RequestMapping("/getImage/{filename:.+}")
-	public void getImageInf(ModelMap model,
-			@PathVariable String filename,
-			HttpServletResponse response)
-			throws Exception {
-
-
-		File file = new File(filePath, filename);
-		FileInputStream fis = null;
-
-		BufferedInputStream in = null;
-		ByteArrayOutputStream bStream = null;
-		
-		int extFileIndex = filename.lastIndexOf(".");
-		String extFile =  filename.substring(extFileIndex);
-		try {
-			fis = new FileInputStream(file);
-			in = new BufferedInputStream(fis);
-			bStream = new ByteArrayOutputStream();
-			int imgByte;
-			while ((imgByte = in.read()) != -1) {
-				bStream.write(imgByte);
-			}
-			
-			String type = "";
-			//if (fvo.getFileExtsn() != null && !"".equals(fvo.getFileExtsn())) {
-				if ("jpg".equals(extFile.toLowerCase())) {
-					type = "image/jpeg"; // TODO 정말 이런걸까?
-				} else {
-					type = "image/" + extFile.toLowerCase();
-				}
-				type = "image/" + extFile.toLowerCase();
-
-			//} else {
-				//log.debug("Image fileType is null.");
-			//}
-				
-			response.setHeader("Content-Type", type);
-			response.setContentLength(bStream.size());
-
-			bStream.writeTo(response.getOutputStream());
-
-			response.getOutputStream().flush();
-			response.getOutputStream().close();
-
-		} catch (Exception e) {
-		} finally {
-			if (bStream != null) {
-				try {
-					bStream.close();
-				} catch (Exception est) {
-				}
-			}
-			if (in != null) {
-				try {
-					in.close();
-				} catch (Exception ei) {
-				}
-			}
-			if (fis != null) {
-				try {
-					fis.close();
-				} catch (Exception efis) {
-				}
-			}
 		}
 	}
 }
