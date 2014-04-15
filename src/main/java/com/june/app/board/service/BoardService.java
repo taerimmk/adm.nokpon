@@ -29,7 +29,9 @@ import com.june.app.board.model.Board;
  */
 public interface BoardService {
    
-	Collection<Board> boardList(Board vo) throws DataAccessException;
+	public Collection<Board> boardList(Board vo) throws DataAccessException;
    
-	Collection<Board> boardListWithPaging (Board vo) throws DataAccessException;
+	public Collection<Board> boardListWithPaging (Board vo) throws DataAccessException;
+	
+	public void save (Board vo) throws DataAccessException;
 }

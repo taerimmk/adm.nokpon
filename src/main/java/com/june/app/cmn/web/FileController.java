@@ -98,79 +98,84 @@ public class FileController {
 	 * downloadFile); }
 	 */
 
-	@RequestMapping(value = "/fileDown/{fileName}")
-	public void cvplFileDownload(Map<String, Object> commandMap,
-			@PathVariable String fileName, HttpServletRequest request,
+	@RequestMapping(value = "/fileDown/{atchFileId}/{fileSn}")
+	public void cvplFileDownload(
+			@PathVariable String atchFileId,
+			@PathVariable int fileSn, 
+			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		String atchFileId = (String) commandMap.get("atchFileId");
-		String fileSn = (String) commandMap.get("fileSn");
-		// String fileName = request.getParameter("fileName");
-		File uFile = new File(filePath, fileName);
-		int fSize = (int) uFile.length();
 
-		if (fSize > 0) {
-			String mimetype = "application/x-msdownload";
-
-			// response.setBufferSize(fSize); // OutOfMemeory 발생
-			response.setContentType(mimetype);
-			// response.setHeader("Content-Disposition",
-			// "attachment; filename=\"" +
-			// URLEncoder.encode(fvo.getOrignlFileNm(), "utf-8") + "\"");
-			setDisposition(fileName, request, response);
-			response.setContentLength(fSize);
-
-			/*
-			 * FileCopyUtils.copy(in, response.getOutputStream()); in.close();
-			 * response.getOutputStream().flush();
-			 * response.getOutputStream().close();
-			 */
-			BufferedInputStream in = null;
-			BufferedOutputStream out = null;
-
-			try {
-				in = new BufferedInputStream(new FileInputStream(uFile));
-				out = new BufferedOutputStream(response.getOutputStream());
-
-				FileCopyUtils.copy(in, out);
-				out.flush();
-			} catch (Exception ex) {
-				// ex.printStackTrace();
-				// 다음 Exception 무시 처리
-				// Connection reset by peer: socket write error
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-					} catch (Exception ignore) {
-						// no-op
-					}
-				}
-				if (out != null) {
-					try {
-						out.close();
-					} catch (Exception ignore) {
-						// no-op
-					}
-				}
-			}
-
-		} else {
-			response.setContentType("application/x-msdownload");
-
-			PrintWriter printwriter = response.getWriter();
-			printwriter.println("<html>");
-			/*
-			 * printwriter.println("<br><br><br><h2>Could not get file name:<br>"
-			 * + fvo.getOrignlFileNm() + "</h2>");
-			 */
-			printwriter
-					.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
-			printwriter.println("<br><br><br>&copy; webAccess");
-			printwriter.println("</html>");
-			printwriter.flush();
-			printwriter.close();
+		FileDetail filedetail = new FileDetail();
+		if (!StringUtils.isEmpty(filedetail)){
+			filedetail.setAtchFileId(atchFileId);
+			filedetail.setFileSn(fileSn);
+			filedetail = fileService.fileSingle(filedetail);
 		}
+
+	    File uFile = new File(filedetail.getFileStreCours(), filedetail.getStreFileNm());
+	    int fSize = (int)uFile.length();
+
+	    if (fSize > 0) {
+		String mimetype = "application/x-msdownload";
+
+		//response.setBufferSize(fSize);	// OutOfMemeory 발생
+		response.setContentType(mimetype);
+		//response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fvo.getOrignlFileNm(), "utf-8") + "\"");
+		setDisposition(filedetail.getOrignlFileNm(), request, response);
+		response.setContentLength(fSize);
+
+		/*
+		 * FileCopyUtils.copy(in, response.getOutputStream());
+		 * in.close(); 
+		 * response.getOutputStream().flush();
+		 * response.getOutputStream().close();
+		 */
+		BufferedInputStream in = null;
+		BufferedOutputStream out = null;
+
+		try {
+		    in = new BufferedInputStream(new FileInputStream(uFile));
+		    out = new BufferedOutputStream(response.getOutputStream());
+
+		    FileCopyUtils.copy(in, out);
+		    out.flush();
+		} catch (Exception ex) {
+		    //ex.printStackTrace();
+		    // 다음 Exception 무시 처리
+		    // Connection reset by peer: socket write error
+		    logger.debug("IGNORED: " + ex.getMessage());
+		} finally {
+		    if (in != null) {
+			try {
+			    in.close();
+			} catch (Exception ignore) {
+			    // no-op
+				logger.debug("IGNORED: " + ignore.getMessage());
+			}
+		    }
+		    if (out != null) {
+			try {
+			    out.close();
+			} catch (Exception ignore) {
+			    // no-op
+				logger.debug("IGNORED: " + ignore.getMessage());
+			}
+		    }
+		}
+
+	    } else {
+		response.setContentType("application/x-msdownload");
+
+		PrintWriter printwriter = response.getWriter();
+		printwriter.println("<html>");
+		printwriter.println("<br><br><br><h2>Could not get file name:<br>" + filedetail.getOrignlFileNm() + "</h2>");
+		printwriter.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
+		printwriter.println("<br><br><br>&copy; webAccess");
+		printwriter.println("</html>");
+		printwriter.flush();
+		printwriter.close();
+	    }
 	}
 
 	@RequestMapping("/getImage/{atchFileId}/{fileSn}")
@@ -180,7 +185,6 @@ public class FileController {
 			HttpServletResponse response) throws Exception {
 		
 		FileDetail filedetail = new FileDetail();
-		logger.debug("========] atchFileId [=========== {}",atchFileId);
 		if (!StringUtils.isEmpty(filedetail)){
 			filedetail.setAtchFileId(atchFileId);
 			filedetail.setFileSn(fileSn);

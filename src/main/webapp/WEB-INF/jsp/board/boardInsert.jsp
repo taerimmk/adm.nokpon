@@ -38,6 +38,9 @@
                  }
              });
          }
+         $("#goSave").on("click", function(){
+        	 $("#frm").submit();
+         });
       /*Date Range Picker*/
       $('#reservation').daterangepicker();
       $('#reservationtime').daterangepicker({
@@ -235,12 +238,12 @@
 								<h3>게시물 등록</h3>
 							</div>
 							<div class="content">
-								<form class="form-horizontal group-border-dashed" action="#"
-									style="border-radius: 0px;">
+								<form class="form-horizontal group-border-dashed" action="<c:url value="/board/${bbsId}/insertProc"/>"
+									style="border-radius: 0px;" id="frm" method="post"  >
 									<div class="form-group">
 										<label class="col-sm-2 control-label">제목</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" name="nttSj"
 												placeholder="제목을 입력해 주세요" />
 										</div>
 									</div>
@@ -248,7 +251,9 @@
 										<label class="col-sm-2 control-label">내용</label>
 										<div class="col-sm-10">
 											<!-- <textarea class="form-control" placeholder="내용을 입력해 주세요"></textarea> -->
-											<div id="summernote" style="display: none;"></div>
+											<!-- <div id="summernote" style="display: none;"></div> -->
+											<textarea class="form-control" id="summernote" name="nttCn" rows="18">
+											</textarea>
 										</div>
 									</div>
 									<div class="form-group">
@@ -284,7 +289,7 @@
 									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
-											<button type="submit" class="btn btn-primary">Registrer</button>
+											<button type="submit" class="btn btn-primary" id="goSave">Registrer</button>
 											<button class="btn btn-default">Cancel</button>
 										</div>
 									</div>

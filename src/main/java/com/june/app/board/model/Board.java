@@ -15,12 +15,15 @@
  */
 package com.june.app.board.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -40,8 +43,8 @@ public class Board extends PageEntity{
 	private long nttId;
 	
 	@Column(name = "BBS_ID")
-    @NotEmpty
-	private Integer bbsId;
+	@NotNull
+	private int bbsId;
 	
 	@Column(name = "NTT_NO")
 	private String nttNo;
@@ -54,20 +57,21 @@ public class Board extends PageEntity{
 	private String nttCn;
 	
 	@Column(name = "ANSWER_YN")
-	private String answerYn;
+	private int answerYn;
 	
 	@Column(name = "PARNTSCTT_NO")
-	private Integer parntscttNo;
+	private int parntscttNo;
 	
 	@Column(name = "ANSWER_LC")
-	private Integer answerLc;
+	private int answerLc;
 	
 	@Column(name = "SORT_ORDR")
-	private Integer sortOrdr;
+	private int sortOrdr;
 	
 	@Column(name = "RDCNT")
-	private Integer rdcnt;
+	private int rdcnt;
 	
+	@NotEmpty
 	@Column(name = "USE_YN")
 	private String useYn;
 	
@@ -75,143 +79,222 @@ public class Board extends PageEntity{
 	private String atchFileId;
 	
 	@Column(name = "FRST_REGIST_PNTTM")
-	private String frstRegistPnttm;
+	private Date frstRegistPnttm;
 	
 	@Column(name = "FRST_REGISTER_ID")
 	private String frstRegisterId;
 	
 	@Column(name = "LAST_UPDT_PNTTM")
-	private String lastUpdtPnttm;
+	private Date lastUpdtPnttm;
 	
 	@Column(name = "LAST_UPDUSR_ID")
 	private String lastUpdusrId;
+
+	
 
 	public long getNttId() {
 		return nttId;
 	}
 
+
+
 	public void setNttId(long nttId) {
 		this.nttId = nttId;
 	}
 
-	public Integer getBbsId() {
+
+
+	public int getBbsId() {
 		return bbsId;
 	}
 
-	public void setBbsId(Integer bbsId) {
+
+
+	public void setBbsId(int bbsId) {
 		this.bbsId = bbsId;
 	}
+
+
 
 	public String getNttNo() {
 		return nttNo;
 	}
 
+
+
 	public void setNttNo(String nttNo) {
 		this.nttNo = nttNo;
 	}
+
+
 
 	public String getNttSj() {
 		return nttSj;
 	}
 
+
+
 	public void setNttSj(String nttSj) {
 		this.nttSj = nttSj;
 	}
+
+
 
 	public String getNttCn() {
 		return nttCn;
 	}
 
+
+
 	public void setNttCn(String nttCn) {
 		this.nttCn = nttCn;
 	}
 
-	public String getAnswerYn() {
+
+
+	public int getAnswerYn() {
 		return answerYn;
 	}
 
-	public void setAnswerYn(String answerYn) {
+
+
+	public void setAnswerYn(int answerYn) {
 		this.answerYn = answerYn;
 	}
 
-	public Integer getParntscttNo() {
+
+
+	public int getParntscttNo() {
 		return parntscttNo;
 	}
 
-	public void setParntscttNo(Integer parntscttNo) {
+
+
+	public void setParntscttNo(int parntscttNo) {
 		this.parntscttNo = parntscttNo;
 	}
 
-	public Integer getAnswerLc() {
+
+
+	public int getAnswerLc() {
 		return answerLc;
 	}
 
-	public void setAnswerLc(Integer answerLc) {
+
+
+	public void setAnswerLc(int answerLc) {
 		this.answerLc = answerLc;
 	}
 
-	public Integer getSortOrdr() {
+
+
+	public int getSortOrdr() {
 		return sortOrdr;
 	}
 
-	public void setSortOrdr(Integer sortOrdr) {
+
+
+	public void setSortOrdr(int sortOrdr) {
 		this.sortOrdr = sortOrdr;
 	}
 
-	public Integer getRdcnt() {
+
+
+	public int getRdcnt() {
 		return rdcnt;
 	}
 
-	public void setRdcnt(Integer rdcnt) {
+
+
+	public void setRdcnt(int rdcnt) {
 		this.rdcnt = rdcnt;
 	}
+
+
 
 	public String getUseYn() {
 		return useYn;
 	}
 
+
+
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
 	}
+
+
 
 	public String getAtchFileId() {
 		return atchFileId;
 	}
 
+
+
 	public void setAtchFileId(String atchFileId) {
 		this.atchFileId = atchFileId;
 	}
 
-	public String getFrstRegistPnttm() {
+
+
+	public Date getFrstRegistPnttm() {
 		return frstRegistPnttm;
 	}
 
-	public void setFrstRegistPnttm(String frstRegistPnttm) {
+
+
+	public void setFrstRegistPnttm(Date frstRegistPnttm) {
 		this.frstRegistPnttm = frstRegistPnttm;
 	}
+
+
 
 	public String getFrstRegisterId() {
 		return frstRegisterId;
 	}
 
+
+
 	public void setFrstRegisterId(String frstRegisterId) {
 		this.frstRegisterId = frstRegisterId;
 	}
 
-	public String getLastUpdtPnttm() {
+
+
+	public Date getLastUpdtPnttm() {
 		return lastUpdtPnttm;
 	}
 
-	public void setLastUpdtPnttm(String lastUpdtPnttm) {
+
+
+	public void setLastUpdtPnttm(Date lastUpdtPnttm) {
 		this.lastUpdtPnttm = lastUpdtPnttm;
 	}
+
+
 
 	public String getLastUpdusrId() {
 		return lastUpdusrId;
 	}
 
+
+
 	public void setLastUpdusrId(String lastUpdusrId) {
 		this.lastUpdusrId = lastUpdusrId;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Board [nttId=" + nttId + ", bbsId=" + bbsId + ", nttNo="
+				+ nttNo + ", nttSj=" + nttSj + ", nttCn=" + nttCn
+				+ ", answerYn=" + answerYn + ", parntscttNo=" + parntscttNo
+				+ ", answerLc=" + answerLc + ", sortOrdr=" + sortOrdr
+				+ ", rdcnt=" + rdcnt + ", useYn=" + useYn + ", atchFileId="
+				+ atchFileId + ", frstRegistPnttm=" + frstRegistPnttm
+				+ ", frstRegisterId=" + frstRegisterId + ", lastUpdtPnttm="
+				+ lastUpdtPnttm + ", lastUpdusrId=" + lastUpdusrId + "]";
+	}
+	
 	
 }

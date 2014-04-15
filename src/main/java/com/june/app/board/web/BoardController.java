@@ -1,6 +1,7 @@
 package com.june.app.board.web;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class BoardController {
 		return "board/boardInsert";
 	}
 	
-	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST)
 	public String goBoardInsertProc(Locale locale,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
@@ -73,9 +74,13 @@ public class BoardController {
 		
 		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
 		/**게시판 ID*/
+		Date today = new Date();
 		board.setBbsId(bbsId);
-		
-		return "board/boardInsert";
+		board.setFrstRegistPnttm(today);
+		board.setFrstRegisterId("admin");
+		board.setUseYn("Y");
+		boardService.save(board);
+		return "board/boardList";
 	}
 	
 }

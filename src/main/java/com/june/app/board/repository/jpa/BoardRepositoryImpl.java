@@ -24,10 +24,12 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.repository.BoardRepository;
+import com.june.app.cmn.model.FileDetail;
 import com.june.app.user.repository.UserRepository;
 
 /**
@@ -79,11 +81,6 @@ public class BoardRepositoryImpl implements BoardRepository {
         	query.setParameter("bbsId", bbsId);
     	}
         configurePagination(query, pageNumber, pageSize);
-        
-        
-        
-        
-        
         return query.getResultList();
     }*/
     /*public void configurePagination(Query query, int pageNumber, int pageSize) {
@@ -115,6 +112,10 @@ public class BoardRepositoryImpl implements BoardRepository {
         
         return fooList;
 
+    }
+    @Override
+    public void save(Board vo) {
+    	this.em.persist(vo);
     }
 
 }

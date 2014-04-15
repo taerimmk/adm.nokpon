@@ -49,7 +49,11 @@ public class BoardServiceImpl implements BoardService {
 	public Collection<Board> boardListWithPaging (Board vo) throws DataAccessException {
 		return boardRepository.boardListWithPaging(vo);
 	}
-	
+	@Override
+	@Transactional(readOnly = true)
+	public void save (Board vo) throws DataAccessException {
+		boardRepository.save(vo);
+	}
 	
 
 }
