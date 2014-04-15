@@ -33,7 +33,7 @@ import com.june.app.board.service.BoardService;
  * @author Michael Isvy
  */
 @Service
-public class boardServiceImpl implements BoardService {
+public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;

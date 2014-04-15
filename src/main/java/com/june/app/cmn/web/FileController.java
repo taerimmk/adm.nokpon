@@ -9,7 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,14 +32,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.june.app.cmn.model.FIleList;
+import com.june.app.cmn.service.FileService;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class fileController {
+public class FileController {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(fileController.class);
+			.getLogger(FileController.class);
+	
+	private final FileService fileService;
+	
+	@Autowired
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+	//@Autowired FileService fileService;
+	//@Autowired Properties propUtil;
+	@Value("#{propUtil['file.Path']}") private String filePath;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -43,17 +61,25 @@ public class fileController {
 	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
 	public String uploadLogo(MultipartHttpServletRequest request, Model model) {
 		Iterator<String> itr = request.getFileNames();
+		//String filePath = (String) propUtil.get("file.Path");
 
 		MultipartFile mpf = request.getFile(itr.next());
-
+		Date today = new Date();
+		
+		SimpleDateFormat sdformat  = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("날짜: "+sdformat.format(today));
+		FIleList fIleList = new FIleList();
+		fIleList.setUseYn("Y");
+		//fIleList.setCreatDt(today);
+		fIleList = fileService.fileListSave(fIleList);
+		logger.debug("=====] fIleList [========{}",fIleList.getAtchFileId());
 		try {
 			int length = mpf.getBytes().length;
 			byte[] bytes = mpf.getBytes();
 			String type = mpf.getContentType();
 			String name = mpf.getOriginalFilename();
-			logger.debug(" bytes! ============== {}", bytes);
-
-			File targetPath = new File("d:/image/" + File.separator);
+			
+			File targetPath = new File(filePath + File.separator);
 			if (!targetPath.exists()) {
 				if (!targetPath.mkdirs()) {
 					throw new IOException("not create direcotry: "
@@ -65,11 +91,10 @@ public class fileController {
 			if (!targetFile.exists()) {
 				// targetFile.createNewFile();
 				FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream(
-						"d:/image/" + mpf.getOriginalFilename()));
+						filePath + mpf.getOriginalFilename()));
 
 			}
 
-			logger.debug(mpf.getOriginalFilename() + " uploaded!");
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -117,7 +142,7 @@ public class fileController {
 		String atchFileId = (String) commandMap.get("atchFileId");
 		String fileSn = (String) commandMap.get("fileSn");
 		// String fileName = request.getParameter("fileName");
-		File uFile = new File("d:/image", fileName);
+		File uFile = new File(filePath, fileName);
 		int fSize = (int) uFile.length();
 
 		if (fSize > 0) {
@@ -250,16 +275,15 @@ public class fileController {
 		}
 	}
 
-	@RequestMapping("/getImage/{filename}")
+	@RequestMapping("/getImage/{filename:.+}")
 	public void getImageInf(ModelMap model,
 			@PathVariable String filename,
 			HttpServletResponse response)
 			throws Exception {
 
 
-		File file = new File("d:/image/", filename);
+		File file = new File(filePath, filename);
 		FileInputStream fis = null;
-		new FileInputStream(file);
 
 		BufferedInputStream in = null;
 		ByteArrayOutputStream bStream = null;
@@ -274,9 +298,8 @@ public class fileController {
 			while ((imgByte = in.read()) != -1) {
 				bStream.write(imgByte);
 			}
-
+			
 			String type = "";
-
 			//if (fvo.getFileExtsn() != null && !"".equals(fvo.getFileExtsn())) {
 				if ("jpg".equals(extFile.toLowerCase())) {
 					type = "image/jpeg"; // TODO 정말 이런걸까?
@@ -288,7 +311,7 @@ public class fileController {
 			//} else {
 				//log.debug("Image fileType is null.");
 			//}
-
+				
 			response.setHeader("Content-Type", type);
 			response.setContentLength(bStream.size());
 

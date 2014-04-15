@@ -16,18 +16,22 @@
 	<!-- import the dataSource definition -->
 	<import resource="datasource-config.xml" />
 
-	<!-- <context:component-scan base-package="org.springframework.samples.petclinic.service"/> -->
+	<!-- <context:component-scan base-package="com.june.app"/> -->
+	
+	<context:component-scan base-package="com.june.app" use-default-filters="false">
+    	<context:include-filter expression="org.springframework.stereotype.Service" type="annotation"/>
+	</context:component-scan>
 
 	<!-- Configurer that replaces ${...} placeholders with values from a properties 
 		file -->
 	<!-- (in this case, JDBC-related settings for the JPA EntityManager definition 
 		below) -->
-	<!-- <context:property-placeholder location="classpath:spring/data-access.properties"
-		system-properties-mode="OVERRIDE" /> -->
-	<util:properties id="prop" location="classpath:spring/data-access.properties"/>	
+	<context:property-placeholder location="classpath:spring/data-access.properties"
+		system-properties-mode="OVERRIDE" />
+	<util:properties id="propUtil" location="classpath:properties/util.properties"/>
 
 	<!-- enables scanning for @Transactional annotations -->
-	<tx:annotation-driven />
+	<tx:annotation-driven/>
 
 
 	<!-- ================== 3 Profiles to choose from =================== - 
@@ -46,16 +50,18 @@
 		</property>
 		<!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, 
 			persistenceUnit will win -->
-		<!-- <property name="persistenceUnitName" value="petclinic" /> -->
+		<property name="persistenceUnitName" value="june" />
 		<property name="packagesToScan" value="com.june.app" />
 	</bean>
 
 	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative 
 		to JTA) -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-		p:entityManagerFactory-ref="entityManagerFactory" />
+	<!-- <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" /> -->
 
-
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    	<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
 	<!-- Post-processor to perform exception translation on @Repository classes 
 		(from native exceptions such as JPA PersistenceExceptions to Spring's DataAccessException 
 		hierarchy). -->
@@ -67,8 +73,12 @@
 	<!-- Loads JPA beans Will automatically be transactional due to @Transactional. 
 		EntityManager will be auto-injected due to @PersistenceContext. PersistenceExceptions 
 		will be auto-translated due to @Repository. -->
-	<context:component-scan
-		base-package="com.june.app" />
+	<!-- <context:component-scan
+		base-package="com.june.app" /> -->
+		
+	<context:component-scan base-package="com.june.app" use-default-filters="false">
+    	<context:include-filter expression="org.springframework.stereotype.Repository" type="annotation"/>
+	</context:component-scan>	
 	
 	<!-- Defined in employee-servlet.xml -->
 	<bean id="authService" class="com.june.app.user.service.impl.AuthServiceImpl" />

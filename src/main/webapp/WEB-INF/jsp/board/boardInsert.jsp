@@ -32,7 +32,9 @@
                  processData: false,
                  success: function(url) {
                 	 console.log("!!!"+url.getOriginalFilename);
-                	 var setUrl = "<c:url value='/fileDown/"+url.getOriginalFilename+"'/>";
+                	 var setUrl = "<c:url value='/getImage/"+url.getOriginalFilename+"'/>";
+                	 
+                	 /* /app/getImage/photo_img.gif */
                      editor.insertImage(welEditable, setUrl);
                  }
              });
