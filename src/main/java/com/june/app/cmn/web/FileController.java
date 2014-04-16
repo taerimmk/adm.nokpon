@@ -53,17 +53,31 @@ public class FileController {
 	private String filePath;
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * 이미지 업로드 Single insert DB
 	 */
-	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
-	public String uploadLogo(MultipartHttpServletRequest request, Model model) {
+	@RequestMapping(value = "/image/upload/db", method = RequestMethod.POST)
+	public String uploadImageDB(MultipartHttpServletRequest request, Model model) {
 
-		FileDetail fileDetail = fileService.fileSave(request, filePath);
+		FileDetail fileDetail = fileService.fileSaveDB(request, filePath);
 		
 		String setUrl = "<c:url value='/getImage/"+fileDetail.getAtchFileId()+"/"+fileDetail.getFileSn()+"'/>";
 		model.addAttribute("atchFileId", fileDetail.getAtchFileId());
 		model.addAttribute("fileSn", fileDetail.getFileSn());
 		model.addAttribute("setUrl", setUrl);
+		
+		return String.valueOf(Calendar.getInstance().getTimeInMillis());
+
+	}
+	
+	/**
+	 * 이미지 업로드 Single without DB
+	 */
+	@RequestMapping(value = "/image/upload", method = RequestMethod.POST)
+	public String uploadImage(MultipartHttpServletRequest request, Model model) {
+
+		FileDetail fileDetail = fileService.fileSave(request, filePath);
+		model.addAttribute("orignlFileNm", fileDetail.getOrignlFileNm());
+		model.addAttribute("fileStreCours", fileDetail.getFileStreCours());
 		
 		return String.valueOf(Calendar.getInstance().getTimeInMillis());
 
@@ -178,8 +192,78 @@ public class FileController {
 	    }
 	}
 
-	@RequestMapping("/getImage/{atchFileId}/{fileSn}")
-	public void getImageInf(ModelMap model, 
+	@RequestMapping("/getImageDB/{atchFileId}/{fileSn}")
+	public void getImageDB(ModelMap model, 
+			@PathVariable String atchFileId,
+			@PathVariable int fileSn,
+			HttpServletResponse response) throws Exception {
+		
+		FileDetail filedetail = new FileDetail();
+		if (!StringUtils.isEmpty(filedetail)){
+			filedetail.setAtchFileId(atchFileId);
+			filedetail.setFileSn(fileSn);
+			filedetail = fileService.fileSingle(filedetail);
+		}
+		String fileExtsn = filedetail.getFileExtsn();
+		String fullPath = filePath + filedetail.getFileStreCours();
+		File file = new File(fullPath, filedetail.getStreFileNm());
+		FileInputStream fis = null;
+
+		BufferedInputStream in = null;
+		ByteArrayOutputStream bStream = null;
+
+		try {
+			fis = new FileInputStream(file);
+			in = new BufferedInputStream(fis);
+			bStream = new ByteArrayOutputStream();
+			int imgByte;
+			while ((imgByte = in.read()) != -1) {
+				bStream.write(imgByte);
+			}
+
+			String type = "";
+			if (!StringUtils.isEmpty(fileExtsn))
+			{
+				
+				type = fileExtsn;
+			} else {
+				logger.debug("Image fileType is null.");
+			}
+			
+			response.setHeader("Content-Type", type);
+			response.setContentLength(bStream.size());
+
+			bStream.writeTo(response.getOutputStream());
+
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+
+		} catch (Exception e) {
+		} finally {
+			if (bStream != null) {
+				try {
+					bStream.close();
+				} catch (Exception est) {
+				}
+			}
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception ei) {
+				}
+			}
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception efis) {
+				}
+			}
+		}
+	}
+	
+	
+	@RequestMapping("/getImage/{orignlFileNm}/{fileStreCours}")
+	public void getImage(ModelMap model, 
 			@PathVariable String atchFileId,
 			@PathVariable int fileSn,
 			HttpServletResponse response) throws Exception {

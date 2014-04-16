@@ -40,7 +40,7 @@ public class FileServiceImpl implements FileService {
 	
 	@Override
 	@Transactional
-	public FileDetail fileSave (MultipartHttpServletRequest request, String filePath) throws DataAccessException {
+	public FileDetail fileSaveDB (MultipartHttpServletRequest request, String filePath) throws DataAccessException {
 		
 		
 		Date today = new Date();
@@ -58,6 +58,15 @@ public class FileServiceImpl implements FileService {
 		fileRepository.fileDetailSave(fileDetail);
 		return fileDetail;
 	}
+	@Override
+	@Transactional
+	public FileDetail fileSave (MultipartHttpServletRequest request, String filePath) throws DataAccessException {
+		
+		FileDetail fileDetail = FIleMngUtil.writeFileWithOraginalName(request, filePath);
+		return fileDetail;
+	}
+	
+	
 	
 	@Override
 	@Transactional

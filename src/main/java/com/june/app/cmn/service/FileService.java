@@ -30,6 +30,7 @@ import com.june.app.cmn.model.FileDetail;
 public interface FileService {
    
 	public FIleList fileListSave(FIleList vo) throws DataAccessException;
+	public FileDetail fileSaveDB(MultipartHttpServletRequest request, String filePath) throws DataAccessException;
 	public FileDetail fileSave(MultipartHttpServletRequest request, String filePath) throws DataAccessException;
 	public FileDetail fileSingle(FileDetail filedetail) throws DataAccessException;
 }

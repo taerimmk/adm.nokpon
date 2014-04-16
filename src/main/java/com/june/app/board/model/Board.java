@@ -34,255 +34,188 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "BBS_NTT")
-public class Board extends PageEntity{
+public class Board extends PageEntity {
 
-	
-	@Id                                                
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NTT_ID")
 	private long nttId;
-	
+
 	@Column(name = "BBS_ID")
 	@NotNull
-	private int bbsId;
-	
+	private Integer bbsId;
+
 	@Column(name = "NTT_NO")
 	private String nttNo;
-	
+
 	@Column(name = "NTT_SJ")
-    @NotEmpty
+	@NotEmpty
 	private String nttSj;
-	
+
 	@Column(name = "NTT_CN")
 	private String nttCn;
-	
+
 	@Column(name = "ANSWER_YN")
-	private int answerYn;
-	
+	private Integer answerYn;
+
 	@Column(name = "PARNTSCTT_NO")
-	private int parntscttNo;
-	
+	private Integer parntscttNo;
+
 	@Column(name = "ANSWER_LC")
-	private int answerLc;
-	
+	private Integer answerLc;
+
 	@Column(name = "SORT_ORDR")
-	private int sortOrdr;
-	
+	private Integer sortOrdr;
+
 	@Column(name = "RDCNT")
-	private int rdcnt;
-	
+	private Integer rdcnt;
+
 	@NotEmpty
 	@Column(name = "USE_YN")
 	private String useYn;
-	
+
 	@Column(name = "ATCH_FILE_ID")
 	private String atchFileId;
-	
+
 	@Column(name = "FRST_REGIST_PNTTM")
 	private Date frstRegistPnttm;
-	
+
 	@Column(name = "FRST_REGISTER_ID")
 	private String frstRegisterId;
-	
+
 	@Column(name = "LAST_UPDT_PNTTM")
 	private Date lastUpdtPnttm;
-	
+
 	@Column(name = "LAST_UPDUSR_ID")
 	private String lastUpdusrId;
-
-	
 
 	public long getNttId() {
 		return nttId;
 	}
 
-
-
 	public void setNttId(long nttId) {
 		this.nttId = nttId;
 	}
 
-
-
-	public int getBbsId() {
+	public Integer getBbsId() {
 		return bbsId;
 	}
 
-
-
-	public void setBbsId(int bbsId) {
+	public void setBbsId(Integer bbsId) {
 		this.bbsId = bbsId;
 	}
-
-
 
 	public String getNttNo() {
 		return nttNo;
 	}
 
-
-
 	public void setNttNo(String nttNo) {
 		this.nttNo = nttNo;
 	}
-
-
 
 	public String getNttSj() {
 		return nttSj;
 	}
 
-
-
 	public void setNttSj(String nttSj) {
 		this.nttSj = nttSj;
 	}
-
-
 
 	public String getNttCn() {
 		return nttCn;
 	}
 
-
-
 	public void setNttCn(String nttCn) {
 		this.nttCn = nttCn;
 	}
 
-
-
-	public int getAnswerYn() {
+	public Integer getAnswerYn() {
 		return answerYn;
 	}
 
-
-
-	public void setAnswerYn(int answerYn) {
+	public void setAnswerYn(Integer answerYn) {
 		this.answerYn = answerYn;
 	}
 
-
-
-	public int getParntscttNo() {
+	public Integer getParntscttNo() {
 		return parntscttNo;
 	}
 
-
-
-	public void setParntscttNo(int parntscttNo) {
+	public void setParntscttNo(Integer parntscttNo) {
 		this.parntscttNo = parntscttNo;
 	}
 
-
-
-	public int getAnswerLc() {
+	public Integer getAnswerLc() {
 		return answerLc;
 	}
 
-
-
-	public void setAnswerLc(int answerLc) {
+	public void setAnswerLc(Integer answerLc) {
 		this.answerLc = answerLc;
 	}
 
-
-
-	public int getSortOrdr() {
+	public Integer getSortOrdr() {
 		return sortOrdr;
 	}
 
-
-
-	public void setSortOrdr(int sortOrdr) {
+	public void setSortOrdr(Integer sortOrdr) {
 		this.sortOrdr = sortOrdr;
 	}
 
-
-
-	public int getRdcnt() {
+	public Integer getRdcnt() {
 		return rdcnt;
 	}
 
-
-
-	public void setRdcnt(int rdcnt) {
+	public void setRdcnt(Integer rdcnt) {
 		this.rdcnt = rdcnt;
 	}
-
-
 
 	public String getUseYn() {
 		return useYn;
 	}
 
-
-
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
 	}
-
-
 
 	public String getAtchFileId() {
 		return atchFileId;
 	}
 
-
-
 	public void setAtchFileId(String atchFileId) {
 		this.atchFileId = atchFileId;
 	}
-
-
 
 	public Date getFrstRegistPnttm() {
 		return frstRegistPnttm;
 	}
 
-
-
 	public void setFrstRegistPnttm(Date frstRegistPnttm) {
 		this.frstRegistPnttm = frstRegistPnttm;
 	}
-
-
 
 	public String getFrstRegisterId() {
 		return frstRegisterId;
 	}
 
-
-
 	public void setFrstRegisterId(String frstRegisterId) {
 		this.frstRegisterId = frstRegisterId;
 	}
-
-
 
 	public Date getLastUpdtPnttm() {
 		return lastUpdtPnttm;
 	}
 
-
-
 	public void setLastUpdtPnttm(Date lastUpdtPnttm) {
 		this.lastUpdtPnttm = lastUpdtPnttm;
 	}
-
-
 
 	public String getLastUpdusrId() {
 		return lastUpdusrId;
 	}
 
-
-
 	public void setLastUpdusrId(String lastUpdusrId) {
 		this.lastUpdusrId = lastUpdusrId;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -295,6 +228,5 @@ public class Board extends PageEntity{
 				+ ", frstRegisterId=" + frstRegisterId + ", lastUpdtPnttm="
 				+ lastUpdtPnttm + ", lastUpdusrId=" + lastUpdusrId + "]";
 	}
-	
-	
+
 }
