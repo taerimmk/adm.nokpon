@@ -3,6 +3,7 @@ package com.june.app.board.web;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,9 +44,9 @@ public class BoardController {
 		/**게시판 ID*/
 		board.setBbsId(bbsId);
 		
-		Collection<Board> boardList = boardService.boardListWithPaging(board);
-		
-		model.addAttribute("boardList", boardList );
+		Map<?,?> boardList = boardService.boardListWithPaging(board);
+		model.addAttribute("boardList", boardList.get("boardList") );
+		model.addAttribute("boardListCnt", boardList.get("boardListCnt") );
 		
 		return "board/boardList";
 	}

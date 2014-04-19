@@ -29,7 +29,6 @@ import org.springframework.stereotype.Repository;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.repository.BoardRepository;
-import com.june.app.cmn.model.FileDetail;
 import com.june.app.user.repository.UserRepository;
 
 /**
@@ -110,7 +109,30 @@ public class BoardRepositoryImpl implements BoardRepository {
         
         Collection<Board> fooList = typedQuery.getResultList();
         
+       
         return fooList;
+
+    }
+    
+    @Override
+    public long boardListCnt(Board vo) {
+    	
+    	CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        /*CriteriaQuery<Board> criteriaQuery = criteriaBuilder.createQuery(Board.class);
+        
+        countQuery.select(criteriaBuilder.count(countQuery.from(Board.class)));
+        Long count = entityManager.createQuery(countQuery).getSingleResult();*/
+        
+    	int bbsId = vo.getBbsId();
+        CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Board> from = countQuery.from(Board.class);
+        countQuery.select(criteriaBuilder.count(from));
+        if (bbsId > 0){
+        	countQuery.where(criteriaBuilder.equal(from.get("bbsId"), bbsId));
+    	}
+        Long count = em.createQuery(countQuery).getSingleResult();
+       
+        return count;
 
     }
     @Override

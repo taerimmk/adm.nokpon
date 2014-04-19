@@ -16,6 +16,8 @@
 package com.june.app.board.service.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -46,9 +48,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Board> boardListWithPaging (Board vo) throws DataAccessException {
-		return boardRepository.boardListWithPaging(vo);
+	public Map<?,?> boardListWithPaging (Board vo) throws DataAccessException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardList", boardRepository.boardListWithPaging(vo));
+		map.put("boardListCnt", boardRepository.boardListCnt(vo));
+		return map;
 	}
+	
+	
 	@Override
 	@Transactional(readOnly = true)
 	public void save (Board vo) throws DataAccessException {

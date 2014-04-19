@@ -51,6 +51,8 @@ public interface BoardRepository {
 	
 	Collection<Board> boardListWithPaging (Board vo) throws DataAccessException;
 	
+	long boardListCnt (Board vo) throws DataAccessException;
+	
 	void save (Board vo) throws DataAccessException;
 
 }

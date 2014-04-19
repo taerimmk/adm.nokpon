@@ -16,6 +16,7 @@
 package com.june.app.board.service;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -31,7 +32,7 @@ public interface BoardService {
    
 	public Collection<Board> boardList(Board vo) throws DataAccessException;
    
-	public Collection<Board> boardListWithPaging (Board vo) throws DataAccessException;
+	public Map<?,?> boardListWithPaging (Board vo) throws DataAccessException;
 	
 	public void save (Board vo) throws DataAccessException;
 }

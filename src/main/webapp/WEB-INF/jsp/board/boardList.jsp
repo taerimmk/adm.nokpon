@@ -150,6 +150,7 @@ $(function(){
 												<!-- <div class="pull-right" id="paging">
 													
 												</div> -->
+												TT: ${boardListCnt}
 												<div class="clearfix"></div>
 											</div>
 										</div>
