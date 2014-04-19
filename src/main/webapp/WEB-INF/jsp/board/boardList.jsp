@@ -134,7 +134,7 @@ $(function(){
 												</div>
 												<div class="pull-right">
 													<div class="dataTables_paginate paging_bs_normal" id="paging">
-														<ul class="pagination">
+														<!-- <ul class="pagination">
 															<li class="prev disabled"><a href="#"><span
 																	class="fa fa-angle-left"></span>&nbsp;Previous</a></li>
 															<li class="active"><a href="#">1</a></li>
@@ -144,7 +144,7 @@ $(function(){
 															<li><a href="#">5</a></li>
 															<li class="next"><a href="#">Next&nbsp;<span
 																	class="fa fa-angle-right"></span></a></li>
-														</ul>
+														</ul> -->
 													</div>
 												</div>
 												<!-- <div class="pull-right" id="paging">
