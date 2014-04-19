@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Board Insert</title>
+<title>Board List</title>
 <jsp:include page="/WEB-INF/jsp/cmn/inc/headerResource.jsp" />
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.paginator/js/bootstrap-paginator.min.js"/>"></script>
 <script type='text/javascript'>

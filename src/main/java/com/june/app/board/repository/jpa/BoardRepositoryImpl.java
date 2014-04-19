@@ -99,11 +99,12 @@ public class BoardRepositoryImpl implements BoardRepository {
         
         Root<Board> from = criteriaQuery.from(Board.class);
         CriteriaQuery<Board> select = criteriaQuery.select(from);
-        TypedQuery<Board> typedQuery = em.createQuery(select);
-        
         if (bbsId > 0){
         	criteriaQuery.where(criteriaBuilder.equal(from.get("bbsId"), bbsId));
     	}
+        TypedQuery<Board> typedQuery = em.createQuery(select);
+        
+        
         typedQuery.setFirstResult((pageNumber - 1) * pageSize);
         typedQuery.setMaxResults(pageSize);
         
@@ -118,11 +119,7 @@ public class BoardRepositoryImpl implements BoardRepository {
     public long boardListCnt(Board vo) {
     	
     	CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        /*CriteriaQuery<Board> criteriaQuery = criteriaBuilder.createQuery(Board.class);
-        
-        countQuery.select(criteriaBuilder.count(countQuery.from(Board.class)));
-        Long count = entityManager.createQuery(countQuery).getSingleResult();*/
-        
+       
     	int bbsId = vo.getBbsId();
         CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
         Root<Board> from = countQuery.from(Board.class);
