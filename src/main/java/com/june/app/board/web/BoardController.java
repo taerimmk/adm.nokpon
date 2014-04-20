@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.service.BoardService;
+import com.june.app.cmn.model.Pagination;
 
 /**
  * Handles requests for the application home page.
@@ -30,23 +31,29 @@ public class BoardController {
 	private BoardService boardService;
 
 	
-	@RequestMapping(value = "/board/{bbsId}/list/{pageNumber}", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{bbsId}/list/{pageIndex}", method = RequestMethod.GET)
 	public String getBoardList(Locale locale,
 			@ModelAttribute("board") Board board,
+			@ModelAttribute("pagination") Pagination pagination,
 			@PathVariable int bbsId,
-			@PathVariable int pageNumber,
+			@PathVariable int pageIndex,
 			Model model) {
 		logger.debug("=====] call getBoardList [=====");
 		/**페이지당 보여주는 게시물 수*/
 		board.setPageSize(2);
 		/**현재 페이지*/
-		board.setPageNumber(pageNumber);
+		board.setPageIndex(pageIndex);
+		pagination.setPageIndex(pageIndex);
 		/**게시판 ID*/
 		board.setBbsId(bbsId);
 		
 		Map<?,?> boardList = boardService.boardListWithPaging(board);
+		
+		pagination.setTotalPage((long) boardList.get("boardListCnt"));
 		model.addAttribute("boardList", boardList.get("boardList") );
 		model.addAttribute("boardListCnt", boardList.get("boardListCnt") );
+		
+		model.addAttribute("pagination", pagination);
 		
 		return "board/boardList";
 	}

@@ -133,19 +133,10 @@ $(function(){
 														1 to 10 of 57 entries</div>
 												</div>
 												<div class="pull-right">
-													<div class="dataTables_paginate paging_bs_normal" id="paging">
-														<!-- <ul class="pagination">
-															<li class="prev disabled"><a href="#"><span
-																	class="fa fa-angle-left"></span>&nbsp;Previous</a></li>
-															<li class="active"><a href="#">1</a></li>
-														pagination	<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-															<li><a href="#">5</a></li>
-															<li class="next"><a href="#">Next&nbsp;<span
-																	class="fa fa-angle-right"></span></a></li>
-														</ul> -->
-													</div>
+													<c:import url="/pagination">
+														<c:param name="pageIndex" value="${pagination.pageIndex}"/>
+														<c:param name="totalPage" value="${pagination.totalPage}"/>
+													</c:import>
 												</div>
 												<!-- <div class="pull-right" id="paging">
 													

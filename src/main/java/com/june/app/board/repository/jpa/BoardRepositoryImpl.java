@@ -92,7 +92,7 @@ public class BoardRepositoryImpl implements BoardRepository {
     public Collection<Board> boardListWithPaging(Board vo) {
     	int bbsId = vo.getBbsId();
     	int pageSize = vo.getPageSize();
-    	int pageNumber = vo.getPageNumber();
+    	int pageNumber = (int) vo.getPageIndex();
         
     	CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Board> criteriaQuery = criteriaBuilder.createQuery(Board.class);

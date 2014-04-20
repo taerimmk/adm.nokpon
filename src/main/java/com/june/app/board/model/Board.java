@@ -27,6 +27,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.june.app.cmn.model.Pagination;
+
 /**
  * Simple JavaBean domain object representing an person.
  * 
@@ -34,7 +36,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "BBS_NTT")
-public class Board extends PageEntity {
+public class Board extends Pagination {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
