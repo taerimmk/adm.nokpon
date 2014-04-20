@@ -42,6 +42,18 @@ public class Pagination {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
+	public int getTotalPageUnit() {
+		return totalPageUnit;
+	}
+	public void setTotalPageUnit(int totalPageUnit) {
+		this.totalPageUnit = totalPageUnit;
+	}
+	@Override
+	public String toString() {
+		return "Pagination [pageIndex=" + pageIndex + ", totalPage="
+				+ totalPage + ", pagePerUnit=" + pagePerUnit + ", pageSize="
+				+ pageSize + ", totalPageUnit=" + totalPageUnit + "]";
+	}
 	
 	
 	

@@ -8,11 +8,24 @@
 	$(function() {
 		var options = {
 			currentPage : '${pagination.pageIndex}',
-			totalPages : ,
+			totalPages : 3,
 			onPageClicked : function(e, originalEvent, type, page) {
 				$('#alert-content').text(
 						"Page item clicked, type: " + type + " page: " + page);
-			}
+			},itemTexts: function (type, page, current) {
+                switch (type) {
+                case "first":
+                    return "First";
+                case "prev":
+                    return "Previous";
+                case "next":
+                    return "Next";
+                case "last":
+                    return "Last";
+                case "page":
+                    return page;
+                }
+            }
 		}
 
 		$('#paging').bootstrapPaginator(options);

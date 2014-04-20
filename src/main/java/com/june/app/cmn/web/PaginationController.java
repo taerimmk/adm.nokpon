@@ -24,7 +24,7 @@ public class PaginationController {
 	public String paginationView(Locale locale,
 			@ModelAttribute("pagination") Pagination pagination,
 			Model model) {
-		logger.debug("=====] call paginationView [=====");
+		logger.debug("=====] call paginationView [===== {}",pagination.toString());
 		
 		
 		return "cmn/paginationView";

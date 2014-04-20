@@ -6,7 +6,7 @@
 <head>
 <title>Board List</title>
 <jsp:include page="/WEB-INF/jsp/cmn/inc/headerResource.jsp" />
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.paginator/js/bootstrap-paginator.min.js"/>"></script>
+<%-- <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.paginator/js/bootstrap-paginator.min.js"/>"></script>
 <script type='text/javascript'>
 $(function(){
 	var options = {
@@ -21,7 +21,7 @@ $(function(){
 		$('#paging').find('ul').addClass("pagination");
 });
         
-    </script>
+    </script> --%>
 </head>
 <body class="animated">
 
@@ -135,7 +135,8 @@ $(function(){
 												<div class="pull-right">
 													<c:import url="/pagination">
 														<c:param name="pageIndex" value="${pagination.pageIndex}"/>
-														<c:param name="totalPage" value="${pagination.totalPage}"/>
+														<%-- <c:param name="totalPage" value="${pagination.totalPage}"/> --%>
+														<c:param name="pagination" value="${pagination}"/>
 													</c:import>
 												</div>
 												<!-- <div class="pull-right" id="paging">
