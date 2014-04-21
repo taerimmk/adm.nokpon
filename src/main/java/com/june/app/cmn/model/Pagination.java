@@ -10,25 +10,24 @@ public class Pagination {
 	@Transient
 	private long pageIndex;
 	@Transient
-	private long totalPage;
+	private long totalCnt;
 	@Transient
 	private int pagePerUnit;
 	@Transient
 	private int pageSize = 10;
 	@Transient
-	private int totalPageUnit;
-	
+	private long totalPageUnit;
 	public long getPageIndex() {
 		return pageIndex;
 	}
 	public void setPageIndex(long pageIndex) {
 		this.pageIndex = pageIndex;
 	}
-	public long getTotalPage() {
-		return totalPage;
+	public long getTotalCnt() {
+		return totalCnt;
 	}
-	public void setTotalPage(long totalPage) {
-		this.totalPage = totalPage;
+	public void setTotalCnt(long totalCnt) {
+		this.totalCnt = totalCnt;
 	}
 	public int getPagePerUnit() {
 		return pagePerUnit;
@@ -42,17 +41,18 @@ public class Pagination {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	public int getTotalPageUnit() {
+	public long getTotalPageUnit() {
+		this.totalPageUnit = this.totalCnt / this.pageSize + (this.totalCnt % this.pageSize>0 ? 1 : 0);
 		return totalPageUnit;
 	}
-	public void setTotalPageUnit(int totalPageUnit) {
+	public void setTotalPageUnit(long totalPageUnit) {
 		this.totalPageUnit = totalPageUnit;
 	}
 	@Override
 	public String toString() {
-		return "Pagination [pageIndex=" + pageIndex + ", totalPage="
-				+ totalPage + ", pagePerUnit=" + pagePerUnit + ", pageSize="
-				+ pageSize + ", totalPageUnit=" + totalPageUnit + "]";
+		return "Pagination [pageIndex=" + pageIndex + ", totalCnt=" + totalCnt
+				+ ", pagePerUnit=" + pagePerUnit + ", pageSize=" + pageSize
+				+ ", totalPageUnit=" + totalPageUnit + "]";
 	}
 	
 	

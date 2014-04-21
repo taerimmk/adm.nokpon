@@ -50,4 +50,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery.jeditable/jquery.jeditable.mini.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery.datatables/jquery.datatables.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery.datatables/bootstrap-adapter/js/datatables.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.paginator/js/bootstrap-paginator.min.js"/>"></script>
+	
+	<script type="text/javascript" src="<c:url value="/resources/js/pagination.js"/>"></script>
 	

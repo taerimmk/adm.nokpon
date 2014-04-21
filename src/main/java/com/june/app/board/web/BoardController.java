@@ -1,6 +1,5 @@
 package com.june.app.board.web;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -31,10 +30,9 @@ public class BoardController {
 	private BoardService boardService;
 
 	
-	@RequestMapping(value = "/board/{bbsId}/list/{pageIndex}", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/{bbsId}/list/{pageIndex}", method = {RequestMethod.POST, RequestMethod.GET})
 	public String getBoardList(Locale locale,
 			@ModelAttribute("board") Board board,
-			@ModelAttribute("pagination") Pagination pagination,
 			@PathVariable int bbsId,
 			@PathVariable int pageIndex,
 			Model model) {
@@ -43,17 +41,18 @@ public class BoardController {
 		board.setPageSize(2);
 		/**현재 페이지*/
 		board.setPageIndex(pageIndex);
-		pagination.setPageIndex(pageIndex);
 		/**게시판 ID*/
 		board.setBbsId(bbsId);
 		
 		Map<?,?> boardList = boardService.boardListWithPaging(board);
 		
-		pagination.setTotalPage((long) boardList.get("boardListCnt"));
-		model.addAttribute("boardList", boardList.get("boardList") );
-		model.addAttribute("boardListCnt", boardList.get("boardListCnt") );
+		long totalCnt = (long) boardList.get("boardListCnt");
+		board.setTotalCnt(totalCnt);
 		
-		model.addAttribute("pagination", pagination);
+		
+		model.addAttribute("boardList", boardList.get("boardList") );
+		model.addAttribute("boardListCnt", totalCnt );
+		
 		
 		return "board/boardList";
 	}

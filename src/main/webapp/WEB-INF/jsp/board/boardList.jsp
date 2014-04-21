@@ -6,25 +6,22 @@
 <head>
 <title>Board List</title>
 <jsp:include page="/WEB-INF/jsp/cmn/inc/headerResource.jsp" />
-<%-- <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.paginator/js/bootstrap-paginator.min.js"/>"></script>
-<script type='text/javascript'>
-$(function(){
-	var options = {
-            currentPage: 3,
-            totalPages: 10,
-            onPageClicked: function(e,originalEvent,type,page){
-                $('#alert-content').text("Page item clicked, type: "+type+" page: "+page);
-            }
-        }
 
-        $('#paging').bootstrapPaginator(options);
-		$('#paging').find('ul').addClass("pagination");
-});
-        
-    </script> --%>
+<script type='text/javascript'>
+	$(function() {
+		pagination('paging','${board.pageIndex}','${board.totalPageUnit}','callTest');
+	});
+
+var callTest = function(page){
+	var action = '<c:url value="/board/${board.bbsId}/list/'+page+'" />';
+	$("#frm").attr("action",action).submit();
+};
+</script>
 </head>
 <body class="animated">
+<form action="" method="post" id="frm" name="frm">
 
+</form>
 	<div id="cl-wrapper">
 
 		<div class="cl-sidebar">
@@ -133,11 +130,7 @@ $(function(){
 														1 to 10 of 57 entries</div>
 												</div>
 												<div class="pull-right">
-													<c:import url="/pagination">
-														<c:param name="pageIndex" value="${pagination.pageIndex}"/>
-														<%-- <c:param name="totalPage" value="${pagination.totalPage}"/> --%>
-														<c:param name="pagination" value="${pagination}"/>
-													</c:import>
+													<div class="dataTables_paginate paging_bs_normal" id="paging"></div>
 												</div>
 												<!-- <div class="pull-right" id="paging">
 													
