@@ -10,10 +10,17 @@
 <script type='text/javascript'>
 	$(function() {
 		pagination('paging','${board.pageIndex}','${board.totalPageUnit}','callTest');
+		
+		$("#getBoardMst").on("change", function(){
+			var bbsId = $(this).val();
+			var action = '<c:url value="/board/'+bbsId+'/list/1" />';
+			$("#frm").attr("action",action).submit();
+		});
 	});
 
 var callTest = function(page){
-	var action = '<c:url value="/board/${board.bbsId}/list/'+page+'" />';
+	var bbsId = $("#getBoardMst").val();
+	var action = '<c:url value="/board/'+bbsId+'/list/'+page+'" />';
 	$("#frm").attr("action",action).submit();
 };
 </script>
@@ -63,13 +70,14 @@ var callTest = function(page){
 												</div>
 												<div class="pull-left">
 													<div id="datatable2_length" class="dataTables_length">
-														<label>Show <select size="1"
+														<label>Select <select size="1"
 															name="datatable2_length" aria-controls="datatable2"
-															class="form-control"><option value="10"
-																	selected="selected">10</option>
-																<option value="25">25</option>
-																<option value="50">50</option>
-																<option value="100">100</option></select> Rows
+															class="form-control" id="getBoardMst">
+															<option value="0">전체</option>
+															<c:forEach items="${boardMstList}" var="boardMst" varStatus="boarMstStatus">
+																<option value="${boardMst.bbsId}" <c:if test="${boardMst.bbsId eq board.bbsId}">selected='selected'</c:if>>${boardMst.bbsNm}</option>
+															</c:forEach>
+															</select>  BBS
 														</label>
 													</div>
 												</div>

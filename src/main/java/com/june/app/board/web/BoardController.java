@@ -1,5 +1,6 @@
 package com.june.app.board.web;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.june.app.board.model.Board;
+import com.june.app.board.model.BoardMaster;
+import com.june.app.board.service.BoardMasterService;
 import com.june.app.board.service.BoardService;
 import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.service.FileService;
@@ -30,6 +33,8 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private BoardMasterService boardMasterService;
 	@Autowired
 	private FileService fileService;
 	
@@ -46,15 +51,19 @@ public class BoardController {
 		board.setPageIndex(pageIndex);
 		/**게시판 ID*/
 		board.setBbsId(bbsId);
+		Collection<BoardMaster> boardMstList = boardMasterService.boardMasterList();
+		//logger.debug("=====] call getBoardList [boardMstList]====={}",boardMstList);
 		
 		Map<?,?> boardList = boardService.boardListWithPaging(board);
 		
 		long totalCnt = (long) boardList.get("boardListCnt");
 		board.setTotalCnt(totalCnt);
-		
+		logger.debug("=====] call getBoardList [boardList]====={}",boardList.get("boardList") );
+		logger.debug("=====] call getBoardList [totalCnt]====={}",totalCnt);
 		
 		model.addAttribute("boardList", boardList.get("boardList") );
 		model.addAttribute("boardListCnt", totalCnt );
+		model.addAttribute("boardMstList", boardMstList );
 		
 		
 		return "board/boardList";

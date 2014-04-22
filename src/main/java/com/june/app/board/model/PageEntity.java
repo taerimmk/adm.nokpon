@@ -26,10 +26,11 @@ import javax.persistence.Transient;
  */
 @MappedSuperclass
 public class PageEntity {
+	
 	@Transient
-	int pageSize = 10;
+	private int pageSize = 10;
 	@Transient
-	int pageNumber = 1;
+	private int pageNumber = 1;
 	
 	public int getPageSize() {
 		return pageSize;

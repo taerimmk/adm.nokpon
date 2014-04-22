@@ -16,7 +16,6 @@
 package com.june.app.board.model;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +29,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.model.Pagination;
 
 /**
@@ -232,6 +230,19 @@ public class Board extends Pagination {
 
 	public void setAtchFileIdFile(MultipartFile atchFileIdFile) {
 		this.atchFileIdFile = atchFileIdFile;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [nttId=" + nttId + ", bbsId=" + bbsId + ", nttNo="
+				+ nttNo + ", nttSj=" + nttSj + ", nttCn=" + nttCn
+				+ ", answerYn=" + answerYn + ", parntscttNo=" + parntscttNo
+				+ ", answerLc=" + answerLc + ", sortOrdr=" + sortOrdr
+				+ ", rdcnt=" + rdcnt + ", useYn=" + useYn + ", atchFileId="
+				+ atchFileId + ", frstRegistPnttm=" + frstRegistPnttm
+				+ ", frstRegisterId=" + frstRegisterId + ", lastUpdtPnttm="
+				+ lastUpdtPnttm + ", lastUpdusrId=" + lastUpdusrId
+				+ ", atchFileIdFile=" + atchFileIdFile + "]";
 	}
 
 	
