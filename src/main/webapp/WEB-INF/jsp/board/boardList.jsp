@@ -12,13 +12,20 @@
 		pagination('paging','${board.pageIndex}','${board.totalPageUnit}','callTest');
 		
 		$("#getBoardMst").on("change", function(){
-			var bbsId = $(this).val();
-			var action = '<c:url value="/board/'+bbsId+'/list/1" />';
-			$("#frm").attr("action",action).submit();
+			movePage(1);
 		});
+		$("#goRegistrer").on("click", function(){
+			var bbsId = $("#getBoardMst").val();
+			var action = '<c:url value="/board/'+bbsId+'/insert" />';
+			location.href = action;
+		});
+		
 	});
 
 var callTest = function(page){
+	movePage(page);
+};
+var movePage = function(page){
 	var bbsId = $("#getBoardMst").val();
 	var action = '<c:url value="/board/'+bbsId+'/list/'+page+'" />';
 	$("#frm").attr("action",action).submit();
@@ -132,10 +139,10 @@ var callTest = function(page){
 											</tbody>
 										</table>
 										<div class="row">
+										
 											<div class="col-sm-12">
 												<div class="pull-left">
-													<div class="dataTables_info" id="datatable2_info">Showing
-														1 to 10 of 57 entries</div>
+													<div class="dataTables_info" id="datatable2_info"><button type="submit" class="btn btn-primary" id="goRegistrer">Registrer</button></div>
 												</div>
 												<div class="pull-right">
 													<div class="dataTables_paginate paging_bs_normal" id="paging"></div>

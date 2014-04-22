@@ -85,18 +85,22 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST,  consumes = { "multipart/form-data" })
 	public String goBoardInsertProc(
-			MultipartHttpServletRequest request,
+			//MultipartHttpServletRequest request,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
 			Model model) {
-		logger.debug("=====] call goBoardInsertProc [=====");
+		logger.debug("=====] call goBoardInsertProc [ board.getAtchFileIdFile( ]===={}",board.getAtchFileIdFile());
 		/**페이지당 보여주는 게시물 수*/
+		if (!board.getAtchFileIdFile().isEmpty()){
+		
 		FileDetail fileDetail = fileService.fileSaveDB(board.getAtchFileIdFile());
+		board.setAtchFileId(fileDetail.getAtchFileId());
 		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
+		}
 		/**게시판 ID*/
 		Date today = new Date();
 		board.setBbsId(bbsId);
-		//board.setAtchFileId();
+		
 		board.setFrstRegistPnttm(today);
 		board.setFrstRegisterId("admin");
 		board.setUseYn("Y");
