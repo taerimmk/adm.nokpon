@@ -62,5 +62,12 @@ public class BoardServiceImpl implements BoardService {
 		boardRepository.save(vo);
 	}
 	
+	@Override
+	@Transactional(readOnly = true)
+	public Board boardGet (long seq) throws DataAccessException {
+		return boardRepository.boardGet(seq);
+		
+	}
+	
 
 }

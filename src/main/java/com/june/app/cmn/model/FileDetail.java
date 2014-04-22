@@ -2,14 +2,26 @@ package com.june.app.cmn.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.june.app.board.model.Board;
 
 @Entity
 @Table(name = "FILE_DETAIL")
 public class FileDetail {
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "SEQ")
+    protected Integer seq;
+	
+	
 	@Column(name = "ATCH_FILE_ID")
 	private String atchFileId;
 	
@@ -34,6 +46,14 @@ public class FileDetail {
 	@Column(name = "FILE_SIZE")
 	private double fileSize;
 
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+
 	public String getAtchFileId() {
 		return atchFileId;
 	}
@@ -57,8 +77,6 @@ public class FileDetail {
 	public void setFileStreCours(String fileStreCours) {
 		this.fileStreCours = fileStreCours;
 	}
-
-	
 
 	public String getStreFileNm() {
 		return streFileNm;
@@ -100,7 +118,16 @@ public class FileDetail {
 		this.fileSize = fileSize;
 	}
 
+	@Override
+	public String toString() {
+		return "FileDetail [seq=" + seq + ", atchFileId=" + atchFileId
+				+ ", fileSn=" + fileSn + ", fileStreCours=" + fileStreCours
+				+ ", streFileNm=" + streFileNm + ", orignlFileNm="
+				+ orignlFileNm + ", fileExtsn=" + fileExtsn + ", fileCn="
+				+ fileCn + ", fileSize=" + fileSize + "]";
+	}
 	
+
 	
 
 }

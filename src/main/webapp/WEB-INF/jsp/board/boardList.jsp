@@ -111,7 +111,7 @@ var callTest = function(page){
 												<tr class="gradeA odd">
 													<td class="center "><img class="toggle-details"
 														src="/images/plus.png"></td>
-													<td class=" sorting_1">${rData.nttSj }</td>
+													<td class=" sorting_1"><a href="<c:url value="/board/${rData.bbsId}/get/${rData.nttId}"/>">${rData.nttSj }</a></td>
 													<td class=" ">${rData.frstRegisterId}</td>
 													<td class=" ">${rData.frstRegistPnttm }</td>
 													<td class="center ">
@@ -135,7 +135,6 @@ var callTest = function(page){
 												<!-- <div class="pull-right" id="paging">
 													
 												</div> -->
-												TT: ${boardListCnt}
 												<div class="clearfix"></div>
 											</div>
 										</div>

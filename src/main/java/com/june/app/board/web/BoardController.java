@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.service.BoardService;
-import com.june.app.cmn.model.Pagination;
+import com.june.app.cmn.model.FileDetail;
+import com.june.app.cmn.service.FileService;
 
 /**
  * Handles requests for the application home page.
@@ -28,7 +30,8 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
-
+	@Autowired
+	private FileService fileService;
 	
 	@RequestMapping(value = "/board/{bbsId}/list/{pageIndex}", method = {RequestMethod.POST, RequestMethod.GET})
 	public String getBoardList(Locale locale,
@@ -71,23 +74,43 @@ public class BoardController {
 		return "board/boardInsert";
 	}
 	
-	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST)
-	public String goBoardInsertProc(Locale locale,
+	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST,  consumes = { "multipart/form-data" })
+	public String goBoardInsertProc(
+			MultipartHttpServletRequest request,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
 			Model model) {
 		logger.debug("=====] call goBoardInsertProc [=====");
 		/**페이지당 보여주는 게시물 수*/
-		
+		FileDetail fileDetail = fileService.fileSaveDB(board.getAtchFileIdFile());
 		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
 		/**게시판 ID*/
 		Date today = new Date();
 		board.setBbsId(bbsId);
+		//board.setAtchFileId();
 		board.setFrstRegistPnttm(today);
 		board.setFrstRegisterId("admin");
 		board.setUseYn("Y");
 		boardService.save(board);
-		return "board/boardList";
+		return "redirect:/board/{bbsId}/list/1";
+	}
+	
+	@RequestMapping(value = "/board/{bbsId}/get/{seq}", method = RequestMethod.GET)
+	public String goBoardGet(Locale locale,
+			@ModelAttribute("board") Board board,
+			@PathVariable int bbsId,
+			@PathVariable long seq,
+			Model model) {
+		logger.debug("=====] call goBoardGet [=====");
+		
+		/**게시판 ID*/
+		board.setBbsId(bbsId);
+		/**게시물 ID*/
+		board.setNttId(seq);
+		Board boardDetail = boardService.boardGet(seq);
+		model.addAttribute("boardDetail", boardDetail );
+		model.addAttribute("bbsId", bbsId );
+		return "board/boardDetail";
 	}
 	
 }

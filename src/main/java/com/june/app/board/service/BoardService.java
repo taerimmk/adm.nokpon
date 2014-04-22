@@ -35,4 +35,6 @@ public interface BoardService {
 	public Map<?,?> boardListWithPaging (Board vo) throws DataAccessException;
 	
 	public void save (Board vo) throws DataAccessException;
+	
+	public Board boardGet (long seq) throws DataAccessException;
 }

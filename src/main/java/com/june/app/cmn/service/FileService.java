@@ -16,6 +16,7 @@
 package com.june.app.cmn.service;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.june.app.cmn.model.FIleList;
@@ -30,7 +31,8 @@ import com.june.app.cmn.model.FileDetail;
 public interface FileService {
    
 	public FIleList fileListSave(FIleList vo) throws DataAccessException;
-	public FileDetail fileSaveDB(MultipartHttpServletRequest request, String filePath) throws DataAccessException;
+	public FileDetail fileSaveDB(MultipartHttpServletRequest request) throws DataAccessException;
+	public FileDetail fileSaveDB(MultipartFile file) throws DataAccessException;
 	public FileDetail fileSave(MultipartHttpServletRequest request, String filePath) throws DataAccessException;
 	public FileDetail fileSingle(FileDetail filedetail) throws DataAccessException;
 }

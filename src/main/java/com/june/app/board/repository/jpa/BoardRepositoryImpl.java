@@ -23,13 +23,16 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.repository.BoardRepository;
+import com.june.app.cmn.model.FileDetail;
 import com.june.app.user.repository.UserRepository;
+//Join;
 
 /**
  * JPA implementation of the {@link UserRepository} interface.
@@ -102,6 +105,8 @@ public class BoardRepositoryImpl implements BoardRepository {
         if (bbsId > 0){
         	criteriaQuery.where(criteriaBuilder.equal(from.get("bbsId"), bbsId));
     	}
+        /**list desc for date*/
+        criteriaQuery.orderBy(criteriaBuilder.desc(from.get("frstRegistPnttm")));
         TypedQuery<Board> typedQuery = em.createQuery(select);
         
         
@@ -135,6 +140,14 @@ public class BoardRepositoryImpl implements BoardRepository {
     @Override
     public void save(Board vo) {
     	this.em.persist(vo);
+    }
+    
+    
+    @Override
+    public Board boardGet(long seq) {
+    	Query query = this.em.createQuery("SELECT board FROM Board board WHERE board.useYn ='Y' and board.nttId =:nttId");
+    	query.setParameter("nttId", seq);
+        return (Board) query.getSingleResult();
     }
 
 }

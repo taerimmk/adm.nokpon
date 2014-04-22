@@ -26,7 +26,7 @@
              $.ajax({
                  data: data,
                  type: "POST",
-                 url: "<c:url value='/image/uploadDB.json'/>",
+                 url: "<c:url value='/image/upload/db.json'/>",
                  cache: false,
                  contentType: false,
                  processData: false,
@@ -158,7 +158,7 @@
 							</div>
 							<div class="content">
 								<form class="form-horizontal group-border-dashed" action="<c:url value="/board/${bbsId}/insertProc"/>"
-									style="border-radius: 0px;" id="frm" method="post"  >
+									style="border-radius: 0px;" id="frm" method="post" enctype="multipart/form-data" >
 									<div class="form-group">
 										<label class="col-sm-2 control-label">제목</label>
 										<div class="col-sm-10">
@@ -199,7 +199,7 @@
 													<span class="btn btn-primary btn-file"><span
 														class="fileinput-new">Select image</span><span
 														class="fileinput-exists">Change</span><input type="file"
-														name=""></span> <a href="#"
+														name="atchFileIdFile" /></span> <a href="#"
 														class="btn btn-danger fileinput-exists"
 														data-dismiss="fileinput">Remove</a>
 												</div>

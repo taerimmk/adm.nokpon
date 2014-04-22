@@ -58,7 +58,7 @@ public class FileController {
 	@RequestMapping(value = "/image/upload/db", method = RequestMethod.POST)
 	public String uploadImageDB(MultipartHttpServletRequest request, Model model) {
 
-		FileDetail fileDetail = fileService.fileSaveDB(request, filePath);
+		FileDetail fileDetail = fileService.fileSaveDB(request);
 		
 		String setUrl = "<c:url value='/getImage/"+fileDetail.getAtchFileId()+"/"+fileDetail.getFileSn()+"'/>";
 		model.addAttribute("atchFileId", fileDetail.getAtchFileId());
@@ -126,8 +126,8 @@ public class FileController {
 			filedetail.setFileSn(fileSn);
 			filedetail = fileService.fileSingle(filedetail);
 		}
-
-	    File uFile = new File(filedetail.getFileStreCours(), filedetail.getStreFileNm());
+		String fullPath = filePath + filedetail.getFileStreCours();
+	    File uFile = new File(fullPath, filedetail.getStreFileNm());
 	    int fSize = (int)uFile.length();
 
 	    if (fSize > 0) {
@@ -196,6 +196,7 @@ public class FileController {
 	public void getImageDB(ModelMap model, 
 			@PathVariable String atchFileId,
 			@PathVariable int fileSn,
+			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
 		FileDetail filedetail = new FileDetail();
@@ -211,7 +212,7 @@ public class FileController {
 
 		BufferedInputStream in = null;
 		ByteArrayOutputStream bStream = null;
-
+		
 		try {
 			fis = new FileInputStream(file);
 			in = new BufferedInputStream(fis);
@@ -232,7 +233,7 @@ public class FileController {
 			
 			response.setHeader("Content-Type", type);
 			response.setContentLength(bStream.size());
-
+			
 			bStream.writeTo(response.getOutputStream());
 
 			response.getOutputStream().flush();

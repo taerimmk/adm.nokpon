@@ -16,6 +16,7 @@
 package com.june.app.board.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,10 +24,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.model.Pagination;
 
 /**
@@ -90,6 +94,9 @@ public class Board extends Pagination {
 
 	@Column(name = "LAST_UPDUSR_ID")
 	private String lastUpdusrId;
+	
+	@Transient
+	private MultipartFile atchFileIdFile;
 
 	public long getNttId() {
 		return nttId;
@@ -219,16 +226,16 @@ public class Board extends Pagination {
 		this.lastUpdusrId = lastUpdusrId;
 	}
 
-	@Override
-	public String toString() {
-		return "Board [nttId=" + nttId + ", bbsId=" + bbsId + ", nttNo="
-				+ nttNo + ", nttSj=" + nttSj + ", nttCn=" + nttCn
-				+ ", answerYn=" + answerYn + ", parntscttNo=" + parntscttNo
-				+ ", answerLc=" + answerLc + ", sortOrdr=" + sortOrdr
-				+ ", rdcnt=" + rdcnt + ", useYn=" + useYn + ", atchFileId="
-				+ atchFileId + ", frstRegistPnttm=" + frstRegistPnttm
-				+ ", frstRegisterId=" + frstRegisterId + ", lastUpdtPnttm="
-				+ lastUpdtPnttm + ", lastUpdusrId=" + lastUpdusrId + "]";
+	public MultipartFile getAtchFileIdFile() {
+		return atchFileIdFile;
 	}
+
+	public void setAtchFileIdFile(MultipartFile atchFileIdFile) {
+		this.atchFileIdFile = atchFileIdFile;
+	}
+
+	
+	
+	
 
 }

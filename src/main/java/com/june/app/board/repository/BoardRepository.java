@@ -54,5 +54,7 @@ public interface BoardRepository {
 	long boardListCnt (Board vo) throws DataAccessException;
 	
 	void save (Board vo) throws DataAccessException;
+	
+	Board boardGet (long seq) throws DataAccessException;
 
 }
