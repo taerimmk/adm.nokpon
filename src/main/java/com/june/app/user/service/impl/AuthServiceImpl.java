@@ -35,10 +35,10 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 
 	@Transactional
 	@Override
-	public UserDetails loadUserByUsername(String id)
+	public UserDetails loadUserByUsername(String userId)
 			throws UsernameNotFoundException {
 
-		UserInfo userInfos = userRepository.getUser(id);
+		UserInfo userInfos = userRepository.getUser(userId);
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		Set<RoleInfo> roleInfos = userInfos.getRoleInfos();
 		for (RoleInfo roleInfo :roleInfos){
@@ -59,7 +59,7 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 			authorities.add(userAuthority);
 			authorities.add(adminAuthority);
 		}*/
-		UserDetails user = new User(userInfos.getId(),
+		UserDetails user = new User(userInfos.getUserId(),
 				userInfos.getPassword(), true, true, true, true, authorities);
 		return user;
 	}

@@ -43,12 +43,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class UserInfo {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "seq")
 	protected Integer seq;
 	
-	@Column(name = "id")
+	@Column(name = "USER_ID")
     @NotEmpty
-	protected String id;
+	protected String userId;
 	
 	@Column(name = "name")
     @NotEmpty
@@ -60,8 +61,6 @@ public class UserInfo {
 	@Column(name = "status")
 	protected String status;
 	
-	@Column(name = "unique_id")
-	protected String unique_id;
 	
 	@Column(name = "password")
 	private String password;
@@ -77,12 +76,12 @@ public class UserInfo {
 		this.seq = seq;
 	}
 
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -107,14 +106,6 @@ public class UserInfo {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getUnique_id() {
-		return unique_id;
-	}
-
-	public void setUnique_id(String unique_id) {
-		this.unique_id = unique_id;
 	}
 
 	public String getPassword() {

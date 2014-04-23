@@ -39,7 +39,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class RoleInfo {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "seq")
 	protected Integer seq;
 	
 	
@@ -49,7 +50,7 @@ public class RoleInfo {
 	
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_seq")
 	//@JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserInfo userInfo;
 
