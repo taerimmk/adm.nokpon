@@ -13,7 +13,8 @@
 									<li><a href="#">Profile</a></li>
 									<li><a href="#">Messages</a></li>
 									<li class="divider"></li>
-									<li><a href="#">Sign Out</a></li>
+									<li><a href="<c:url value="/j_spring_security_logout"/>">Sign Out</a></li>
+									
 								</ul></li>
 						</ul>
 						<ul class="nav navbar-nav not-nav">
