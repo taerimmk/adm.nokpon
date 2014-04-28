@@ -28,7 +28,7 @@
 				<h3 class="text-center"><img class="logo-img" src="<c:url value="/resources/images/logo.png"/>" alt="logo"/></h3>
 			</div>
 			<div>
-				<form style="margin-bottom: 0px !important;" class="form-horizontal" action="<c:url value='j_spring_security_check'/>" method="POST">
+				<form style="margin-bottom: 0px !important;" class="form-horizontal" action="<c:url value='/j_spring_security_check'/>" method="POST">
 					<div class="content">
 						<h4 class="title">Login Access</h4>
 							<div class="form-group">

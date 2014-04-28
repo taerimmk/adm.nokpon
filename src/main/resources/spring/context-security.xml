@@ -13,11 +13,27 @@
 		<form-login login-page="/login" default-target-url="/main"
 			authentication-failure-url="/accessdenied" always-use-default-target="true" />
 		<logout logout-success-url="/login" />
+		<session-management>
+        	<concurrency-control max-sessions="1" expired-url="/login"/>
+		</session-management>
+			
+			
 	</http>
-
+	
+	<beans:bean name="bcryptEncoder"
+    class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    
 	<authentication-manager>
 		<authentication-provider user-service-ref="authService">
+			<!-- <password-encoder ref="bcryptEncoder" /> -->
 		</authentication-provider>
 	</authentication-manager>
-
+	
+	
+	<!-- $2a$10$.0rrlOURgWeQjbwemsPSEOW1yIIlsjV6JmrnT56iJWnNrtr/F3k8u -->	
+	<!-- $2a$10$H1jy3XhjwlqLb2yG280MmekaBV547Ap18GUGvx9TfqXaJhwVF93zO -->
+	<!-- $2a$10$dVLUgR0pSMqEKIbGlks1D.ZOLcwsUGT0DSO66.wr68qUCRn4UhOPi -->
+	<!-- $2a$10$.0rrlOURgWeQjbwemsPSEOW1yIIlsjV6JmrnT56iJWnNrtr/F3k8u -->
+	
+	
 </beans:beans>
