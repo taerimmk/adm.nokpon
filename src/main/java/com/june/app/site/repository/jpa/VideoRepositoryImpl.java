@@ -76,11 +76,11 @@ public class VideoRepositoryImpl implements VideoRepository {
     }
     
     
-    /*@Override
-    public Board boardGet(long seq) {
-    	Query query = this.em.createQuery("SELECT board FROM Board board WHERE board.useYn ='Y' and board.nttId =:nttId");
-    	query.setParameter("nttId", seq);
-        return (Board) query.getSingleResult();
-    }*/
+    @Override
+    public Video videoGet(Integer nttId) {
+    	Query query = this.em.createQuery("SELECT video FROM Video video WHERE video.nttId =:nttId");
+    	query.setParameter("nttId", nttId);
+        return (Video) query.getSingleResult();
+    }
 
 }

@@ -23,7 +23,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.june.app.board.model.Board;
 import com.june.app.site.model.Video;
 import com.june.app.site.repository.VideoRepository;
 import com.june.app.site.service.VideoService;
@@ -56,6 +55,14 @@ public class VideoServiceImpl implements VideoService {
 	public void save (Video vo) throws DataAccessException {
 		videoRepository.save(vo);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Video videoGet (Integer nttId) throws DataAccessException {
+		return videoRepository.videoGet(nttId);
+	}
+	
+	
 	
 
 }

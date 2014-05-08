@@ -12,8 +12,7 @@
 		pagination('paging','${video.pageIndex}','${video.totalPageUnit}','callTest');
 		
 		$("#goRegistrer").on("click", function(){
-			
-			var action = '<c:url value="/site/video/insert" />';
+			var action = '<c:url value="/site/video/new" />';
 			location.href = action;
 		});
 		
@@ -104,7 +103,7 @@
 												<tr class="gradeA odd">
 													<td class="center "><img class="toggle-details"
 														src="/images/plus.png"></td>
-													<td class=" sorting_1"><a href="<c:url value="/"/>">${rData.nttSj }</a></td>
+													<td class=" sorting_1"><a href="<c:url value="/site/video/get/${rData.nttId}"/>">${rData.nttSj }</a></td>
 													<td class=" ">${rData.user.userId}</td>
 													<td class=" ">${rData.frstRegistPnttm }</td>
 													<td class="center ">

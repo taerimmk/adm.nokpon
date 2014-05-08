@@ -34,7 +34,6 @@ import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
 
-import com.june.app.board.model.Board;
 import com.june.app.site.model.Video;
 
 /**
@@ -54,6 +53,6 @@ public interface VideoRepository {
 	
 	void save (Video vo) throws DataAccessException;
 	
-	/*Board boardGet (long seq) throws DataAccessException;*/
+	Video videoGet (Integer nttId) throws DataAccessException;
 
 }

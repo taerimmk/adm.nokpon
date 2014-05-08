@@ -1,17 +1,22 @@
 package com.june.app.site.web;
 
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.june.app.site.model.Video;
 import com.june.app.site.service.VideoService;
@@ -50,57 +55,40 @@ public class VideoController {
 	
 	@RequestMapping(value = "/site/video/new", method = RequestMethod.GET)
 	public String goVideoInsert(Locale locale,
-			@ModelAttribute("video") Video video,
-			@PathVariable int nttId,
 			Model model) {
 		logger.debug("=====] call goVideoInsert [=====");
-		
-		video.setNttId(nttId);
-		model.addAttribute("nttId", nttId);
+        model.addAttribute("save", "new");
 		return "site/videoSave";
 	}
-	/*
-	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST,  consumes = { "multipart/form-data" })
-	public String goBoardInsertProc(
-			//MultipartHttpServletRequest request,
-			@ModelAttribute("board") Board board,
-			@PathVariable int bbsId,
-			Model model) {
-		logger.debug("=====] call goBoardInsertProc [ board.getAtchFileIdFile( ]===={}",board.getAtchFileIdFile());
-		*//**페이지당 보여주는 게시물 수*//*
-		if (!board.getAtchFileIdFile().isEmpty()){
-		
-		FileDetail fileDetail = fileService.fileSaveDB(board.getAtchFileIdFile());
-		board.setAtchFileId(fileDetail.getAtchFileId());
-		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
-		}
-		*//**게시판 ID*//*
-		Date today = new Date();
-		board.setBbsId(bbsId);
-		
-		board.setFrstRegistPnttm(today);
-		board.setFrstRegisterId("admin");
-		board.setUseYn("Y");
-		boardService.save(board);
-		return "redirect:/board/{bbsId}/list/1";
+	@RequestMapping(value = "/site/video/new", method = RequestMethod.POST)
+	public String goVideoInsertProc(Locale locale,
+			@Valid Video video, BindingResult result, SessionStatus status
+			) {
+		logger.debug("=====] call goVideoInsertProc [=====");
+		if (result.hasErrors()) {
+            return "site/videoSave";
+        } else {
+        	
+        	Date today = new Date();
+        	video.setUseYn("Y");
+        	video.setFrstRegistPnttm(today);
+        	video.setLastUpdtPnttm(today);
+        	video.setFrstRegisterId("2");
+            videoService.save(video);
+            status.setComplete();
+            return "redirect:/site/video/list/1";
+        }
 	}
 	
-	@RequestMapping(value = "/board/{bbsId}/get/{seq}", method = RequestMethod.GET)
-	public String goBoardGet(Locale locale,
-			@ModelAttribute("board") Board board,
-			@PathVariable int bbsId,
-			@PathVariable long seq,
+	@RequestMapping(value = "/site/video/get/{nttId}", method = RequestMethod.GET)
+	public String getVideoDetail(Locale locale,
+			@PathVariable Integer nttId,
 			Model model) {
-		logger.debug("=====] call goBoardGet [=====");
-		
-		*//**게시판 ID*//*
-		board.setBbsId(bbsId);
-		*//**게시물 ID*//*
-		board.setNttId(seq);
-		Board boardDetail = boardService.boardGet(seq);
-		model.addAttribute("boardDetail", boardDetail );
-		model.addAttribute("bbsId", bbsId );
-		return "board/boardDetail";
-	}*/
+		logger.debug("=====] call getVideoDetail [=====");
+		Video video = videoService.videoGet(nttId);
+        model.addAttribute("video", video);
+		return "site/videoDetail";
+	}
+	
 	
 }

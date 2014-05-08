@@ -34,4 +34,6 @@ public interface VideoService {
 	
 	public void save (Video vo) throws DataAccessException;
 	
+	public Video videoGet (Integer nttId) throws DataAccessException;
+	
 }

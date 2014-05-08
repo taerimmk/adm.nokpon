@@ -25,7 +25,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.june.app.cmn.model.Pagination;
 import com.june.app.user.model.UserInfo;
@@ -45,34 +46,31 @@ public class Video extends Pagination {
 	private Integer nttId;
 
 	@Column(name = "NTT_SJ")
-	@NotNull
+	@NotEmpty
 	private String nttSj;
 	
 	@Column(name = "NTT_LINK")
-	@NotNull
+	@NotEmpty
 	private String nttLink;
 	
 	@Column(name = "NTT_CN")
-	@NotNull
+	@NotEmpty
 	private String nttCn;
 	
 	@Column(name = "RDCNT")
-	private Integer rdcnt;
+	private Integer rdcnt = 0;
 	
 	@Column(name = "USE_YN")
-	@NotNull
 	private String useYn;
 	
 	@Column(name = "DISPLAY_DIV")
-	@NotNull
+	@NotEmpty
 	private String displayDiv;
 	
 	@Column(name = "FRST_REGIST_PNTTM")
-	@NotNull
 	private Date frstRegistPnttm;
 	
 	@Column(name = "FRST_REGISTER_ID")
-	@NotNull
 	private String frstRegisterId;
 	
 	@Column(name = "LAST_UPDT_PNTTM")
