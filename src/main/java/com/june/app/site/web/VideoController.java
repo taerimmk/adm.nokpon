@@ -32,19 +32,15 @@ public class VideoController {
 			@ModelAttribute("video") Video video,
 			@PathVariable int pageIndex,
 			Model model) {
-		logger.debug("=====] call getBoardList [=====");
+		logger.debug("=====] call getVideoList [=====");
 		/**페이지당 보여주는 게시물 수*/
 		video.setPageSize(2);
 		/**현재 페이지*/
 		video.setPageIndex(pageIndex);
-		
-		
 		Map<?,?> videoList = videoService.videoListWithPaging(video);
-		
+
 		long totalCnt = (long) videoList.get("videoListCnt");
 		video.setTotalCnt(totalCnt);
-		logger.debug("=====] call getBoardList [videoList]====={}",videoList.get("videoList") );
-		logger.debug("=====] call getBoardList [totalCnt]====={}",totalCnt);
 		
 		model.addAttribute("videoList", videoList.get("videoList") );
 		model.addAttribute("videoListCnt", totalCnt );
@@ -52,20 +48,18 @@ public class VideoController {
 		return "site/videoList";
 	}
 	
-	/*@RequestMapping(value = "/board/{bbsId}/insert", method = RequestMethod.GET)
-	public String goBoardInsert(Locale locale,
-			@ModelAttribute("board") Board board,
-			@PathVariable int bbsId,
+	@RequestMapping(value = "/site/video/new", method = RequestMethod.GET)
+	public String goVideoInsert(Locale locale,
+			@ModelAttribute("video") Video video,
+			@PathVariable int nttId,
 			Model model) {
-		logger.debug("=====] call goBoardInsert [=====");
-		*//**페이지당 보여주는 게시물 수*//*
+		logger.debug("=====] call goVideoInsert [=====");
 		
-		*//**게시판 ID*//*
-		board.setBbsId(bbsId);
-		model.addAttribute("bbsId", bbsId );
-		return "board/boardInsert";
+		video.setNttId(nttId);
+		model.addAttribute("nttId", nttId);
+		return "site/videoSave";
 	}
-	
+	/*
 	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST,  consumes = { "multipart/form-data" })
 	public String goBoardInsertProc(
 			//MultipartHttpServletRequest request,
