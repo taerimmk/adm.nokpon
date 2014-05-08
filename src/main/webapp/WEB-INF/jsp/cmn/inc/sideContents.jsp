@@ -49,7 +49,7 @@
 								</ul></li>	
 							<li><a href="#"><i class="fa fa-table"></i><span>메인페이지</span></a>
 								<ul class="sub-menu">
-									<li><a href="<c:url value="/main/video/list"/>">영상관리</a></li>
+									<li><a href="<c:url value="/site/video/list/1"/>">영상관리</a></li>
 									<li><a href="tables-datatables.html"><span
 											class="label label-primary pull-right">New</span>Data Tables</a></li>
 									<li><a href="tables-xeditable.html"><span
