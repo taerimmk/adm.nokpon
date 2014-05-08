@@ -6,6 +6,7 @@
 	http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http pattern="/login" security="none" />
+	<http pattern="/resources/**" security="none" />
 
 	<http>
 		<!-- <intercept-url pattern="/user/*" access="ROLE_USER" /> -->
@@ -25,7 +26,7 @@
     
 	<authentication-manager>
 		<authentication-provider user-service-ref="authService">
-			<!-- <password-encoder ref="bcryptEncoder" /> -->
+			<password-encoder ref="bcryptEncoder" />
 		</authentication-provider>
 	</authentication-manager>
 	
