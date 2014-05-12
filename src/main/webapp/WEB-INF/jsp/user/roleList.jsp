@@ -9,31 +9,18 @@
 
 <script type='text/javascript'>
 	$(function() {
-		pagination('paging','${board.pageIndex}','${board.totalPageUnit}','callTest');
+		pagination('paging','${user.pageIndex}','${user.totalPageUnit}','movePage');
 		
-		$("#getBoardMst").on("change", function(){
-			movePage(1);
-		});
 		$("#goRegistrer").on("click", function(){
-			var bbsId = $("#getBoardMst").val();
-			var action = '<c:url value="/board/'+bbsId+'/insert" />';
+			var action = '<c:url value="/user/new" />';
 			location.href = action;
-			
-			return false;
 		});
 		
 	});
-
-var callTest = function(page){
-	movePage(page);
-};
-var movePage = function(page){
-	var bbsId = $("#getBoardMst").val();
-	var action = '<c:url value="/board/'+bbsId+'/list/'+page+'" />';
-	location.href = action;
-	
-	return false;
-};
+	var movePage = function(page){
+		var action = '<c:url value="/user/list/'+page+'" />';
+		location.href = action;
+	};
 </script>
 </head>
 <body class="animated">
@@ -80,17 +67,7 @@ var movePage = function(page){
 													</div>
 												</div>
 												<div class="pull-left">
-													<div id="datatable2_length" class="dataTables_length">
-														<label>Select <select size="1"
-															name="datatable2_length" aria-controls="datatable2"
-															class="form-control" id="getBoardMst">
-															<option value="0">전체</option>
-															<c:forEach items="${boardMstList}" var="boardMst" varStatus="boarMstStatus">
-																<option value="${boardMst.bbsId}" <c:if test="${boardMst.bbsId eq board.bbsId}">selected='selected'</c:if>>${boardMst.bbsNm}</option>
-															</c:forEach>
-															</select>  BBS
-														</label>
-													</div>
+													
 												</div>
 												<div class="clearfix"></div>
 											</div>
@@ -100,43 +77,32 @@ var movePage = function(page){
 											<thead>
 												<tr role="row">
 													<th class="sorting_disabled" role="columnheader"
-														rowspan="1" colspan="1" aria-label="" style="width: 22px;"></th>
+														rowspan="1" colspan="1" aria-label="" style="width: 22px;"><input type="checkbox" /></th>
 													<th class="sorting_asc" role="columnheader" tabindex="0"
 														aria-controls="datatable2" rowspan="1" colspan="1"
 														style="width: 469px;" aria-sort="ascending"
-														aria-label="Rendering engine: activate to sort column descending">제목</th>
+														aria-label="Rendering engine: activate to sort column descending">사용자</th>
 													<th class="sorting" role="columnheader" tabindex="0"
 														aria-controls="datatable2" rowspan="1" colspan="1"
 														aria-label="Browser: activate to sort column ascending"
-														style="width: 176px;">글쓴이</th>
-													<th class="sorting" role="columnheader" tabindex="0"
-														aria-controls="datatable2" rowspan="1" colspan="1"
-														aria-label="Platform(s): activate to sort column ascending"
-														style="width: 248px;">등록일</th>
-													<th class="sorting" role="columnheader" tabindex="0"
-														aria-controls="datatable2" rowspan="1" colspan="1"
-														aria-label="Engine version: activate to sort column ascending"
-														style="width: 127px;">삭제여부</th>
-													<th class="sorting" role="columnheader" tabindex="0"
-														aria-controls="datatable2" rowspan="1" colspan="1"
-														aria-label="CSS grade: activate to sort column ascending"
-														style="width: 164px;">기타</th>
+														style="width: 176px;">권한</th>
+													
 												</tr>
 											</thead>
-
+											
 											<tbody role="alert" aria-live="polite" aria-relevant="all">
-											<c:if test="${not empty boardList }">
-												<c:forEach items="${boardList }" varStatus="status" var="rData">
+											<c:if test="${not empty userList }">
+												<c:forEach items="${userList }" varStatus="status" var="rData">
 												<tr class="gradeA odd">
-													<td class="center "><img class="toggle-details"
-														src="/images/plus.png"></td>
-													<td class=" sorting_1"><a href="<c:url value="/board/${rData.bbsId}/get/${rData.nttId}"/>">${rData.nttSj }</a></td>
-													<td class=" ">${rData.frstRegisterId}</td>
-													<td class=" ">${rData.frstRegistPnttm }</td>
-													<td class="center ">
-														${rData.useYn  eq 'N' ? '삭제' : '미삭제'}
+													<td class="center "><input type="checkbox" /></td>
+													<td class=" sorting_1"><a href="<c:url value="/user/get/${rData.seq}/${user.pageIndex }"/>">${rData.userId }</a></td>
+													<td class=" ">
+													<c:forEach items="${rData.roleInfos }" varStatus="status" var="rDataSub">
+													${rDataSub.role} 
+													<input type="checkbox" value=""/>
+													</c:forEach>
 													</td>
-													<td class="center ">A</td>
+													
 												</tr>
 												</c:forEach>
 											</c:if>													
@@ -146,7 +112,7 @@ var movePage = function(page){
 										
 											<div class="col-sm-12">
 												<div class="pull-left">
-													<div class="dataTables_info" id="datatable2_info"><button type="submit" class="btn btn-primary" id="goRegistrer">Registrer</button></div>
+													<div class="dataTables_info" id="datatable2_info"><button type="submit" class="btn btn-primary" id="goRegistrer">저장</button></div>
 												</div>
 												<div class="pull-right">
 													<div class="dataTables_paginate paging_bs_normal" id="paging"></div>

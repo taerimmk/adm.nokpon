@@ -30,6 +30,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.june.app.cmn.model.Pagination;
 
 
 /**
@@ -40,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 //@JsonSerialize
 @Table(name = "NOK_USER")
-public class UserInfo {
+public class UserInfo extends Pagination {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

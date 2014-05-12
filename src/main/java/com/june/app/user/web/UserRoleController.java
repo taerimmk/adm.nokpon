@@ -1,6 +1,5 @@
 package com.june.app.user.web;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -21,21 +20,21 @@ import com.june.app.user.service.UserService;
  * Handles requests for the application home page.
  */
 @Controller
-public class UserController {
+public class UserRoleController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserRoleController.class);
 	
 	
 	private final UserService userService;
 
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserRoleController(UserService userService) {
         this.userService = userService;
     }
 	
-	@RequestMapping(value = "/user/list/{pageIndex}", method = RequestMethod.GET)
-	public String selectUserList(Locale locale,
+	@RequestMapping(value = "/user/role/{pageIndex}", method = RequestMethod.GET)
+	public String UserRoleList(Locale locale,
 			@ModelAttribute("user") UserInfo user,
 			@PathVariable int pageIndex,
 			Model model) 
@@ -51,21 +50,7 @@ public class UserController {
 		model.addAttribute("userList",  userList.get("userList") );
 		model.addAttribute("userListCnt", totalCnt );
 		
-		return "user/userList";
+		return "user/roleList";
 	}
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/user/get/{seq}/{pageIndex}", method = RequestMethod.GET)
-	public String selectUser(Locale locale,
-			@PathVariable int pageIndex,
-			@PathVariable Integer seq,
-			Model model) {
-		UserInfo user = userService.getUser(seq);
-		
-		model.addAttribute("user", user );
-		model.addAttribute("pageIndex", pageIndex );
-		
-		return "user/userDetail";
-	}
+	
 }

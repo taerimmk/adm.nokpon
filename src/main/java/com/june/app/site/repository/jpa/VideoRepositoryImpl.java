@@ -52,7 +52,6 @@ public class VideoRepositoryImpl implements VideoRepository {
     	int pageNumber = (int) vo.getPageIndex();
         
     	String queryString = "SELECT video FROM Video video WHERE video.useYn ='Y'";
-    	
         Query query = this.em.createQuery(queryString);
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);

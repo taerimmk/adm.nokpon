@@ -30,6 +30,8 @@
  */
 package com.june.app.user.repository;
 
+import java.util.Collection;
+
 import org.springframework.dao.DataAccessException;
 
 import com.june.app.user.model.UserInfo;
@@ -46,9 +48,14 @@ import com.june.app.user.model.UserInfo;
 public interface UserRepository {
 
     
-    UserInfo selectUser(int seq) throws DataAccessException;
+    UserInfo getUser(Integer seq) throws DataAccessException;
 
-    UserInfo getUser(String username);
-
+    UserInfo getUser(String username) throws DataAccessException;
+    
+    Collection<UserInfo> userList(UserInfo vo) throws DataAccessException;
+    
+    public long userListCnt(UserInfo vo) throws DataAccessException;
+    
+    public void save(UserInfo vo) throws DataAccessException;
 
 }

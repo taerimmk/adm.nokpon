@@ -9,7 +9,7 @@
 
 <script type='text/javascript'>
 	$(function() {
-		pagination('paging','${video.pageIndex}','${video.totalPageUnit}','callTest');
+		pagination('paging','${video.pageIndex}','${video.totalPageUnit}','movePage');
 		
 		$("#goRegistrer").on("click", function(){
 			var action = '<c:url value="/site/video/new" />';
@@ -17,6 +17,10 @@
 		});
 		
 	});
+	var movePage = function(page){
+		var action = '<c:url value="/site/video/list/'+page+'" />';
+		location.href = action;
+	};
 </script>
 </head>
 <body class="animated">
@@ -102,7 +106,7 @@
 												<c:forEach items="${videoList }" varStatus="status" var="rData">
 												<tr class="gradeA odd">
 													<td class="center "><img class="toggle-details"
-														src="/images/plus.png"></td>
+														src="<c:url value="/resources/images/plus.png"/>" ></td>
 													<td class=" sorting_1"><a href="<c:url value="/site/video/get/${rData.nttId}"/>">${rData.nttSj }</a></td>
 													<td class=" ">${rData.user.userId}</td>
 													<td class=" ">${rData.frstRegistPnttm }</td>

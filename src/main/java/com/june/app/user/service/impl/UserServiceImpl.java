@@ -15,6 +15,9 @@
  */
 package com.june.app.user.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -43,25 +46,30 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
- 
 
     @Override
     @Transactional(readOnly = true)
-    public UserInfo selectUser(int seq) throws DataAccessException {
-        return userRepository.selectUser(seq);
+    public UserInfo getUser(Integer seq) throws DataAccessException {
+        return userRepository.getUser(seq);
     }
     
     
-    /*@SuppressWarnings("deprecation")
+    @Override
+	@Transactional(readOnly = true)
+	public Map<?,?> userList (UserInfo vo) throws DataAccessException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userList", userRepository.userList(vo));
+		map.put("userListCnt", userRepository.userListCnt(vo));
+		return map;
+	}
+	
+	
 	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException, DataAccessException
-	{
-		System.out.println("Getting access details from employee dao !!");
-        
-		// Ideally it should be fetched from database and populated instance of
-		// #org.springframework.security.core.userdetails.User should be returned from this method
-		//UserDetails user = new User(username, "password", true, true, true, true, new GrantedAuthority[]{ new GrantedAuthorityImpl("ROLE_USER") });
-		return user;
-	}*/
+	@Transactional(readOnly = true)
+	public void save (UserInfo vo) throws DataAccessException {
+		userRepository.save(vo);
+	}
+    
+    
+  
 }
