@@ -2,7 +2,6 @@ package com.june.app.user.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.june.app.user.model.RoleInfo;
 import com.june.app.user.model.UserInfo;
+import com.june.app.user.model.UserRoleInfo;
 import com.june.app.user.repository.UserRepository;
 import com.june.app.user.service.IAuthService;
 
@@ -41,12 +41,20 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 		UserInfo userInfos = userRepository.getUser(userId);
 		logger.debug("====================={}",userInfos.toString() );
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		Set<RoleInfo> roleInfos = userInfos.getRoleInfos();
+		/*Set<RoleInfo> roleInfos = userInfos.getRoleInfos();
 		for (RoleInfo roleInfo :roleInfos){
 			SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(roleInfo.getRole());
 			authorities.add(userAuthority);
-		}
+		}*/
+		
+		/**유저 권한 1:1 매핑으로 수정*/
+		RoleInfo roleInfo = userInfos.getUserRoleInfo().getRoleInfo();
+		logger.debug("========== roleInfo ==========={}",roleInfo.toString() );
+		logger.debug("========== roleInfo name ==========={}",roleInfo.toString() );
+		SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(roleInfo.getRole());
+		authorities.add(userAuthority);
 	
+		
 		
 		/*SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(details.getRole());*/
 		/*SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority(

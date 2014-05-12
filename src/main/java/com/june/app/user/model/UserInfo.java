@@ -15,21 +15,17 @@
  */
 package com.june.app.user.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.june.app.cmn.model.Pagination;
 
 
@@ -66,10 +62,14 @@ public class UserInfo extends Pagination {
 	@Column(name = "password")
 	private String password;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo" ,fetch=FetchType.EAGER )
-    private Set<RoleInfo> roleInfos;
+	/*@OneToOne
+	@JoinColumn(name="seq")
+    private UserRoleInfo userRoleInfo;*/
 	
-	
+	@OneToOne(optional = true)
+	@JoinColumn(name = "seq", referencedColumnName = "user",insertable = false, updatable = false)
+	private UserRoleInfo userRoleInfo;
+
 	public Integer getSeq() {
 		return seq;
 	}
@@ -118,37 +118,15 @@ public class UserInfo extends Pagination {
 		this.password = password;
 	}
 
-	@JsonManagedReference
-	public Set<RoleInfo> getRoleInfos() {
-		return roleInfos;
+	public UserRoleInfo getUserRoleInfo() {
+		return userRoleInfo;
 	}
 
-	public void setRoleInfos(Set<RoleInfo> roleInfos) {
-		this.roleInfos = roleInfos;
-	}
-
+	public void setUserRoleInfo(UserRoleInfo userRoleInfo) {
+		this.userRoleInfo = userRoleInfo;
+	}	
 	
-	/*protected void setRoleInfoInternal(Set<RoleInfo> roleInfos) {
-        this.roleInfos = roleInfos;
-    }
-
-    protected Set<RoleInfo> getRoleInfosInternal() {
-        if (this.roleInfos == null) {
-            this.roleInfos = new HashSet<RoleInfo>();
-        }
-        return this.roleInfos;
-    }
-
-    public List<RoleInfo> getRoleInfos() {
-        List<RoleInfo> sortedRoleInfos = new ArrayList<RoleInfo>(getRoleInfosInternal());
-        //PropertyComparator.sort(sortedRoleInfo, new MutableSortDefinition("name", true, true));
-        return Collections.unmodifiableList(sortedRoleInfos);
-    }
-
-    public void addRoleInfo(RoleInfo roleInfo) {
-    	getRoleInfosInternal().add(roleInfo);
-    	roleInfo.setUserInfo(this);
-    }
-*/		
+	
+	
 
 }
