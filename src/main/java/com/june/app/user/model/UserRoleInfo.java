@@ -1,19 +1,6 @@
-/*
- * Copyright 2002-2013 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.june.app.user.model;
+
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,54 +31,76 @@ public class UserRoleInfo {
 	
 	@Column(name = "user")
     @NotEmpty
-	protected String user;
+	protected Integer user;
 	
 	@Column(name = "role")
     @NotEmpty
-	protected String role;
+	protected Integer role;
+	
+	@Column(name = "REGI_DATE")
+    @NotEmpty
+	protected Date regiDate;
+	
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "role", insertable=false,updatable=false)
     private RoleInfo roleInfo;
 
+
 	public Integer getSeq() {
 		return seq;
 	}
+
 
 	public void setSeq(Integer seq) {
 		this.seq = seq;
 	}
 
-	public String getUser() {
+
+	public Integer getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+
+	public void setUser(Integer user) {
 		this.user = user;
 	}
 
-	public String getRole() {
+
+	public Integer getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+
+	public void setRole(Integer role) {
 		this.role = role;
 	}
+
+
+	public Date getRegiDate() {
+		return regiDate;
+	}
+
+
+	public void setRegiDate(Date regiDate) {
+		this.regiDate = regiDate;
+	}
+
 
 	public RoleInfo getRoleInfo() {
 		return roleInfo;
 	}
 
+
 	public void setRoleInfo(RoleInfo roleInfo) {
 		this.roleInfo = roleInfo;
 	}
 
+
 	@Override
 	public String toString() {
 		return "UserRoleInfo [seq=" + seq + ", user=" + user + ", role=" + role
-				+ ", roleInfo=" + roleInfo + "]";
+				+ ", regiDate=" + regiDate + ", roleInfo=" + roleInfo + "]";
 	}
 
-	
-	
 }

@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.june.app.user.model.RoleInfo;
 import com.june.app.user.model.UserInfo;
-import com.june.app.user.model.UserRoleInfo;
 import com.june.app.user.repository.UserRepository;
 import com.june.app.user.service.IAuthService;
 
@@ -39,7 +38,6 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 			throws UsernameNotFoundException {
 
 		UserInfo userInfos = userRepository.getUser(userId);
-		logger.debug("====================={}",userInfos.toString() );
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		/*Set<RoleInfo> roleInfos = userInfos.getRoleInfos();
 		for (RoleInfo roleInfo :roleInfos){
@@ -49,8 +47,6 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 		
 		/**유저 권한 1:1 매핑으로 수정*/
 		RoleInfo roleInfo = userInfos.getUserRoleInfo().getRoleInfo();
-		logger.debug("========== roleInfo ==========={}",roleInfo.toString() );
-		logger.debug("========== roleInfo name ==========={}",roleInfo.toString() );
 		SimpleGrantedAuthority userAuthority = new SimpleGrantedAuthority(roleInfo.getRole());
 		authorities.add(userAuthority);
 	
