@@ -111,8 +111,8 @@ $(document).ready(function() {
 									<fmt:parseDate value="${video.regiDate}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<input type="hidden" name="displayDiv" value="M" />
 									<input type="hidden" name="nttId" value="${video.nttId }" />
-									<input type="hidden" name="regiDate" value="${video.regiDate}" />
-									<input type="hidden" name="regiId" value="${video.regiId}" />
+									<%-- <input type="hidden" name="regiDate" value="${video.regiDate}" />
+									<input type="hidden" name="regiId" value="${video.regiId}" /> --%>
 									
 									<%-- <fmt:formatDate pattern="yyyy-MM-dd" value="${video.regiDate}" /> --%>
 									<div class="form-group">

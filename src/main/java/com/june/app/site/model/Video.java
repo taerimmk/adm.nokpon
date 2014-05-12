@@ -53,11 +53,11 @@ public class Video extends Pagination {
 	@NotEmpty
 	private String displayDiv;
 	
-	@Column(name = "REGI_DATE")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Column(name = "REGI_DATE", updatable=false)
+	//@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date regiDate;
 	
-	@Column(name = "REGI_ID")
+	@Column(name = "REGI_ID", updatable=false)
 	private Integer regiId;
 	
 	@Column(name = "UPDT_DATE")
