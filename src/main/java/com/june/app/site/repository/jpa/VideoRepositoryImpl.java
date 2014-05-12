@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -40,7 +41,7 @@ import com.june.app.user.repository.UserRepository;
 @Repository
 public class VideoRepositoryImpl implements VideoRepository {
 
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager em;
 
    
@@ -51,7 +52,7 @@ public class VideoRepositoryImpl implements VideoRepository {
     	int pageSize = vo.getPageSize();
     	int pageNumber = (int) vo.getPageIndex();
         
-    	String queryString = "SELECT video FROM Video video WHERE video.useYn ='Y'";
+    	String queryString = "SELECT video FROM Video video WHERE video.useYn ='Y' ORDER BY video.regiDate desc";
         Query query = this.em.createQuery(queryString);
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);
@@ -71,7 +72,13 @@ public class VideoRepositoryImpl implements VideoRepository {
     
     @Override
     public void save(Video vo) {
-    	this.em.persist(vo);
+    	if (vo.getNttId() == null) {
+    		this.em.persist(vo);     		
+    	} else {
+    		this.em.merge(vo); 
+    		/** if merge  @PersistenceContext(type=PersistenceContextType.EXTENDED) or this.em.flush() option setting */
+    		this.em.flush(); 
+    	}
     }
     
     

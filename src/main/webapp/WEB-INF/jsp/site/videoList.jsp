@@ -9,7 +9,9 @@
 
 <script type='text/javascript'>
 	$(function() {
+		<c:if test="${not empty videoList }">
 		pagination('paging','${video.pageIndex}','${video.totalPageUnit}','movePage');
+		</c:if>
 		
 		$("#goRegistrer").on("click", function(){
 			var action = '<c:url value="/site/video/new" />';
@@ -107,23 +109,32 @@
 												<tr class="gradeA odd">
 													<td class="center "><img class="toggle-details"
 														src="<c:url value="/resources/images/plus.png"/>" ></td>
-													<td class=" sorting_1"><a href="<c:url value="/site/video/get/${rData.nttId}"/>">${rData.nttSj }</a></td>
+													<td class=" sorting_1"><a href="<c:url value="/site/video/get/${rData.nttId}/${video.pageIndex }"/>">${rData.nttSj }</a></td>
 													<td class=" ">${rData.user.userId}</td>
-													<td class=" ">${rData.frstRegistPnttm }</td>
+													<td class=" ">${rData.regiDate}</td>
 													<td class="center ">
 														${rData.useYn  eq 'N' ? '삭제' : '미삭제'}
 													</td>
 													<td class="center ">A</td>
 												</tr>
 												</c:forEach>
-											</c:if>													
+											</c:if>	
+											<c:if test="${empty videoList }">
+												<tr class="gradeA odd">
+													
+													<td class="center" colspan="6">
+														데이터가 없습니다.
+													</td>
+													
+												</tr>
+											</c:if>												
 											</tbody>
 										</table>
 										<div class="row">
 										
 											<div class="col-sm-12">
 												<div class="pull-left">
-													<div class="dataTables_info" id="datatable2_info"><button type="submit" class="btn btn-primary" id="goRegistrer">Registrer</button></div>
+													<div class="dataTables_info" id="datatable2_info"><button type="button" class="btn btn-primary" id="goRegistrer">Registrer</button></div>
 												</div>
 												<div class="pull-right">
 													<div class="dataTables_paginate paging_bs_normal" id="paging"></div>
