@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +13,33 @@
 		pagination('paging', '${user.pageIndex}', '${user.totalPageUnit}',
 				'movePage');
 
-		$("#goRegistrer").on("click", function() {
-			var action = '<c:url value="/user/new" />';
-			location.href = action;
+		$("#goSave").on("click", function() {
+			var $checkObj = $(".checkAllSub:checked");
+			if($checkObj.length < 1 ){
+				alert("저장 항목을 선택해 주세요.");
+				return false;
+			}
+			$.each($checkObj, function(k, v){
+							
+				var $input = $(v).parents("tr.gradeA").find("input");
+				console.log("##name input0 = "+$input[0]);
+				$.each($input, function(i, j){
+					var name = "userRoleInfos["+k+"]."+$(j).attr("name");
+					console.log("##name input = "+name);
+					$(j).attr("name", name);
+				});
+				var $select = $(v).parents("tr.gradeA").find("select");
+				$.each($select, function(i, j){
+					var name = "userRoleInfos["+k+"]."+$(j).attr("name");
+					console.log("##name sele = "+name);
+					$(j).attr("name", name);
+				});
+				
+			});
+			
+			var action = '<c:url value="/user/role/save/${user.pageIndex}" />';
+			$("#frm").attr("action", action).submit();
+			return false;
 		});
 
 		$(".checkAll").on("click", function() {
@@ -26,13 +51,13 @@
 
 	});
 	var movePage = function(page) {
-		var action = '<c:url value="/user/list/'+page+'" />';
+		var action = '<c:url value="/user/role/list/'+page+'" />';
 		location.href = action;
 	};
 </script>
 </head>
 <body class="animated">
-	<form action="" method="post" id="frm" name="frm"></form>
+	
 	<div id="cl-wrapper">
 
 		<div class="cl-sidebar">
@@ -76,6 +101,7 @@
 												<div class="clearfix"></div>
 											</div>
 										</div>
+										<form action="" method="post" id="frm" name="frm" >
 										<table class="table table-bordered dataTable" id="datatable2"
 											aria-describedby="datatable2_info">
 											<thead>
@@ -94,7 +120,7 @@
 
 												</tr>
 											</thead>
-
+											
 											<tbody role="alert" aria-live="polite" aria-relevant="all">
 												<c:if test="${not empty userList }">
 													<c:forEach items="${userList }" varStatus="status"
@@ -102,11 +128,15 @@
 														<tr class="gradeA odd">
 															<td class="center "><input type="checkbox"
 																class="checkAllSub" name="seq"
-																value="${rData.userRoleInfo.seq}" /></td>
+																value="${rData.userRoleInfo.seq}" />
+																<input type="hidden"
+																class="" name="user"
+																value="${rData.seq}" />
+																</td>
 															<td class=" sorting_1"><a
 																href="<c:url value="/user/get/${rData.seq}/${user.pageIndex }"/>">${rData.userId }</a>
 															</td>
-															<td class="center"><select class="form-control">
+															<td class="center"><select class="form-control" name="role">
 
 																	<c:forEach items="${roleList}" var="roleData">
 																		<option value="${roleData.seq}"
@@ -117,14 +147,16 @@
 													</c:forEach>
 												</c:if>
 											</tbody>
+											
 										</table>
+										</form>
 										<div class="row">
 
 											<div class="col-sm-12">
 												<div class="pull-left">
 													<div class="dataTables_info" id="datatable2_info">
-														<button type="submit" class="btn btn-primary"
-															id="goRegistrer">저장</button>
+														<button type="button" class="btn btn-primary"
+															id="goSave">저장</button>
 													</div>
 												</div>
 												<div class="pull-right">

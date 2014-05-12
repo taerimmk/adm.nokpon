@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.june.app.user.model.RoleInfo;
 import com.june.app.user.model.UserInfo;
+import com.june.app.user.model.UserRoleInfo;
+import com.june.app.user.model.UserRoleInfos;
 import com.june.app.user.service.RoleService;
+import com.june.app.user.service.UserRoleService;
 import com.june.app.user.service.UserService;
 
 /**
@@ -32,11 +35,15 @@ public class UserRoleController {
 	
 	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private UserRoleService userRoleService;
 
 	
-	@RequestMapping(value = "/user/role/{pageIndex}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/role/list/{pageIndex}", method = RequestMethod.GET)
 	public String UserRoleList(Locale locale,
 			@ModelAttribute("user") UserInfo user,
+			@ModelAttribute("userRoleInfo") UserRoleInfo userRoleInfo,
 			@PathVariable int pageIndex,
 			Model model) 
 	{
@@ -55,5 +62,29 @@ public class UserRoleController {
 		
 		return "user/roleList";
 	}
+	
+	@RequestMapping(value = "/user/role/save/{pageIndex}", method = RequestMethod.POST)
+	public String UserRoleSave(Locale locale,
+			@ModelAttribute("userRoleInfos") UserRoleInfos userRoleInfos,
+			@PathVariable int pageIndex,
+			Model model) 
+	{
+		
+		
+		for (UserRoleInfo userRoleInfo: userRoleInfos.getUserRoleInfos()){
+			try {
+				//UserRoleInfo userRoleInfoSave = new UserRoleInfo();
+				//userRoleInfoSave = userRoleInfo;
+				userRoleService.save(userRoleInfo);
+				
+			} catch (Exception e) {
+				logger.info("=============] UserRoleSave Err [============ {}", e);
+			}
+			
+		}
+				
+		return "redirect:/user/role/list/{pageIndex}";
+	}
+	
 	
 }

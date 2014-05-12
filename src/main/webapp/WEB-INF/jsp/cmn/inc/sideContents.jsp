@@ -35,7 +35,7 @@
 								<ul class="sub-menu">
 									<li><a href="<c:url value="/user/list/1" />" >사용자등록/수정</a></li>
 									<li><a href="ui-alerts.html">그룹관리</a></li>
-									<li><a href="<c:url value="/user/role/1" />">권한관리</a></li>
+									<li><a href="<c:url value="/user/role/list/1" />">권한관리</a></li>
 								</ul></li>
 							<li><a href="#"><i class="fa fa-list-alt"></i><span>게시판관리</span></a>
 								<ul class="sub-menu">

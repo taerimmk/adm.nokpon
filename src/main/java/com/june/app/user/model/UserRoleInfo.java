@@ -15,6 +15,7 @@
  */
 package com.june.app.user.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +50,7 @@ public class UserRoleInfo {
     @NotEmpty
 	protected String role;
 	
-	@ManyToOne()
+	@ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "role", insertable=false,updatable=false)
     private RoleInfo roleInfo;
 
@@ -83,6 +84,12 @@ public class UserRoleInfo {
 
 	public void setRoleInfo(RoleInfo roleInfo) {
 		this.roleInfo = roleInfo;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRoleInfo [seq=" + seq + ", user=" + user + ", role=" + role
+				+ ", roleInfo=" + roleInfo + "]";
 	}
 
 	

@@ -124,6 +124,13 @@ public class UserInfo extends Pagination {
 
 	public void setUserRoleInfo(UserRoleInfo userRoleInfo) {
 		this.userRoleInfo = userRoleInfo;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfo [seq=" + seq + ", userId=" + userId + ", name=" + name
+				+ ", email=" + email + ", status=" + status + ", password="
+				+ password + ", userRoleInfo=" + userRoleInfo + "]";
 	}	
 	
 	
