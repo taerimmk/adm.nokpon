@@ -25,8 +25,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.june.app.cmn.model.Pagination;
-
 /**
  * Simple JavaBean domain object representing an person.
  * 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webflow-project-description>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.5.1.201404300732-RELEASE]]></pluginVersion>
+	<configs>
+		<config>
+			<file>src/main/java/com/june/app/board/repository/mybatis.xml</file>
+			<name><![CDATA[mybatis]]></name>
+		</config>
+	</configs>
+</webflow-project-description>

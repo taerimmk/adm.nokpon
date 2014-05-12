@@ -34,7 +34,6 @@ import java.util.Collection;
 
 import org.springframework.dao.DataAccessException;
 
-import com.june.app.board.model.Board;
 import com.june.app.board.model.BoardMaster;
 
 /**
