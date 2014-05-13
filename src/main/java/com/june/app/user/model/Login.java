@@ -42,4 +42,9 @@ public class Login {
 		this.userInfo = userInfo;
 	}
 
+	@Override
+	public String toString() {
+		return "Login [isLogin=" + isLogin + ", userInfo=" + userInfo + "]";
+	}
+
 }

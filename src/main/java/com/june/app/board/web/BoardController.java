@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.june.app.board.service.BoardMasterService;
 import com.june.app.board.service.BoardService;
 import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.service.FileService;
+import com.june.app.user.model.Login;
 
 /**
  * Handles requests for the application home page.
@@ -87,6 +90,7 @@ public class BoardController {
 			//MultipartHttpServletRequest request,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
+			HttpServletRequest request,
 			Model model) {
 		logger.debug("=====] call goBoardInsertProc [ board.getAtchFileIdFile( ]===={}",board.getAtchFileIdFile());
 		/**페이지당 보여주는 게시물 수*/
@@ -96,12 +100,14 @@ public class BoardController {
 		board.setAtchFileId(fileDetail.getAtchFileId());
 		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
 		}
+		
+		Login logininfo = (Login) request.getSession().getAttribute("loginInfo");
 		/**게시판 ID*/
 		Date today = new Date();
 		board.setBbsId(bbsId);
 		
 		board.setRegiDate(today);
-		board.setRegiId(1);
+		board.setRegiId(logininfo.getUserInfo().getSeq());
 		board.setUseYn("Y");
 		boardService.save(board);
 		return "redirect:/board/{bbsId}/list/1";

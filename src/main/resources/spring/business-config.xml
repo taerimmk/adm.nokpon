@@ -41,8 +41,8 @@
 		<property name="alwaysUseDefaultTargetUrl" value="false" />
 		<property name="defaultTargetUrl" value="/main" />
 	</bean>
-	<bean id="mySecureResourceFilter" class="com.june.app.user.service.impl.MyFilterSecurityMetadataSourceImpl">
-	</bean>
+	<!-- <bean id="mySecureResourceFilter" class="com.june.app.user.service.impl.MyFilterSecurityMetadataSourceImpl">
+	</bean> -->
 	
 
 	<!-- ================== 3 Profiles to choose from =================== - 

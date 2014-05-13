@@ -34,21 +34,21 @@
 		</authentication-provider>
 	</authentication-manager>
 
-	<beans:bean id="filterSecurityInterceptor"
+	<!-- <beans:bean id="filterSecurityInterceptor"
 		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
 		<beans:property name="authenticationManager" ref="authenticationManager" />
 		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
 		<beans:property name="securityMetadataSource" ref="mySecureResourceFilter" />
-	</beans:bean>
+	</beans:bean> -->
 
-	<beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+	<!-- <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
 		<beans:property name="decisionVoters">
 			<beans:list>
 				<beans:bean class="org.springframework.security.access.vote.RoleVoter" />
 				<beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
 			</beans:list>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 
 	<!-- $2a$10$.0rrlOURgWeQjbwemsPSEOW1yIIlsjV6JmrnT56iJWnNrtr/F3k8u -->
 	<!-- $2a$10$H1jy3XhjwlqLb2yG280MmekaBV547Ap18GUGvx9TfqXaJhwVF93zO -->

@@ -2,6 +2,8 @@ package com.june.app.main.web;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,13 @@ public class MainController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, 
+			HttpServletRequest request,
+			Model model) {
 		
+		/*Login logininfo = (Login) request.getSession().getAttribute("loginInfo");
+		
+		logger.debug("=====] call logininfo [===== {}", logininfo.toString());*/
 		return "main/main";
 	}
 	

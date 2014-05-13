@@ -47,7 +47,10 @@ public class LoginSuccessHandlerImpl  extends AbstractAuthenticationTargetUrlReq
     	 String userName = ((UserDetails) principal).getUsername();
     	 
     	 UserInfo userInfos = userRepository.getUser(userName);
-    	 logger.info("=============] userInfos [============ {}", userInfos);
+    	 /**패스워드는 세션에 담지 않는다*/
+    	 userInfos.setPassword("");
+    	 userInfos.getUserRoleInfo();
+    	 
     	 Login login  = new Login();
     	 boolean isLogin = true;
     	 

@@ -1,33 +1,33 @@
 package com.june.app.site.web;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.june.app.site.model.Video;
 import com.june.app.site.service.VideoService;
+import com.june.app.user.model.Login;
 
 /**
  * Handles requests for the application home page.
  */
+@SessionAttributes(value = "loginInfo")
 @Controller
 public class VideoController {
 
@@ -67,17 +67,19 @@ public class VideoController {
 
 	@RequestMapping(value = "/site/video/new", method = RequestMethod.POST)
 	public String goVideoInsertProc(Locale locale, @Valid Video video,
-			BindingResult result, SessionStatus status) {
+			HttpServletRequest request, BindingResult result,
+			SessionStatus status) {
 		logger.debug("=====] call goVideoInsertProc [=====");
 		if (result.hasErrors()) {
 			return "site/videoSave";
 		} else {
-
+			Login logininfo = (Login) request.getSession().getAttribute(
+					"loginInfo");
 			Date today = new Date();
 			video.setUseYn("Y");
 			video.setRegiDate(today);
 			video.setUpdtDate(today);
-			video.setRegiId(1);
+			video.setRegiId(logininfo.getUserInfo().getSeq());
 			videoService.save(video);
 			status.setComplete();
 			return "redirect:/site/video/list/1";
@@ -108,21 +110,23 @@ public class VideoController {
 	@RequestMapping(value = "/site/video/update/{pageIndex}", method = RequestMethod.POST)
 	public String goVideoUpdateProc(Locale locale, @Valid Video video,
 			BindingResult result, @PathVariable int pageIndex,
-			SessionStatus status) {
+			HttpServletRequest request, SessionStatus status) {
 		logger.debug("=====] call goVideoUpdateProc [=====");
 		if (result.hasErrors()) {
 
 			return "site/videoSave";
 		} else {
-
+			Login logininfo = (Login) request.getSession().getAttribute(
+					"loginInfo");
 			Date today = new Date();
 			video.setUseYn("Y");
 			// video.setRegiDate(today);
 			video.setUpdtDate(today);
-			video.setUpdtId(1);
+			video.setUpdtId(logininfo.getUserInfo().getSeq());
 			videoService.save(video);
 			status.setComplete();
-			return "redirect:/site/video/get/" + video.getNttId()+ "/{pageIndex}";
+			return "redirect:/site/video/get/" + video.getNttId()
+					+ "/{pageIndex}";
 		}
 	}
 
