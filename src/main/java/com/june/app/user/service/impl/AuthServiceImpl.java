@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.june.app.user.model.RoleInfo;
 import com.june.app.user.model.UserInfo;
 import com.june.app.user.repository.UserRepository;
-import com.june.app.user.service.IAuthService;
+import com.june.app.user.service.AuthService;
 
 @Service
-public class AuthServiceImpl implements IAuthService, UserDetailsService {
+public class AuthServiceImpl implements AuthService, UserDetailsService {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);	
 	private UserRepository userRepository;

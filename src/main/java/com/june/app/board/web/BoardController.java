@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.model.BoardMaster;
@@ -101,8 +100,8 @@ public class BoardController {
 		Date today = new Date();
 		board.setBbsId(bbsId);
 		
-		board.setFrstRegistPnttm(today);
-		board.setFrstRegisterId("admin");
+		board.setRegiDate(today);
+		board.setRegiId(1);
 		board.setUseYn("Y");
 		boardService.save(board);
 		return "redirect:/board/{bbsId}/list/1";
@@ -112,7 +111,7 @@ public class BoardController {
 	public String goBoardGet(Locale locale,
 			@ModelAttribute("board") Board board,
 			@PathVariable int bbsId,
-			@PathVariable long seq,
+			@PathVariable Integer seq,
 			Model model) {
 		logger.debug("=====] call goBoardGet [=====");
 		

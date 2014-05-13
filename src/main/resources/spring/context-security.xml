@@ -11,8 +11,12 @@
 	<http>
 		<!-- <intercept-url pattern="/user/*" access="ROLE_USER" /> -->
 		<intercept-url pattern="/**" access="ROLE_ADMIN" />
-		<form-login login-page="/login" default-target-url="/main"
-			authentication-failure-url="/accessdenied" always-use-default-target="true" />
+		<form-login 
+			login-page="/login" default-target-url="/main"
+			authentication-failure-url="/accessdenied" 
+			always-use-default-target="true"
+			authentication-success-handler-ref="loginSuccessHandler" 
+			/>
 		<logout logout-success-url="/login" />
 		<session-management>
         	<concurrency-control max-sessions="1" expired-url="/login"/>

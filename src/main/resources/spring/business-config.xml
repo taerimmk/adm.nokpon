@@ -33,8 +33,11 @@
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven/>
 
-	<!-- Defined in employee-servlet.xml -->
+	<!-- spring security auth service -->
 	<bean id="authService" class="com.june.app.user.service.impl.AuthServiceImpl" />
+	<bean id="loginSuccessHandler" class="com.june.app.user.service.impl.LoginSuccessHandlerImpl">
+		<property name="useReferer" value="true" />
+	</bean>
 	<!-- ================== 3 Profiles to choose from =================== - 
 		jdbc (uses Spring" JdbcTemplate) - jpa - spring-data-jpa ============================================================================= -->
 	<beans profile="jpa">

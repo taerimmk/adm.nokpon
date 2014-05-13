@@ -139,7 +139,12 @@ public class BoardRepositoryImpl implements BoardRepository {
     }
     @Override
     public void save(Board vo) {
-    	this.em.persist(vo);
+    	if (vo.getNttId() == null) {
+    		this.em.persist(vo);     		
+    	} else {
+    		this.em.merge(vo); 
+    		this.em.flush(); 
+    	}
     }
     
     
