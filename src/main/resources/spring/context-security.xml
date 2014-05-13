@@ -11,34 +11,49 @@
 	<http>
 		<!-- <intercept-url pattern="/user/*" access="ROLE_USER" /> -->
 		<intercept-url pattern="/**" access="ROLE_ADMIN" />
-		<form-login 
-			login-page="/login" default-target-url="/main"
-			authentication-failure-url="/accessdenied" 
-			always-use-default-target="true"
-			authentication-success-handler-ref="loginSuccessHandler" 
-			/>
-		<logout logout-success-url="/login" />
-		<session-management>
-        	<concurrency-control max-sessions="1" expired-url="/login"/>
+		<form-login login-page="/login" default-target-url="/main"
+			authentication-failure-url="/accessdenied" always-use-default-target="false"
+			authentication-success-handler-ref="loginSuccessHandler" />
+
+		<logout logout-success-url="/login" invalidate-session="true"
+			delete-cookies="JSESSIONID" />
+		<session-management session-fixation-protection="newSession">
+			<concurrency-control max-sessions="1"
+				expired-url="/login" />
 		</session-management>
-			
-			
+
+
 	</http>
-	
+
 	<beans:bean name="bcryptEncoder"
-    class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-    
-	<authentication-manager>
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="authService">
 			<password-encoder ref="bcryptEncoder" />
 		</authentication-provider>
 	</authentication-manager>
-	
-	
-	<!-- $2a$10$.0rrlOURgWeQjbwemsPSEOW1yIIlsjV6JmrnT56iJWnNrtr/F3k8u -->	
+
+	<beans:bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="mySecureResourceFilter" />
+	</beans:bean>
+
+	<beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:property name="decisionVoters">
+			<beans:list>
+				<beans:bean class="org.springframework.security.access.vote.RoleVoter" />
+				<beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<!-- $2a$10$.0rrlOURgWeQjbwemsPSEOW1yIIlsjV6JmrnT56iJWnNrtr/F3k8u -->
 	<!-- $2a$10$H1jy3XhjwlqLb2yG280MmekaBV547Ap18GUGvx9TfqXaJhwVF93zO -->
 	<!-- $2a$10$dVLUgR0pSMqEKIbGlks1D.ZOLcwsUGT0DSO66.wr68qUCRn4UhOPi -->
 	<!-- $2a$10$.0rrlOURgWeQjbwemsPSEOW1yIIlsjV6JmrnT56iJWnNrtr/F3k8u -->
-	
-	
+
+
 </beans:beans>

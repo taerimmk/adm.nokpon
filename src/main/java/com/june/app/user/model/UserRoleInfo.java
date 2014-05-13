@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -30,15 +31,14 @@ public class UserRoleInfo {
 	protected Integer seq;
 	
 	@Column(name = "user")
-    @NotEmpty
+	@NotNull
 	protected Integer user;
 	
 	@Column(name = "role")
-    @NotEmpty
+	@NotNull
 	protected Integer role;
 	
-	@Column(name = "REGI_DATE")
-    @NotEmpty
+	@Column(name = "REGI_DATE", updatable=false)
 	protected Date regiDate;
 	
 	
