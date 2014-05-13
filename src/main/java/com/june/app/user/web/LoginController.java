@@ -35,7 +35,6 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLoginPage(Model model, HttpServletRequest request) {
 		String referrer = request.getHeader("Referer");
-		logger.info("=============] referrer [============ {}", referrer);
 		if (referrer != null) {
 			request.getSession().setAttribute("url_prior_login", referrer);
 		}

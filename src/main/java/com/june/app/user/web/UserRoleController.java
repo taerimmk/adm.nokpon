@@ -78,7 +78,7 @@ public class UserRoleController {
 				userRoleService.save(userRoleInfo);
 				
 			} catch (Exception e) {
-				logger.info("=============] UserRoleSave Err [============ {}", e);
+				logger.debug("=============] UserRoleSave Err [============ {}", e);
 			}
 			
 		}

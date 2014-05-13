@@ -23,7 +23,6 @@ public class MyFilterSecurityMetadataSourceImpl implements
 
 		String httpMethod = fi.getRequest().getMethod();
 		List<ConfigAttribute> attributes = new ArrayList<ConfigAttribute>();
-		logger.info("=============] url [============ {}", url);
 		// Lookup your database (or other source) using this information and
 		// populate the
 		// list of attributes
