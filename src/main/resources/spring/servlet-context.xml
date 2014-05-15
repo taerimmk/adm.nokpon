@@ -106,12 +106,19 @@
 		logical - view names for error views. -->
 	<beans:bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="org.springframework.security.access.AccessDeniedException">cmn/exception/accessDenied</beans:prop>
+				<!-- <beans:prop key="java.lang.Exception">error/exception_error</beans:prop> -->
+			</beans:props>
+		</beans:property>
 		<!-- view name resolved using bean of type InternalResourceViewResolver 
 			(declared in mvc-view-config.xml) -->
-		<beans:property name="defaultErrorView" value="exception" />
+		<beans:property name="defaultErrorView" value="cmn/exception/exception" />
 		<!-- results into 'WEB-INF/jsp/exception.jsp' -->
 		<beans:property name="warnLogCategory" value="warn" />
 		<!-- needed otherwise exceptions won't be logged anywhere -->
+		<!-- <beans:property name="order" value="1" /> -->
 	</beans:bean>
 	
 	<!-- <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
