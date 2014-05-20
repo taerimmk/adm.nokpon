@@ -3,7 +3,6 @@ package com.june.app.user.repository.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +13,7 @@ import com.june.app.user.repository.UserRoleRepository;
 @Repository
 public class UserRoleRepositoryImpl implements UserRoleRepository {
 
-    @PersistenceContext(type=PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     
@@ -26,7 +25,7 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
     	} else {
     		this.em.merge(vo); 
     		/** if merge  @PersistenceContext(type=PersistenceContextType.EXTENDED) or this.em.flush() option setting */
-    		//this.em.flush(); 
+    		this.em.flush(); 
     	}
     }
     
