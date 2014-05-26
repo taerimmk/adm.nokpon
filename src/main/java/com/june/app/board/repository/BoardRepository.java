@@ -55,6 +55,6 @@ public interface BoardRepository {
 	
 	void save (Board vo) throws DataAccessException;
 	
-	Board boardGet (long seq) throws DataAccessException;
+	Board boardGet (Integer seq) throws DataAccessException;
 
 }

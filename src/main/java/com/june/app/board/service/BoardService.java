@@ -36,5 +36,5 @@ public interface BoardService {
 	
 	public void save (Board vo) throws DataAccessException;
 	
-	public Board boardGet (long seq) throws DataAccessException;
+	public Board boardGet (Integer seq) throws DataAccessException;
 }

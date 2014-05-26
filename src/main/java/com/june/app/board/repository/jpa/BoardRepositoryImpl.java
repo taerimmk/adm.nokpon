@@ -147,7 +147,7 @@ public class BoardRepositoryImpl implements BoardRepository {
     
     
     @Override
-    public Board boardGet(long seq) {
+    public Board boardGet(Integer seq) {
     	Query query = this.em.createQuery("SELECT board FROM Board board WHERE board.useYn ='Y' and board.nttId =:nttId");
     	query.setParameter("nttId", seq);
         return (Board) query.getSingleResult();

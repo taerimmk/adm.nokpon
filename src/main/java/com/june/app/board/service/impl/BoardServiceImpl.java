@@ -64,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Board boardGet (long seq) throws DataAccessException {
+	public Board boardGet (Integer seq) throws DataAccessException {
 		return boardRepository.boardGet(seq);
 		
 	}
