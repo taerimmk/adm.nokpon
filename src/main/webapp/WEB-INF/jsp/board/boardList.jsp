@@ -131,8 +131,8 @@ var movePage = function(page){
 													<td class="center "><img class="toggle-details"
 														src="/images/plus.png"></td>
 													<td class=" sorting_1"><a href="<c:url value="/board/${rData.bbsId}/get/${rData.nttId}"/>">${rData.nttSj }</a></td>
-													<td class=" ">${rData.frstRegisterId}</td>
-													<td class=" ">${rData.frstRegistPnttm }</td>
+													<td class=" ">${rData.user.userId}</td>
+													<td class=" ">${rData.regiDate }</td>
 													<td class="center ">
 														${rData.useYn  eq 'N' ? '삭제' : '미삭제'}
 													</td>

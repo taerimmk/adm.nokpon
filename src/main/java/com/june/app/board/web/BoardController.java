@@ -98,7 +98,6 @@ public class BoardController {
 		
 		FileDetail fileDetail = fileService.fileSaveDB(board.getAtchFileIdFile());
 		board.setAtchFileId(fileDetail.getAtchFileId());
-		logger.debug("=====] call goBoardInsertProc [===== {}", board.getNttCn());
 		}
 		
 		Login logininfo = (Login) request.getSession().getAttribute("loginInfo");

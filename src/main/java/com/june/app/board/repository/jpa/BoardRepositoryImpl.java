@@ -23,14 +23,12 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
 import com.june.app.board.model.Board;
 import com.june.app.board.repository.BoardRepository;
-import com.june.app.cmn.model.FileDetail;
 import com.june.app.user.repository.UserRepository;
 //Join;
 
@@ -106,7 +104,7 @@ public class BoardRepositoryImpl implements BoardRepository {
         	criteriaQuery.where(criteriaBuilder.equal(from.get("bbsId"), bbsId));
     	}
         /**list desc for date*/
-        criteriaQuery.orderBy(criteriaBuilder.desc(from.get("frstRegistPnttm")));
+        criteriaQuery.orderBy(criteriaBuilder.desc(from.get("regiDate")));
         TypedQuery<Board> typedQuery = em.createQuery(select);
         
         

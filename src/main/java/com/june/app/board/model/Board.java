@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.june.app.cmn.model.Pagination;
+import com.june.app.user.model.UserInfo;
 
 /**
  * Simple JavaBean domain object representing an person.
@@ -80,8 +83,11 @@ public class Board extends Pagination {
 	
 	@Transient
 	private MultipartFile atchFileIdFile;
-
 	
+
+	@ManyToOne()
+    @JoinColumn(name = "REGI_ID", insertable=false,updatable=false)
+    private UserInfo user;
 
 	public Integer getNttId() {
 		return nttId;
@@ -219,6 +225,15 @@ public class Board extends Pagination {
 		this.atchFileIdFile = atchFileIdFile;
 	}
 
+	
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [nttId=" + nttId + ", bbsId=" + bbsId + ", nttNo="
@@ -228,8 +243,10 @@ public class Board extends Pagination {
 				+ ", rdcnt=" + rdcnt + ", useYn=" + useYn + ", atchFileId="
 				+ atchFileId + ", regiDate=" + regiDate + ", regiId=" + regiId
 				+ ", updtDate=" + updtDate + ", updtId=" + updtId
-				+ ", atchFileIdFile=" + atchFileIdFile + "]";
+				+ ", atchFileIdFile=" + atchFileIdFile + ", user=" + user + "]";
 	}
+
+	
 
 	
 }
