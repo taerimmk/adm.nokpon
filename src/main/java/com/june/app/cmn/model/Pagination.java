@@ -38,7 +38,11 @@ public class Pagination {
 		this.pageSize = pageSize;
 	}
 	public long getTotalPageUnit() {
-		this.totalPageUnit = this.totalCnt / this.pageSize + (this.totalCnt % this.pageSize>0 ? 1 : 0);
+		if (this.totalCnt > 0){
+			this.totalPageUnit = this.totalCnt / this.pageSize + (this.totalCnt % this.pageSize>0 ? 1 : 0);
+		} else {
+			totalPageUnit = 1;
+		}
 		return totalPageUnit;
 	}
 	public void setTotalPageUnit(long totalPageUnit) {

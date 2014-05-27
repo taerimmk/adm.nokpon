@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.june.app.board.model.Board;
 import com.june.app.board.model.BoardMaster;
 import com.june.app.board.repository.BoardMasterRepository;
 import com.june.app.board.service.BoardMasterService;
@@ -38,5 +39,10 @@ public class BoardMasterServiceImpl implements BoardMasterService {
 		map.put("boardMasterList", boardMasterRepository.boardMasterList(vo));
 		map.put("boardMasterListCnt", boardMasterRepository.boardMasterListCnt(vo));
 		return map;
+	}
+	@Override
+	@Transactional(readOnly = true)
+	public void save (BoardMaster vo) throws DataAccessException {
+		boardMasterRepository.save(vo);
 	}
 }
