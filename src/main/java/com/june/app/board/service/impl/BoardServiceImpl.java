@@ -15,7 +15,6 @@
  */
 package com.june.app.board.service.impl;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,22 +38,15 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
-
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Board> boardList(Board vo) throws DataAccessException {
-		return boardRepository.boardList(vo);
-	}
-	@Override
-	@Transactional(readOnly = true)
-	public Map<?,?> boardListWithPaging (Board vo) throws DataAccessException {
+	public Map<?,?> boardList(Board vo) throws DataAccessException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("boardList", boardRepository.boardListWithPaging(vo));
 		map.put("boardListCnt", boardRepository.boardListCnt(vo));
 		return map;
 	}
-	
 	
 	@Override
 	@Transactional(readOnly = true)

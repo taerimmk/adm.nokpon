@@ -59,30 +59,9 @@ public class BoardRepositoryImpl implements BoardRepository {
         if (bbsId > 0){
         	query.setParameter("bbsId", bbsId);
     	}
-        
-        
-        
         return query.getResultList();
     }
-    
-    /*@Override
-    @SuppressWarnings("unchecked")*/
-   /* public Collection<Board> boardListWithPaging(Board vo) {
-    	int bbsId = vo.getBbsId();
-    	int pageSize = vo.getPageSize();
-    	int pageNumber = vo.getPageNumber();
 
-    	String queryString = "SELECT board FROM Board board WHERE board.useYn ='Y'";
-    	if (bbsId > 0){
-    		queryString += "and board.bbsId = :bbsId";
-    	}
-        Query query = this.em.createQuery(queryString);
-        if (bbsId > 0){
-        	query.setParameter("bbsId", bbsId);
-    	}
-        configurePagination(query, pageNumber, pageSize);
-        return query.getResultList();
-    }*/
     /*public void configurePagination(Query query, int pageNumber, int pageSize) {
         query.setFirstResult((pageNumber - 1) * pageSize);
         query.setMaxResults(pageSize);

@@ -46,12 +46,15 @@ public class Board extends Pagination {
 
 	@Column(name = "NTT_CN")
 	private String nttCn;
+	
+	@Column(name = "NTT_LINK")
+	private String nttLink;
 
 	@Column(name = "ANSWER_YN")
 	private Integer answerYn;
 
-	@Column(name = "PARNTSCTT_NO")
-	private Integer parntscttNo;
+	@Column(name = "P_NTT_ID")
+	private Integer pNttId;
 
 	@Column(name = "ANSWER_LC")
 	private Integer answerLc;
@@ -88,6 +91,10 @@ public class Board extends Pagination {
 	@ManyToOne()
     @JoinColumn(name = "REGI_ID", insertable=false,updatable=false)
     private UserInfo user;
+	
+	@ManyToOne()
+    @JoinColumn(name = "BBS_ID", insertable=false,updatable=false)
+    private BoardMaster boardMaster;
 
 	public Integer getNttId() {
 		return nttId;
@@ -129,6 +136,14 @@ public class Board extends Pagination {
 		this.nttCn = nttCn;
 	}
 
+	public String getNttLink() {
+		return nttLink;
+	}
+
+	public void setNttLink(String nttLink) {
+		this.nttLink = nttLink;
+	}
+
 	public Integer getAnswerYn() {
 		return answerYn;
 	}
@@ -137,12 +152,12 @@ public class Board extends Pagination {
 		this.answerYn = answerYn;
 	}
 
-	public Integer getParntscttNo() {
-		return parntscttNo;
+	public Integer getpNttId() {
+		return pNttId;
 	}
 
-	public void setParntscttNo(Integer parntscttNo) {
-		this.parntscttNo = parntscttNo;
+	public void setpNttId(Integer pNttId) {
+		this.pNttId = pNttId;
 	}
 
 	public Integer getAnswerLc() {
@@ -225,7 +240,6 @@ public class Board extends Pagination {
 		this.atchFileIdFile = atchFileIdFile;
 	}
 
-	
 	public UserInfo getUser() {
 		return user;
 	}
@@ -234,19 +248,27 @@ public class Board extends Pagination {
 		this.user = user;
 	}
 
+	public BoardMaster getBoardMaster() {
+		return boardMaster;
+	}
+
+	public void setBoardMaster(BoardMaster boardMaster) {
+		this.boardMaster = boardMaster;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [nttId=" + nttId + ", bbsId=" + bbsId + ", nttNo="
 				+ nttNo + ", nttSj=" + nttSj + ", nttCn=" + nttCn
-				+ ", answerYn=" + answerYn + ", parntscttNo=" + parntscttNo
-				+ ", answerLc=" + answerLc + ", sortOrdr=" + sortOrdr
-				+ ", rdcnt=" + rdcnt + ", useYn=" + useYn + ", atchFileId="
-				+ atchFileId + ", regiDate=" + regiDate + ", regiId=" + regiId
-				+ ", updtDate=" + updtDate + ", updtId=" + updtId
-				+ ", atchFileIdFile=" + atchFileIdFile + ", user=" + user + "]";
+				+ ", nttLink=" + nttLink + ", answerYn=" + answerYn
+				+ ", pNttId=" + pNttId + ", answerLc=" + answerLc
+				+ ", sortOrdr=" + sortOrdr + ", rdcnt=" + rdcnt + ", useYn="
+				+ useYn + ", atchFileId=" + atchFileId + ", regiDate="
+				+ regiDate + ", regiId=" + regiId + ", updtDate=" + updtDate
+				+ ", updtId=" + updtId + ", atchFileIdFile=" + atchFileIdFile
+				+ ", user=" + user + ", boardMaster=" + boardMaster + "]";
 	}
 
 	
-
 	
 }
