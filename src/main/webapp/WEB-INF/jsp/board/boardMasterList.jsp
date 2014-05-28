@@ -35,7 +35,6 @@ $(function() {
 	$('#paging').bootstrapPaginator(options);
 	
 	$("#goRegistrer").on("click", function(){
-		alert("%");
 		var action = '<c:url value="/boardMaster/insert" />';
 		location.href = action;
 		return false;

@@ -93,7 +93,7 @@ public class Board extends Pagination {
     private UserInfo user;
 	
 	@ManyToOne()
-    @JoinColumn(name = "BBS_ID", insertable=false,updatable=false)
+    @JoinColumn(name = "BBS_ID", insertable=false,updatable=false,nullable=true )
     private BoardMaster boardMaster;
 
 	public Integer getNttId() {

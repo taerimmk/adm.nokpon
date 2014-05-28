@@ -16,15 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.june.app.board.model.Board;
 import com.june.app.board.model.BoardMaster;
 import com.june.app.board.service.BoardMasterService;
-import com.june.app.cmn.model.FileDetail;
-import com.june.app.user.model.Login;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 public class BoardMasterController {
 

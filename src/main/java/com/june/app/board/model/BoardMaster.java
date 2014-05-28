@@ -1,37 +1,24 @@
-/*
- * Copyright 2002-2013 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.june.app.board.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.june.app.cmn.model.Pagination;
 
-/**
- * Simple JavaBean domain object representing an person.
- * 
- * @author Ken Krebs
- */
 @Entity
 @Table(name = "BBS_MST")
 public class BoardMaster extends Pagination{
@@ -39,10 +26,10 @@ public class BoardMaster extends Pagination{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BBS_ID")
-	@NotNull
 	private Integer bbsId;
 	
     @Column(name = "BBS_NM")
+    @NotEmpty
     private String bbsNm;
 	
     @Column(name = "BBS_TYPE_CODE")
@@ -74,7 +61,12 @@ public class BoardMaster extends Pagination{
     
     @Column(name = "REGI_DATE")
     private Date regiDate;
-
+    
+    
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "boardMasterRole",fetch = FetchType.EAGER)
+    private Set<BoardMasterRole> boardMasterRoles;
+    
+    
 	public Integer getBbsId() {
 		return bbsId;
 	}
@@ -171,21 +163,17 @@ public class BoardMaster extends Pagination{
 		this.regiDate = regiDate;
 	}
 
-	@Override
-	public String toString() {
-		return "BoardMaster [bbsId=" + bbsId + ", bbsNm=" + bbsNm
-				+ ", bbsTypeCode=" + bbsTypeCode + ", bbsAttrCode="
-				+ bbsAttrCode + ", answerPosblYn=" + answerPosblYn
-				+ ", comntPosblYn=" + comntPosblYn + ", fileAtchPosblYn="
-				+ fileAtchPosblYn + ", atchPosblFileNumber="
-				+ atchPosblFileNumber + ", atchPosblFileSize="
-				+ atchPosblFileSize + ", useYn=" + useYn + ", tmplatId="
-				+ tmplatId + ", regiDate=" + regiDate + "]";
+	public Set<BoardMasterRole> getBoardMasterRoles() {
+		return boardMasterRoles;
 	}
-    
-    
-	
+
+	public void setBoardMasterRoles(Set<BoardMasterRole> boardMasterRoles) {
+		this.boardMasterRoles = boardMasterRoles;
+	}
 
 	
 
+	
+
+	
 }
