@@ -6,12 +6,14 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,6 @@ import com.june.app.cmn.model.FileDetail;
 import com.june.app.cmn.service.FileService;
 import com.june.app.user.model.Login;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class BoardController {
 
@@ -80,28 +79,37 @@ public class BoardController {
 		return "board/boardInsert";
 	}
 
-	@RequestMapping(value = "/board/{bbsId}/insertProc", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-	public String goBoardInsertProc(@ModelAttribute("board") Board board,
+	@RequestMapping(value = "/board/{bbsId}/insert", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String goBoardInsertProc(
+			@Valid @ModelAttribute("board") Board board, BindingResult result,
 			@PathVariable int bbsId, HttpServletRequest request, Model model) {
-
-		/** 페이지당 보여주는 게시물 수 */
-		if (!board.getAtchFileIdFile().isEmpty()) {
-
-			FileDetail fileDetail = fileService.fileSaveDB(board
-					.getAtchFileIdFile());
-			board.setAtchFileId(fileDetail.getAtchFileId());
-		}
 
 		Login logininfo = (Login) request.getSession()
 				.getAttribute("loginInfo");
-		/** 게시판 ID */
-		Date today = new Date();
-		board.setBbsId(bbsId);
+		if (logininfo == null || !logininfo.isLogin()) {
+			return "board/boardInsert";
+		}
 
-		board.setRegiDate(today);
-		board.setRegiId(logininfo.getUserInfo().getSeq());
-		board.setUseYn("Y");
-		boardService.save(board);
+		if (result.hasErrors()) {
+			model.addAttribute("result", result);
+			return "board/boardInsert";
+		} else {
+
+			if (board.getAtchFileIdFile() != null) {
+				FileDetail fileDetail = fileService.fileSaveDB(board
+						.getAtchFileIdFile());
+				board.setAtchFileId(fileDetail.getAtchFileId());
+			}
+
+			/** 게시판 ID */
+			Date today = new Date();
+			board.setBbsId(bbsId);
+
+			board.setRegiDate(today);
+			board.setRegiId(logininfo.getUserInfo().getSeq());
+			board.setUseYn("Y");
+			boardService.save(board);
+		}
 		return "redirect:/board/{bbsId}/list/1";
 	}
 

@@ -19,11 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.june.app.cmn.model.Pagination;
 import com.june.app.user.model.UserInfo;
 
-/**
- * Simple JavaBean domain object representing an person.
- * 
- * @author Ken Krebs
- */
+
 @Entity
 @Table(name = "BBS_NTT")
 public class Board extends Pagination {
@@ -45,6 +41,7 @@ public class Board extends Pagination {
 	private String nttSj;
 
 	@Column(name = "NTT_CN")
+	@NotEmpty
 	private String nttCn;
 	
 	@Column(name = "NTT_LINK")
@@ -65,7 +62,6 @@ public class Board extends Pagination {
 	@Column(name = "RDCNT")
 	private Integer rdcnt;
 
-	@NotEmpty
 	@Column(name = "USE_YN")
 	private String useYn;
 

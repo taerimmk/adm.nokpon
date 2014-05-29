@@ -16,8 +16,13 @@
 		});
 		$("#goRegistrer").on("click", function(){
 			var bbsId = $("#getBoardMst").val();
-			var action = '<c:url value="/board/'+bbsId+'/insert" />';
-			location.href = action;
+			if (bbsId > 0){
+				var action = '<c:url value="/board/'+bbsId+'/insert" />';
+				location.href = action;
+			} else {
+				alert("등록할 게시판을 선택해 주세요");
+				return false;
+			}
 			
 			return false;
 		});
@@ -29,13 +34,10 @@ var callTest = function(page){
 };
 var movePage = function(page){
 	var bbsId = $("#getBoardMst").val();
-	if (bbsId > 0){
+	
 		var action = '<c:url value="/board/'+bbsId+'/list/'+page+'" />';
 		location.href = action;
-	} else {
-		alert("등록할 게시판을 선택해 주세요");
-		return false;
-	}
+	
 	return false;
 };
 </script>
@@ -59,8 +61,8 @@ var movePage = function(page){
 				<div class="page-head">
 					<ol class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Tables</a></li>
-						<li class="active">Data Tables</li>
+						<li><a href="#">게시물 관리</a></li>
+						<li class="active">게시물 등록 및 수정</li>
 					</ol>
 				</div>
 
@@ -68,7 +70,7 @@ var movePage = function(page){
 					<div class="col-md-12">
 						<div class="block-flat">
 							<div class="header">
-								<h3>Row Details</h3>
+								<h3>게시물 리스트</h3>
 							</div>
 							<div class="content">
 								<div class="table-responsive">
@@ -150,7 +152,7 @@ var movePage = function(page){
 										
 											<div class="col-sm-12">
 												<div class="pull-left">
-													<div class="dataTables_info" id="datatable2_info"><button type="submit" class="btn btn-primary" id="goRegistrer">Registrer</button></div>
+													<div class="dataTables_info" id="datatable2_info"><button type="submit" class="btn btn-primary" id="goRegistrer">등록</button></div>
 												</div>
 												<div class="pull-right">
 													<div class="dataTables_paginate paging_bs_normal" id="paging"></div>
