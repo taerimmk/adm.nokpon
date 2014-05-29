@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Board Insert</title>
+<title>BoardMaster Detail</title>
 <jsp:include page="/WEB-INF/jsp/cmn/inc/headerResource.jsp" />
 <style type="text/css">
 .fileaattchYn{

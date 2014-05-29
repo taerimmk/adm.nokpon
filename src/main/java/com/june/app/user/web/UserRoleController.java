@@ -22,9 +22,6 @@ import com.june.app.user.service.RoleService;
 import com.june.app.user.service.UserRoleService;
 import com.june.app.user.service.UserService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class UserRoleController {
 	

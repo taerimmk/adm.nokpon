@@ -13,5 +13,6 @@ public interface BoardMasterService {
 	public Collection<BoardMaster> boardMasterListAll() throws DataAccessException;
 	public Map<?,?> boardMasterList(BoardMaster vo) throws DataAccessException;
 	public void save (BoardMaster vo) throws DataAccessException;
+	public BoardMaster boardMasterGet (Integer seq) throws DataAccessException;
 
 }

@@ -15,5 +15,7 @@ public interface BoardMasterRepository {
 	long boardMasterListCnt (BoardMaster vo) throws DataAccessException;
 	
 	void save (BoardMaster vo) throws DataAccessException;
+	
+	BoardMaster boardMasterGet (Integer seq) throws DataAccessException;
 
 }

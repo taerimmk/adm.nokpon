@@ -61,45 +61,46 @@
 
 						<div class="block-flat">
 							<div class="header">
-								<h3>게시물 등록</h3>
+								<h3>게시판 상세</h3>
 							</div>
 							<div class="content">
-								<form class="form-horizontal group-border-dashed" action="<c:url value="/board/${bbsId}/insertProc"/>"
+								<form class="form-horizontal group-border-dashed" 
 									style="border-radius: 0px;" id="frm" method="post"  >
 									<div class="form-group">
-										<label class="col-sm-2 control-label">제목</label>
-										<div class="col-sm-10">
-											<p class="form-control-static">${boardDetail.nttSj }</p>
+										<label class="col-sm-3 control-label">게시판명</label>
+										<div class="col-sm-9">
+											<p class="form-control-static">${boardMasterDetail.bbsNm }</p>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-2 control-label">내용</label>
-										<div class="col-sm-10">
-											<!-- <textarea class="form-control" placeholder="내용을 입력해 주세요"></textarea> -->
-											<!-- <div id="summernote" style="display: none;"></div> -->
-											<p class="form-control-static">${boardDetail.nttCn}</p>
-											</textarea>
+										<label class="col-sm-3 control-label">답글가능여부</label>
+										<div class="col-sm-9">
+											<p class="form-control-static">${boardMasterDetail.answerPosblYn eq 'Y' ? '가능':'불가능' }</p>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-2 control-label">파일</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control"
-												placeholder="Placeholder text">
+										<label class="col-sm-3 control-label">댓글가능여부</label>
+										<div class="col-sm-9">
+											<p class="form-control-static">${boardMasterDetail.comntPosblYn eq 'Y' ? '가능':'불가능' }</p>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-2 control-label">이미지</label>
-										<div class="col-sm-6">
-											TT: ${boardDetail.atchFileId}
-											<img src='<c:url value="/getImageDB/${boardDetail.atchFileId}/0"/>' />
-											<a href='<c:url value="/fileDown/${boardDetail.atchFileId}/0"/>'>down</a>
+										<label class="col-sm-3 control-label">파일첨부가능여부</label>
+										<div class="col-sm-9">
+											<p class="form-control-static">${boardMasterDetail.fileAtchPosblYn eq 'Y' ? '가능':'불가능'}</p>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">사용여부</label>
+										<div class="col-sm-9">
+											<p class="form-control-static">${boardMasterDetail.useYn eq 'Y' ? '사용':'미사용'}</p>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
-											<button type="submit" class="btn btn-primary" id="goSave">Registrer</button>
-											<button class="btn btn-default">Cancel</button>
+											<button type="button" class="btn btn-primary" id="goUpdate" >수정</button>
+											<%-- <a href="<c:url value="/boardMaster/get/${boardMasterDetail.bbsId}"/>" ><button type="button" class="btn btn-default" id="goList" >취소</button></a> --%>
+											<a href="<c:url value="/boardMaster/list/${boardMasterDetail.pageIndex}"/>" ><button type="button" class="btn btn-default" id="goList" >목록</button></a>
 										</div>
 									</div>
 								</form>
@@ -118,5 +119,14 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/jsp/cmn/inc/footerResource.jsp" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#goUpdate").on("click", function() {
+			var action = '<c:url value="/boardMaster/update/${boardMasterDetail.bbsId}/${boardMasterDetail.pageIndex}" />';
+			location.href = action;
+		});
+		
+	});
+</script>	
 </body>
 </html>

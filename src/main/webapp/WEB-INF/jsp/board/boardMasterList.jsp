@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Board List</title>
+<title>BoardMaster List</title>
 <jsp:include page="/WEB-INF/jsp/cmn/inc/headerResource.jsp" />
 
 <script type='text/javascript'>
@@ -12,8 +12,8 @@ $(function() {
 	//pagination('paging','${boardMst.pageIndex}','${boardMst.totalPageUnit}','movePage');
 	
 	var options = {
-			currentPage : '${boardMst.pageIndex}',
-			totalPages : '${boardMst.totalPageUnit}',
+			currentPage : '${boardMaster.pageIndex}',
+			totalPages : '${boardMaster.totalPageUnit}',
 			onPageClicked : function(e, originalEvent, type, page) {
 				movePage(page);
 			},itemTexts: function (type, page, current) {
@@ -52,7 +52,7 @@ var movePage = function(page){
 </head>
 <body class="animated">
 <form action="" method="post" id="frm" name="frm">
-
+<input type="hidden" id="pageIndex" name="pageIndex" />
 </form>
 	<div id="cl-wrapper">
 
@@ -144,7 +144,7 @@ var movePage = function(page){
 												<tr class="gradeA odd">
 													<td class="center "><img class="toggle-details"
 														src="/images/plus.png"></td>
-													<td class=" sorting_1"><a href="<c:url value="/boardMaster/get/${rData.bbsId}"/>">${rData.bbsNm }</a></td>
+													<td class=" sorting_1"><a href="<c:url value="/boardMaster/get/${rData.bbsId}/${boardMaster.pageIndex}"/>">${rData.bbsNm }</a></td>
 													<td class=" ">${rData.bbsTypeCode}</td>
 													<td class=" ">${rData.regiDate }</td>
 													<td class="center ">

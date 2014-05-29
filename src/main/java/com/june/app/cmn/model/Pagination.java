@@ -4,11 +4,11 @@ import javax.persistence.Transient;
 
 public class Pagination {
 	@Transient
-	private long pageIndex;
+	private long pageIndex = 1;
 	@Transient
-	private long totalCnt;
+	private long totalCnt = 0;
 	@Transient
-	private int pagePerUnit;
+	private int pagePerUnit = 10;
 	@Transient
 	private int pageSize = 10;
 	@Transient

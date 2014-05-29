@@ -1,6 +1,5 @@
 package com.june.app.user.web;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -17,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.june.app.user.model.UserInfo;
 import com.june.app.user.service.UserService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class UserController {
 	

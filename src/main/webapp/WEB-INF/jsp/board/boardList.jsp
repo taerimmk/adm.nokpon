@@ -29,9 +29,13 @@ var callTest = function(page){
 };
 var movePage = function(page){
 	var bbsId = $("#getBoardMst").val();
-	var action = '<c:url value="/board/'+bbsId+'/list/'+page+'" />';
-	location.href = action;
-	
+	if (bbsId > 0){
+		var action = '<c:url value="/board/'+bbsId+'/list/'+page+'" />';
+		location.href = action;
+	} else {
+		alert("등록할 게시판을 선택해 주세요");
+		return false;
+	}
 	return false;
 };
 </script>

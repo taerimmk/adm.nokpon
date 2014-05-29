@@ -61,5 +61,12 @@ public class BoardMasterRepositoryImpl implements BoardMasterRepository {
 			this.em.flush();
 		}
 	}
+	
+	@Override
+    public BoardMaster boardMasterGet(Integer seq) {
+    	Query query = this.em.createQuery("SELECT boardMaster FROM BoardMaster boardMaster WHERE boardMaster.bbsId =:bbsId");
+    	query.setParameter("bbsId", seq);
+        return (BoardMaster) query.getSingleResult();
+    }
 
 }

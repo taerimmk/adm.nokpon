@@ -45,4 +45,10 @@ public class BoardMasterServiceImpl implements BoardMasterService {
 	public void save (BoardMaster vo) throws DataAccessException {
 		boardMasterRepository.save(vo);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public BoardMaster boardMasterGet (Integer seq){
+		return boardMasterRepository.boardMasterGet(seq);
+	}
 }
