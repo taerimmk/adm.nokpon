@@ -5,12 +5,14 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,13 +61,18 @@ public class BoardMasterController {
 
 	@RequestMapping(value = "/boardMaster/insert", method = RequestMethod.POST)
 	public String goBoardMasterInsertProc(
-			@ModelAttribute("boardMaster") BoardMaster boardMaster,
-			HttpServletRequest request, Model model) {
+			@Valid @ModelAttribute("boardMaster") BoardMaster boardMaster,
+			BindingResult result, HttpServletRequest request, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("result", result);
+			return "board/boardMasterInsert";
+		} else {
+			Date today = new Date();
+			boardMaster.setRegiDate(today);
+			boardMaster.setUseYn("Y");
+			boardMasterService.save(boardMaster);
+		}
 
-		Date today = new Date();
-		boardMaster.setRegiDate(today);
-		boardMaster.setUseYn("Y");
-		boardMasterService.save(boardMaster);
 		return "redirect:/boardMaster/list/1";
 	}
 
@@ -95,12 +102,18 @@ public class BoardMasterController {
 
 	@RequestMapping(value = "/boardMaster/update/{bbsId}/{pageIndex}", method = RequestMethod.POST)
 	public String goBoardMasterUpdateProc(
-			@ModelAttribute("boardMaster") BoardMaster boardMaster,
+			@Valid @ModelAttribute("boardMaster") BoardMaster boardMaster, BindingResult result, 
 			@PathVariable int bbsId, @PathVariable int pageIndex,
 			HttpServletRequest request, Model model) {
 		// Date today = new Date();
 		// boardMaster.setRegiDate(today);
-		boardMasterService.save(boardMaster);
+		if (result.hasErrors()) {
+			model.addAttribute("result", result);
+			model.addAttribute("boardMasterDetail", boardMaster);
+			return "board/boardMasterUpdate";
+		} else {
+			boardMasterService.save(boardMaster);
+		}
 		return "redirect:/boardMaster/get/{bbsId}/{pageIndex}";
 	}
 }

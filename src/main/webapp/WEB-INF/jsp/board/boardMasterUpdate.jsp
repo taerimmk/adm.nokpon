@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,9 @@
 /* .fileaattchYn{
 display: none;
 } */
+.errors {
+	color: red;
+}
 </style>
 
 </head>
@@ -46,7 +50,7 @@ display: none;
 					<ol class="breadcrumb">
 						<li><a href="#">Home</a></li>
 						<li><a href="#">게시판 관리</a></li>
-						<li class="active">게시판 등록</li>
+						<li class="active">게시판 수정</li>
 					</ol>
 				</div>
 				<!------------------------------------------------------------------------------
@@ -58,8 +62,10 @@ display: none;
 -------------------------------------------------------------------------------->
 				<div class="row">
 					<div class="col-md-12">
-						<form class="form-horizontal group-border-dashed"
-							action="<c:url value="/boardMaster/update/${boardMasterDetail.bbsId}/${boardMasterDetail.pageIndex}"/>"
+					<c:url value="/boardMaster/update/${boardMasterDetail.bbsId}/${boardMasterDetail.pageIndex}" var="saveUrl"/>
+						<form:form class="form-horizontal group-border-dashed" commandName="boardMaster"
+							action="${saveUrl}"
+							resolveContext="true" resolveMapping="true"
 							style="border-radius: 0px;" id="frm" method="post"
 							enctype="multipart/form-data">
 							<div class="block-flat">
@@ -76,7 +82,7 @@ display: none;
 										<div class="col-sm-9">
 											<input type="text" class="form-control" name="bbsNm"
 												id="bbsNm" placeholder="게시판명을 입력해 주세요"
-												value="${boardMasterDetail.bbsNm }" />
+												value="${boardMasterDetail.bbsNm }" /><form:errors path="bbsNm" class="errors" />
 										</div>
 									</div>
 
@@ -143,7 +149,7 @@ display: none;
 									<div class="form-group fileaattchYn"
 										${boardMasterDetail.fileAtchPosblYn eq 'N' ? 'style=display:none;':''}>
 										<label class="col-sm-3 control-label">첨부파일갯수</label>
-										<div class="col-sm-6">
+										<div class="col-sm-4">
 											<select class="form-control" class="fileaattchYnInput"
 												id="atchPosblFileNumber" name="atchPosblFileNumber">
 												<option value="1"
@@ -162,7 +168,7 @@ display: none;
 									<div class="form-group fileaattchYn"
 										${boardMasterDetail.fileAtchPosblYn eq 'N' ? 'style=display:none;':''}>
 										<label class="col-sm-3 control-label">파일사이즈</label>
-										<div class="col-sm-9">
+										<div class="col-sm-4">
 											<input type="text" class="form-control fileaattchYnInput"
 												name="atchPosblFileSize" id="atchPosblFileSize"
 												placeholder="파일크기를 입력해 주세요(단위 : kb)"
@@ -228,19 +234,16 @@ display: none;
 														style="position: absolute; opacity: 0;" />&nbsp;&nbsp;쓰기
 												</div>
 											</label> <label class="checkbox-inline">
-												<div 
-													style="position: relative;">
+												<div style="position: relative;">
 													<input class="icheck" type="checkbox" name="rad1"
 														style="position: absolute; opacity: 0;" />&nbsp;&nbsp;수정
-													
+
 												</div>
-											</label>
-											<label class="checkbox-inline">
-												<div 
-													style="position: relative;">
+											</label> <label class="checkbox-inline">
+												<div style="position: relative;">
 													<input class="icheck" type="checkbox" name="rad1"
 														style="position: absolute; opacity: 0;" />&nbsp;&nbsp;삭제
-													
+
 												</div>
 											</label>
 										</div>
@@ -249,7 +252,7 @@ display: none;
 
 								</div>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 				<!------------------------------------------------------------------------------
@@ -295,9 +298,17 @@ display: none;
 													toggleFileInput();
 												}
 											}).iCheck({
-										checkboxClass : 'icheckbox_flat-green',
-										radioClass : 'iradio_flat-green'
+										checkboxClass : 'icheckbox_flat-purple',
+										radioClass : 'iradio_flat-purple'
 									});
+							$("input[name='atchPosblFileSize']").TouchSpin({
+								min : 0,
+								max : 1000000000,
+								stepinterval : 50,
+								step : 1024,
+								maxboostedstep : 10000000,
+								prefix : 'KB'
+							});
 						});
 		var toggleFileInput = function() {
 			var fileAtchPosblYn = $("input[name='fileAtchPosblYn']:checked")
