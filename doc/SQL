@@ -1,4 +1,4 @@
-create database nokpon;
+#create database nokpon;
 use nokpon
 
 CREATE TABLE NOK_USER (
